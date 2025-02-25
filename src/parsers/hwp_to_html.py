@@ -2,6 +2,7 @@ import os
 import io
 import pickle
 import shutil
+import subprocess
 import xml.etree.ElementTree as ET
 from pathlib import Path
 from time import sleep, time
@@ -62,7 +63,7 @@ def _get_tag_from_clipboard(tag: str, max_retries: int = 10) -> Optional[str]:
     return None
 
 
-def _extract_html_table(hwp_dir_path: Path, output_dir_path, hwp: Hwp) -> Tuple[List[Table], List[str]]:
+def extract_html_from_hwp(hwp_dir_path: Path, output_dir_path, hwp: Hwp) -> Tuple[List[Table], List[str]]:
     table_ls = list()
     img_ls = list()
 
@@ -106,8 +107,8 @@ def _extract_html_table(hwp_dir_path: Path, output_dir_path, hwp: Hwp) -> Tuple[
                     try:
                         img_src = _get_tag_from_clipboard(tag="img")
                         img_save_path = output_dir_path / f"{hwp_file_path.stem}_{len(img_ls)+1}.jpg"
-                        img_ls.append(img_save_path)
                         shutil.copy(img_src, img_save_path)
+                        img_ls.append(img_save_path)
 
                     except BaseException as e:
                         logger.error(f"image 추출 중 다음과 같은 애러가 발생: {e}")
@@ -126,3 +127,24 @@ def _extract_html_table(hwp_dir_path: Path, output_dir_path, hwp: Hwp) -> Tuple[
         pickle_save_path.write_bytes(pickle.dumps(one_file_table_ls))
 
     return table_ls, img_ls
+
+# 추가로 만든 hwp2thtml 함수
+def _convert_hwp_to_html(hwp_path: str, output_path: str) -> None:
+    """
+    HWP to HTML 변환
+
+    :param hwp_path: 변환할 hwp 경로
+    :param output_path: 변환된 html 위치
+    :raise FileNotFoundError: hwp5html 미설치 오류
+    :raise Exception: 파일 변환 실패
+    """
+    try:
+        command = f"hwp5html --output {output_path} {hwp_path}"
+        subprocess.run(command, shell=True, check=True)
+        logger.info("HWP to HTML 변환에 성공했습니다.")
+
+    except FileNotFoundError as fe:
+        logger.error(f"hwp5html 실행 파일을 찾을 수 없습니다. pyhwp가 정상적으로 설치되었는지 확인하세요. {str(fe)}")
+
+    except Exception as e:
+        logger.error(f"파일 변환에 실패했습니다. Error code: {str(e)}")
