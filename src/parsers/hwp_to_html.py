@@ -1,24 +1,17 @@
 import io
 import pickle
 import xml.etree.ElementTree as ET
-from dataclasses import dataclass
+
 from pathlib import Path
 from time import sleep, time
 from typing import List, Optional, Tuple
-
 import pandas as pd
 import win32clipboard as clipboard
 from bs4 import BeautifulSoup
 from pyhwpx import Hwp
 
 from utils.logger import init_logger
-
-
-@dataclass
-class Table:
-    html: str
-    row: int
-    col: int
+from parsers.table_parser import Table
 
 
 logger = init_logger(__file__, "DEBUG")
@@ -45,14 +38,14 @@ def _get_html_from_clipboard(max_retries: int = 10) -> Optional[str]:
             html_table = html_soup.find("html").find("table")
             html_table = html_table.encode().decode("utf-8")
 
+            logger.info("Success to get html from clipboard")
+
             return html_table
         except Exception as e:
             if attempt < max_retries:
                 sleep(0.1)
             else:
-                logger.error(
-                    f"Failed to access clipboard after {max_retries} attempts"
-                )
+                logger.error(f"Failed to access clipboard after {max_retries} attempts")
                 raise e
         finally:
             try:
@@ -112,6 +105,7 @@ def _extract_html_table(hwp_dir_path: Path, hwp: Hwp) -> Tuple[List[Table], floa
             extract_time_ls.append(end_time - start_time)
         table_ls.extend(one_file_table_ls)
 
+        #TODO pickling 하는 이유?
         pickle_save_path = hwp_file_path.parent.joinpath(
             f"{hwp_file_path.stem}.pickle"
         )
