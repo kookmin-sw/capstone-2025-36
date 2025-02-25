@@ -1,7 +1,8 @@
+import os
 import io
 import pickle
+import shutil
 import xml.etree.ElementTree as ET
-
 from pathlib import Path
 from time import sleep, time
 from typing import List, Optional, Tuple
@@ -17,7 +18,7 @@ from parsers.table_parser import Table
 logger = init_logger(__file__, "DEBUG")
 
 
-def _get_html_from_clipboard(max_retries: int = 10) -> Optional[str]:
+def _get_tag_from_clipboard(tag: str, max_retries: int = 10) -> Optional[str]:
     """
     클립보드에서 html table을 가져옵니다.
 
@@ -35,12 +36,16 @@ def _get_html_from_clipboard(max_retries: int = 10) -> Optional[str]:
 
             html = html.decode("utf-8", errors="ignore")
             html_soup = BeautifulSoup(html, "html.parser")
-            html_table = html_soup.find("html").find("table")
-            html_table = html_table.encode().decode("utf-8")
+            html_tag = html_soup.find("html").find(tag)
 
-            logger.info("Success to get html from clipboard")
+            if tag == 'img':
+                img_src = html_tag['src']
+                return img_src[8:] if img_src.startswith("file:///") else img_src
+            
+            html_tag = html_tag.encode().decode("utf-8")
+            logger.info(f"Success to get {tag} from clipboard")
 
-            return html_table
+            return html_tag
         except Exception as e:
             if attempt < max_retries:
                 sleep(0.1)
@@ -57,60 +62,67 @@ def _get_html_from_clipboard(max_retries: int = 10) -> Optional[str]:
     return None
 
 
-def _extract_html_table(hwp_dir_path: Path, hwp: Hwp) -> Tuple[List[Table], float]:
+def _extract_html_table(hwp_dir_path: Path, output_dir_path, hwp: Hwp) -> Tuple[List[Table], List[str]]:
     table_ls = list()
-    time_ls = list()
+    img_ls = list()
+
+    output_dir_path = Path(output_dir_path) / hwp_dir_path.stem
+    if not output_dir_path.exists():
+        output_dir_path.mkdir(parents=True)
 
     for hwp_file_path in hwp_dir_path.glob("*.hwp"):
         logger.info(f"Hwp {hwp_file_path} 확인 중")
         hwp.open(hwp_file_path.as_posix())
 
-        extract_time_ls = list()
         one_file_table_ls = list()
 
         ctrl = hwp.HeadCtrl
         while ctrl:
-            if ctrl.UserDesc != "표":
+            if ctrl.UserDesc == "표" or ctrl.UserDesc == "그림":
+                hwp.SetPosBySet(ctrl.GetAnchorPos(0))
+                hwp.HAction.Run("SelectCtrlFront")
+                hwp.HAction.Run("Copy")
+
+                if ctrl.UserDesc == "표":
+                    try:
+                        html = _get_tag_from_clipboard(tag="table")
+                        hwp.ShapeObjTableSelCell()
+                        table_df = pd.read_html(io.StringIO(html))[0]
+                        row_num, col_num = table_df.shape
+                        
+                    except BaseException as e:
+                        logger.error(f"table 추출 중 다음과 같은 애러가 발생: {e}")
+                        ctrl = ctrl.Next
+                        continue
+
+                    if not row_num or not col_num:
+                        ctrl = ctrl.Next
+                        continue
+
+                    table = Table(html=html, col=col_num, row=row_num)
+
+                    one_file_table_ls.append(table)
+                elif ctrl.UserDesc == "그림":
+                    try:
+                        img_src = _get_tag_from_clipboard(tag="img")
+                        img_save_path = output_dir_path / f"{hwp_file_path.stem}_{len(img_ls)+1}.jpg"
+                        img_ls.append(img_save_path)
+                        shutil.copy(img_src, img_save_path)
+
+                    except BaseException as e:
+                        logger.error(f"image 추출 중 다음과 같은 애러가 발생: {e}")
+                        ctrl = ctrl.Next
+                        continue
+
+                ctrl = ctrl.Next
+
+            else:
                 ctrl = ctrl.Next
                 continue
 
-            start_time = time()
-
-            hwp.SetPosBySet(ctrl.GetAnchorPos(0))
-            hwp.HAction.Run("SelectCtrlFront")
-            hwp.HAction.Run("Copy")
-
-            try:
-                html = _get_html_from_clipboard()
-                hwp.ShapeObjTableSelCell()
-                table_df = pd.read_html(io.StringIO(html))[0]
-                row_num, col_num = table_df.shape
-                
-            except BaseException as e:
-                logger.error(f"table 추출 중 다음과 같은 애러가 발생: {e}")
-                ctrl = ctrl.Next
-                continue
-
-            if not row_num or not col_num:
-                ctrl = ctrl.Next
-                continue
-
-            table = Table(html=html, col=col_num, row=row_num)
-
-            one_file_table_ls.append(table)
-            ctrl = ctrl.Next
-
-            end_time = time()
-
-            extract_time_ls.append(end_time - start_time)
         table_ls.extend(one_file_table_ls)
 
-        #TODO pickling 하는 이유?
-        pickle_save_path = hwp_file_path.parent.joinpath(
-            f"{hwp_file_path.stem}.pickle"
-        )
+        pickle_save_path = output_dir_path / f"{hwp_file_path.stem}.pickle"
         pickle_save_path.write_bytes(pickle.dumps(one_file_table_ls))
-        time_ls.extend(extract_time_ls)
 
-    mean_time = sum(time_ls) / len(time_ls)
-    return (table_ls, mean_time)
+    return table_ls, img_ls
