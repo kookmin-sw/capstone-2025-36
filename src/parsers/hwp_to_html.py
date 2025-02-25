@@ -6,11 +6,12 @@ from pathlib import Path
 from time import sleep, time
 from typing import List, Optional, Tuple
 
-import datasets
 import pandas as pd
 import win32clipboard as clipboard
 from bs4 import BeautifulSoup
 from pyhwpx import Hwp
+
+from utils.logger import init_logger
 
 
 @dataclass
@@ -20,10 +21,17 @@ class Table:
     col: int
 
 
-logger = datasets.logging.get_logger()
+logger = init_logger(__file__, "DEBUG")
 
 
 def _get_html_from_clipboard(max_retries: int = 10) -> Optional[str]:
+    """
+    클립보드에서 html table을 가져옵니다.
+
+    :param max_retries: 클립보드에서 접근 시도하는 횟수 제한
+    :return: 클립보드에서 가져온 HTML 테이블 문자열
+    :raises Exception: 클립보드 접근 실패 시 예외 발생
+    """
     for attempt in range(1, max_retries):
         try:
             clipboard.OpenClipboard()
@@ -42,7 +50,7 @@ def _get_html_from_clipboard(max_retries: int = 10) -> Optional[str]:
             if attempt < max_retries:
                 sleep(0.1)
             else:
-                logger.debug(
+                logger.error(
                     f"Failed to access clipboard after {max_retries} attempts"
                 )
                 raise e
@@ -56,24 +64,12 @@ def _get_html_from_clipboard(max_retries: int = 10) -> Optional[str]:
     return None
 
 
-def _extract_html_table(
-    hwp_dir_path: Path, hwp: Hwp
-) -> Tuple[List[Table], float]:
-    def get_row_col_num(hwp: Hwp) -> Tuple[int, int]:
-        # get_row_num, get_col_num의 기능은 겹침. 단순 RowCount냐, ColCount의 차이임. 속도 개선을 위해 이 부분을 간소화 함.
-        cur_pos = hwp.get_pos()
-        hwp.SelectCtrlFront()
-        t = hwp.GetTextFile("HWPML2X", "saveblock")
-        root = ET.fromstring(t)
-        table = root.find(".//TABLE")
-        row_count = int(table.get("RowCount"))
-        col_count = int(table.get("ColCount"))
-        hwp.set_pos(*cur_pos)
-        return (row_count, col_count)
-
+def _extract_html_table(hwp_dir_path: Path, hwp: Hwp) -> Tuple[List[Table], float]:
     table_ls = list()
     time_ls = list()
+
     for hwp_file_path in hwp_dir_path.glob("*.hwp"):
+        logger.info(f"Hwp {hwp_file_path} 확인 중")
         hwp.open(hwp_file_path.as_posix())
 
         extract_time_ls = list()
@@ -96,14 +92,9 @@ def _extract_html_table(
                 hwp.ShapeObjTableSelCell()
                 table_df = pd.read_html(io.StringIO(html))[0]
                 row_num, col_num = table_df.shape
-
-                # NOTE: 나중에 알게 되었는데, 이거 부정확 함.
-                #       row 10개를 1개로 판단하거나 그럼, 이건 그냥 df로 해서 확인하는게 가장 정확할 듯.
-                # row_num, col_num = get_row_col_num(hwp)
-
-                # read_html으로 파싱 되는지 확인 한번 함.
+                
             except BaseException as e:
-                logger.debug(f"table 추출 중 다음과 같은 애러가 발생: {e}")
+                logger.error(f"table 추출 중 다음과 같은 애러가 발생: {e}")
                 ctrl = ctrl.Next
                 continue
 
