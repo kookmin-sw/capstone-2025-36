@@ -1,4 +1,5 @@
 import os
+import pickle
 from typing import List
 from utils.logger import init_logger
 
@@ -22,3 +23,10 @@ def get_filenames_with_type(directory: str, type: str) -> List[str]:
     logger.info(f"{len(found_files)}개의 {type} 파일을 찾았습니다.")
 
     return found_files
+
+
+def get_table_from_pickling(data_path:str) -> str:
+    with open(data_path, "rb") as f:
+        loaded_data = pickle.load(f)
+
+    return loaded_data
