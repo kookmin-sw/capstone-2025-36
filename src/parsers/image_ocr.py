@@ -1,7 +1,7 @@
 import os
 import easyocr
 from pathlib import Path
-from typing import List
+from typing import List, Dict
 from dotenv import load_dotenv
 from langchain_community.document_loaders import AzureAIDocumentIntelligenceLoader
 from utils.logger import init_logger
@@ -11,8 +11,10 @@ reader = easyocr.Reader(["en", "ko"])
 logger = init_logger(__file__, "DEBUG")
 
 
-def convert_image_to_json(img_paths:List[Path]) -> str:
-    """Markdown에서 <img> 태그 찾고 경로 추출"""
+def convert_image_to_json(img_paths:List[Path]) -> Dict[str, str]:
+    """
+    image를 JSON으로 변환하여 리턴
+    """
     img_json = dict()
 
     for img_path in img_paths:
