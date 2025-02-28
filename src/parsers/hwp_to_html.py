@@ -63,7 +63,7 @@ def _get_tag_from_clipboard(tag: str, max_retries: int = 10) -> Optional[str]:
     return None
 
 
-def extract_html_from_hwp(hwp_dir_path: Path, output_dir_path, hwp: Hwp) -> Tuple[List[Table], List[str]]:
+def extract_html_from_hwp(hwp_dir_path: Path, output_dir_path: Path, hwp: Hwp) -> Tuple[List[Table], List[str]]:
     table_ls = list()
     img_ls = list()
 
