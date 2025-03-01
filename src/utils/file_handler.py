@@ -1,5 +1,6 @@
 import os
 import pickle
+from pathlib import Path
 from typing import List
 from utils.logger import init_logger
 
@@ -25,8 +26,8 @@ def get_filenames_with_type(directory: str, type: str) -> List[str]:
     return found_files
 
 
-def get_table_from_pickling(data_path:str) -> str:
-    with open(data_path, "rb") as f:
+def get_table_from_pickling(data_path: Path) -> str:
+    with data_path.open("rb") as f:
         loaded_data = pickle.load(f)
 
     return loaded_data
