@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 from typing import List, Dict
 import pandas as pd
+from bs4 import BeautifulSoup
 from langchain_ollama import ChatOllama
 from dataclasses import dataclass
 from utils.logger import init_logger
@@ -28,6 +29,47 @@ def get_json_from_tables(tables: List[Table], output_dir: Path) -> List[dict]:
     return json_list
 
 
+def _table_to_dataframe(table: Table) -> pd.DataFrame:
+    """
+    HTML 테이블을 파싱하여 rowspan 정보를 반영한 DataFrame을 반환합니다.
+
+    :param table_html: HTML 형식의 테이블 문자열
+    :return: 병합된 행이 반영된 pandas DataFrame
+    """
+    soup = BeautifulSoup(table.html, "html.parser")
+    table = soup.find("table")
+
+    rows = table.find_all("tr")
+    data = []
+    rowspan_tracker = {}
+
+    for row in rows:
+        cols = row.find_all(["td", "th"])
+        row_data = []
+        col_idx = 0
+
+        for col in cols:
+            while col_idx in rowspan_tracker and rowspan_tracker[col_idx] > 0:
+                row_data.append(data[-1][col_idx])  # 이전 행 값 복사
+                rowspan_tracker[col_idx] -= 1
+                col_idx += 1
+
+            rowspan = int(col.get("rowspan", 1))
+            text = col.get_text(strip=True)
+
+            row_data.append(text)
+
+            if rowspan > 1:
+                rowspan_tracker[col_idx] = rowspan - 1
+
+            col_idx += 1
+
+        data.append(row_data)
+
+    df = pd.DataFrame(data)
+    return df
+
+
 def _dataframe_to_json(table: Table) -> json:
     """
     Table 객체를 JSON 형식으로 변환합니다.
@@ -36,7 +78,8 @@ def _dataframe_to_json(table: Table) -> json:
     :return: 변환된 JSON 문자열
     :raises Exception: 변환 과정에서 오류 발생 시 예외 처리
     """
-    df = pd.read_html(io.StringIO(table.html))[0]
+    df = _table_to_dataframe(table)
+    print(df.to_dict())
 
     keys = df.iloc[0].astype(str).tolist()
     df = df.iloc[1:].reset_index(drop=True)
@@ -64,8 +107,13 @@ def _dataframe_to_json(table: Table) -> json:
     return json.dumps(json_data, ensure_ascii=False, indent=4)
 
 
-def _save_table_with_json(json_data: Dict, output_path: Path):
-    """JSON 파일 존재 여부 확인 및 업데이트 로직"""
+def _save_table_with_json(json_data: Dict, output_path: Path) -> None:
+    """
+    JSON 데이터를 파일로 저장하는 함수.
+    
+    :param json_data: 저장할 JSON 데이터 (Dict 형태)
+    :param output_path: 저장할 파일 경로 (Path 객체)
+    """
     if output_path.exists():
         with output_path.open('r', encoding='utf-8') as f:
             try:
