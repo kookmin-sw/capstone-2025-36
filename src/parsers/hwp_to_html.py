@@ -37,50 +37,54 @@ def extract_html_from_hwp(hwp_dir_path: Path, output_dir_path: Path, hwp: Hwp) -
         one_file_table_ls = list()
 
         ctrl = hwp.HeadCtrl
-        while ctrl:
-            if ctrl.UserDesc == "표" or ctrl.UserDesc == "그림":
+        for ctrl in hwp.ctrl_list:
+            if ctrl.UserDesc == "표":
+                # 글자처럼 취급 적용 (속성 미적용시 표를 넘어가기도 함)
+                prop = ctrl.Properties
+                prop.SetItem("TreatAsChar", True)
+                ctrl.Properties = prop
+
+                # hwp로 현재 ctrl 위치에 있는 부분 복사
                 hwp.SetPosBySet(ctrl.GetAnchorPos(0))
                 hwp.HAction.Run("SelectCtrlFront")
                 hwp.HAction.Run("Copy")
 
-                if ctrl.UserDesc == "표":
-                    try:
-                        html = _get_tag_from_clipboard(tag="table")
-                        hwp.ShapeObjTableSelCell()
-                        table_df = pd.read_html(io.StringIO(html))[0]
-                        row_num, col_num = table_df.shape
+                try:
+                    html = _get_tag_from_clipboard(tag="table")
+                    hwp.ShapeObjTableSelCell()
+                    table_df = pd.read_html(io.StringIO(html))[0]
+                    row_num, col_num = table_df.shape
                         
-                    except BaseException as e:
-                        logger.error(f"TableExtractionError: Failed to extract table: {e}")
+                except BaseException as e:
+                    logger.error(f"TableExtractionError: Failed to extract table: {e}")
+                    continue
+
+                if not row_num or not col_num:
+                    continue
+
+                table = Table(html=html, col=col_num, row=row_num)
+
+                one_file_table_ls.append(table)
+            
+            elif ctrl.UserDesc == "그림":
+                # hwp로 현재 ctrl 위치에 있는 부분 복사
+                hwp.SetPosBySet(ctrl.GetAnchorPos(0))
+                hwp.HAction.Run("SelectCtrlFront")
+                hwp.HAction.Run("Copy")
+
+                try:
+                    img_src = _get_tag_from_clipboard(tag="img")
+                    if not img_src:
                         ctrl = ctrl.Next
                         continue
+                    img_save_path = output_hwp_path / f"{hwp_file_path.stem}_{len(img_ls)+1}.jpg"
+                    shutil.copy(img_src, img_save_path)
+                    img_ls.append(img_save_path)
 
-                    if not row_num or not col_num:
-                        ctrl = ctrl.Next
-                        continue
-
-                    table = Table(html=html, col=col_num, row=row_num)
-
-                    one_file_table_ls.append(table)
-                elif ctrl.UserDesc == "그림":
-                    try:
-                        img_src = _get_tag_from_clipboard(tag="img")
-                        if not img_src:
-                            ctrl = ctrl.Next
-                            continue
-                        img_save_path = output_hwp_path / f"{hwp_file_path.stem}_{len(img_ls)+1}.jpg"
-                        shutil.copy(img_src, img_save_path)
-                        img_ls.append(img_save_path)
-
-                    except BaseException as e:
-                        logger.error(f"ImageExtractionError: Failed to extract image: {e}")
-                        ctrl = ctrl.Next
-                        continue
-
-                ctrl = ctrl.Next
+                except BaseException as e:
+                    logger.error(f"ImageExtractionError: Failed to extract image: {e}")
 
             else:
-                ctrl = ctrl.Next
                 continue
 
         table_ls.extend(one_file_table_ls)
