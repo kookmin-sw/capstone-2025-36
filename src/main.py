@@ -13,11 +13,19 @@ ROOT_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT_DIR / "assets" / "input"
 OUTPUT_DIR = ROOT_DIR / "assets" / "output"
 
+TEST_DIR = ROOT_DIR / "assets" / "test"
+
 
 def main():
     hwp = Hwp()
     table_ls, img_ls = extract_html_from_hwp(hwp_dir_path=DATA_DIR, output_dir_path=OUTPUT_DIR, hwp=hwp)
-    get_json_from_tables(table_ls, OUTPUT_DIR)
+    # get_json_from_tables(table_ls, OUTPUT_DIR)
+
+    tables = get_json_from_tables(table_ls, OUTPUT_DIR)
+
+    # for table in tables:
+    #     print(table)
+    #     print("\n\n")
 
     
 if __name__ == "__main__":
