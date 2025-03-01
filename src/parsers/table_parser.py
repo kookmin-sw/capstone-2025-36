@@ -1,8 +1,9 @@
 import io
 import re
 import json
+from pathlib import Path
+from typing import List, Dict
 import pandas as pd
-from pandas.api.types import is_integer_dtype
 from langchain_ollama import ChatOllama
 from dataclasses import dataclass
 from utils.logger import init_logger
@@ -16,46 +17,78 @@ class Table:
     col: int
 
 
-def get_json_from_table(table: Table):
-    """
-    Table 객체를 JSON으로 변환
+def get_json_from_tables(tables: List[Table], output_dir: Path) -> List[dict]:
+    json_list = []
+    for table in tables:
+        json_data = _dataframe_to_json(table)
+        if json_data:
+            json_list.append(json_data)
+            _save_table_with_json(json_data, Path(output_dir+"/table.json"))
+    
+    return json_list
 
-    - 'index': 개별 행을 키로 변환 (RAG 시스템 및 DB 최적)
-    - 'columns': 속성 중심 변환 (분석 및 머신러닝 최적)
-    - 'records': 일반적인 JSON 리스트 (REST API 최적)
+
+def _dataframe_to_json(table: Table) -> json:
+    """
+    Table 객체를 JSON 형식으로 변환합니다.
+
+    :param table: 변환할 Table 객체
+    :return: 변환된 JSON 문자열
+    :raises Exception: 변환 과정에서 오류 발생 시 예외 처리
     """
     df = pd.read_html(io.StringIO(table.html))[0]
-    df.columns = df.iloc[0]
 
-    if _get_orient(df) == 'index':
-        df = df[1:].reset_index(drop=True)
-        json_data = df.to_dict(orient="list")
-    elif _get_orient(df) == 'columns':
-        df.set_index(df.columns[0], inplace=True)
-        json_data = df.apply(lambda row: row.tolist(), axis=1).to_json(force_ascii=False, indent=4)
-    else:
-        json_data = _extract_tables_from_text(table)
+    keys = df.iloc[0].astype(str).tolist()
+    df = df.iloc[1:].reset_index(drop=True)
+    
+    empty_ratio = df.isnull().mean().max()
 
-    return json_data
-
-
-def _get_orient(df: pd.DataFrame) -> str:
-    if df.index.is_unique and not is_integer_dtype(df.index):
-        return "index"
-    elif df.shape[0] > df.shape[1] * 3:
-        return 'index'
-    elif df.shape[1] > df.shape[0] * 5:
-        return 'columns'
-    elif (df.dtypes == object).sum() / df.shape[1] > 0.5:
-        return 'index'
-    else:
+    if empty_ratio > 0.5:
+        logger.warning("Data contains more than 50% empty values. Conversion aborted.")
         return None
 
+    try:
+        json_data = {keys[i]: df.iloc[:, i].astype(str).tolist() for i in range(len(keys))}
+        
+        if all(len(v) == 0 for v in json_data.values()):
+            logger.warning("Converted JSON is empty. Conversion aborted.")
+            return None
+        
+    except Exception:
+        try:
+            json_data =_extract_tables_with_llm(table)
 
-def _extract_tables_from_text(table: Table):
+        except Exception as e:
+            logger.error(f"failed dataframe to json. {e}")
+
+    return json.dumps(json_data, ensure_ascii=False, indent=4)
+
+
+def _save_table_with_json(json_data: Dict, output_path: Path):
+    """JSON 파일 존재 여부 확인 및 업데이트 로직"""
+    if output_path.exists():
+        with output_path.open('r', encoding='utf-8') as f:
+            try:
+                existing_data = json.load(f)
+            except json.JSONDecodeError:
+                existing_data = {}
+    else:
+        existing_data = {}
+    
+    table_number = len(existing_data) + 1
+    table_key = f"table{table_number}"
+    existing_data[table_key] = json_data
+    
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    with output_path.open('w', encoding='utf-8') as f:
+        json.dump(existing_data, f, ensure_ascii=False, indent=4)
+
+
+def _extract_tables_with_llm(table: Table):
+    """LLM을 이용하여 table parsing"""
     messages = [
         {"role": "system", "content": """
-            아래 문서에서 테이블 데이터를 JSON으로 변환해주세요. JSON 형식은 다음과 같이 유지되어야 합니다:
+            아래 html문서에서 테이블 데이터를 JSON으로 변환해주세요. JSON 형식은 다음과 같이 유지되어야 합니다:
             {
                 "tables": [
                     {

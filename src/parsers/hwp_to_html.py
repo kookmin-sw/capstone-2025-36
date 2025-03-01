@@ -72,7 +72,7 @@ def extract_html_from_hwp(hwp_dir_path: Path, output_dir_path: Path, hwp: Hwp) -
         output_dir_path.mkdir(parents=True)
 
     for hwp_file_path in hwp_dir_path.glob("*.hwp"):
-        logger.info(f"Hwp {hwp_file_path} 확인 중")
+        logger.info(f"Hwp {hwp_file_path} loding..")
         hwp.open(hwp_file_path.as_posix())
 
         one_file_table_ls = list()
@@ -92,7 +92,7 @@ def extract_html_from_hwp(hwp_dir_path: Path, output_dir_path: Path, hwp: Hwp) -
                         row_num, col_num = table_df.shape
                         
                     except BaseException as e:
-                        logger.error(f"table 추출 중 다음과 같은 애러가 발생: {e}")
+                        logger.error(f"TableExtractionError: Failed to extract table: {e}")
                         ctrl = ctrl.Next
                         continue
 
@@ -111,7 +111,7 @@ def extract_html_from_hwp(hwp_dir_path: Path, output_dir_path: Path, hwp: Hwp) -
                         img_ls.append(img_save_path)
 
                     except BaseException as e:
-                        logger.error(f"image 추출 중 다음과 같은 애러가 발생: {e}")
+                        logger.error(f"ImageExtractionError: Failed to extract image: {e}")
                         ctrl = ctrl.Next
                         continue
 
@@ -141,10 +141,10 @@ def _convert_hwp_to_html(hwp_path: str, output_path: str) -> None:
     try:
         command = f"hwp5html --output {output_path} {hwp_path}"
         subprocess.run(command, shell=True, check=True)
-        logger.info("HWP to HTML 변환에 성공했습니다.")
+        logger.info("Success to convert HWP to HTML.")
 
     except FileNotFoundError as fe:
-        logger.error(f"hwp5html 실행 파일을 찾을 수 없습니다. pyhwp가 정상적으로 설치되었는지 확인하세요. {str(fe)}")
+        logger.error(f"FileNotFoundError: Unable to locate 'hwp5html' executable. Please check if 'pyhwp' is installed correctly. {str(fe)}")
 
     except Exception as e:
-        logger.error(f"파일 변환에 실패했습니다. Error code: {str(e)}")
+        logger.error(f"HwpConversionError: Failed to convert HWP to HTML. {str(e)}")
