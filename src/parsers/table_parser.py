@@ -22,7 +22,7 @@ def get_json_from_tables(tables: List[Table], output_dir: Path) -> List[dict]:
     json_list = []
     for table in tables:
         json_data = _dataframe_to_json(table)
-        if json_data:
+        if len(json_data) > 2:
             json_list.append(json_data)
             _save_table_with_json(json_data, output_dir / "table.json")
     
@@ -47,27 +47,34 @@ def _table_to_dataframe(table: Table) -> pd.DataFrame:
         cols = row.find_all(["td", "th"])
         row_data = []
         col_idx = 0
-
+        
+        # 이전 행에서 내려온 colspan 값이 있는 경우 적용
         for col in cols:
             while col_idx in rowspan_tracker and rowspan_tracker[col_idx] > 0:
-                row_data.append(data[-1][col_idx])  # 이전 행 값 복사
+                row_data.append(data[-1][col_idx])
                 rowspan_tracker[col_idx] -= 1
                 col_idx += 1
 
             rowspan = int(col.get("rowspan", 1))
+            colspan = int(col.get("colspan", 1))
             text = col.get_text(strip=True)
 
             row_data.append(text)
 
             if rowspan > 1:
                 rowspan_tracker[col_idx] = rowspan - 1
+            
+            # colspan으로 인한 빈 값 추가
+            for _ in range(1, colspan): 
+                row_data.append("")
+                col_idx += 1
 
             col_idx += 1
 
         data.append(row_data)
 
     df = pd.DataFrame(data)
-    return df
+    return df.loc[:, (df != "").any(axis=0)]
 
 
 def _dataframe_to_json(table: Table) -> json:
@@ -82,8 +89,6 @@ def _dataframe_to_json(table: Table) -> json:
 
     keys = df.iloc[0].astype(str).tolist()
     df = df.iloc[1:].reset_index(drop=True)
-    
-    empty_ratio = df.isnull().mean().max()
 
     try:
         json_data = {keys[i]: df.iloc[:, i].astype(str).tolist() for i in range(len(keys))}
