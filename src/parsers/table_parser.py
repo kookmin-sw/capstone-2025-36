@@ -24,7 +24,7 @@ def get_json_from_tables(tables: List[Table], output_dir: Path) -> List[dict]:
         json_data = _dataframe_to_json(table)
         if json_data:
             json_list.append(json_data)
-            _save_table_with_json(json_data, Path(output_dir+"/table.json"))
+            _save_table_with_json(json_data, output_dir / "table.json")
     
     return json_list
 
@@ -79,27 +79,18 @@ def _dataframe_to_json(table: Table) -> json:
     :raises Exception: 변환 과정에서 오류 발생 시 예외 처리
     """
     df = _table_to_dataframe(table)
-    print(df.to_dict())
 
     keys = df.iloc[0].astype(str).tolist()
     df = df.iloc[1:].reset_index(drop=True)
     
     empty_ratio = df.isnull().mean().max()
 
-    if empty_ratio > 0.5:
-        logger.warning("Data contains more than 50% empty values. Conversion aborted.")
-        return None
-
     try:
         json_data = {keys[i]: df.iloc[:, i].astype(str).tolist() for i in range(len(keys))}
         
-        if all(len(v) == 0 for v in json_data.values()):
-            logger.warning("Converted JSON is empty. Conversion aborted.")
-            return None
-        
     except Exception:
         try:
-            json_data =_extract_tables_with_llm(table)
+            json_data = _extract_tables_with_llm(table)
 
         except Exception as e:
             logger.error(f"failed dataframe to json. {e}")
