@@ -18,18 +18,33 @@ class Table:
     col: int
 
 
-def get_json_from_tables(tables: List[Table], output_dir: Path) -> List[dict]:
-    json_list = []
-    for table in tables:
-        json_data = _dataframe_to_json(table)
-        if len(json_data) > 2:
-            json_list.append(json_data)
-            _save_table_with_json(json_data, output_dir / "table.json")
-    
-    return json_list
+def dataframe_to_json(table: Table) -> json:
+    """
+    Table 객체를 JSON 형식으로 변환합니다.
+
+    :param table: 변환할 Table 객체
+    :return: 변환된 JSON 문자열
+    :raises Exception: 변환 과정에서 오류 발생 시 예외 처리
+    """
+    df = _html_table_to_dataframe(table)
+
+    keys = df.iloc[0].astype(str).tolist()
+    df = df.iloc[1:].reset_index(drop=True)
+
+    try:
+        json_data = {keys[i]: df.iloc[:, i].astype(str).tolist() for i in range(len(keys))}
+        
+    except Exception:
+        try:
+            json_data = _extract_tables_with_llm(table)
+
+        except Exception as e:
+            logger.error(f"failed dataframe to json. {e}")
+
+    return json.dumps(json_data, ensure_ascii=False, indent=4)
 
 
-def _table_to_dataframe(table: Table) -> pd.DataFrame:
+def _html_table_to_dataframe(table: Table) -> pd.DataFrame:
     """
     HTML 테이블을 파싱하여 rowspan 정보를 반영한 DataFrame을 반환합니다.
 
@@ -75,57 +90,6 @@ def _table_to_dataframe(table: Table) -> pd.DataFrame:
 
     df = pd.DataFrame(data)
     return df.loc[:, (df != "").any(axis=0)]
-
-
-def _dataframe_to_json(table: Table) -> json:
-    """
-    Table 객체를 JSON 형식으로 변환합니다.
-
-    :param table: 변환할 Table 객체
-    :return: 변환된 JSON 문자열
-    :raises Exception: 변환 과정에서 오류 발생 시 예외 처리
-    """
-    df = _table_to_dataframe(table)
-
-    keys = df.iloc[0].astype(str).tolist()
-    df = df.iloc[1:].reset_index(drop=True)
-
-    try:
-        json_data = {keys[i]: df.iloc[:, i].astype(str).tolist() for i in range(len(keys))}
-        
-    except Exception:
-        try:
-            json_data = _extract_tables_with_llm(table)
-
-        except Exception as e:
-            logger.error(f"failed dataframe to json. {e}")
-
-    return json.dumps(json_data, ensure_ascii=False, indent=4)
-
-
-def _save_table_with_json(json_data: Dict, output_path: Path) -> None:
-    """
-    JSON 데이터를 파일로 저장하는 함수.
-    
-    :param json_data: 저장할 JSON 데이터 (Dict 형태)
-    :param output_path: 저장할 파일 경로 (Path 객체)
-    """
-    if output_path.exists():
-        with output_path.open('r', encoding='utf-8') as f:
-            try:
-                existing_data = json.load(f)
-            except json.JSONDecodeError:
-                existing_data = {}
-    else:
-        existing_data = {}
-    
-    table_number = len(existing_data) + 1
-    table_key = f"table{table_number}"
-    existing_data[table_key] = json_data
-    
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    with output_path.open('w', encoding='utf-8') as f:
-        json.dump(existing_data, f, ensure_ascii=False, indent=4)
 
 
 def _extract_tables_with_llm(table: Table):
