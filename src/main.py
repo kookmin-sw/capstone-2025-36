@@ -1,17 +1,17 @@
 import io
+import time
 from pathlib import Path
 
-import win32clipboard as clipboard
 from pyhwpx import Hwp
 import pandas as pd
 
 from utils.logger import init_logger
 from parsers.table_parser import Table, dataframe_to_json
 from parsers.image_ocr import convert_image_to_json
-from parsers.clipboard import get_table_from_clipboard, get_image_from_clipboard
+from parsers.clipboard import get_table_from_clipboard, get_image_from_clipboard, extract_text_exclude_table
 from parsers.json_formatter import save_json
 
-from utils.file_handler import get_table_from_pickling
+from utils.file_handler import get_data_from_pickling, save_data_from_pickling
 from utils.logger import init_logger
 
 
@@ -19,15 +19,22 @@ from utils.logger import init_logger
 ROOT_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT_DIR / "assets" / "test"
 OUTPUT_DIR = ROOT_DIR / "assets" / "output"
-OUTPUT_PATH = OUTPUT_DIR / "output.json"
+OUTPUT_JSON = OUTPUT_DIR / "output.json"
 
 
 logger = init_logger(__file__, "DEBUG")
 
 def main():
-    hwp = Hwp()
+    hwp = Hwp(visible=False)
     
-    total_dict = dict()
+    total_tables = []
+    total_images = []
+    total_texts = []
+    total_equations = []
+    
+    total_time = 0
+    docs_cnt = 0
+
     ctrls = ["표", "그림"]
 
     # 결과를 담을 DIR 생성
@@ -38,10 +45,12 @@ def main():
         hwp.open(HWP_PATH.as_posix())
         logger.info(f"Hwp {HWP_PATH} loding")
 
-        doc_name = HWP_PATH.stem
-
-        curr_data = dict()
-        table_cnt = 0
+        txt = extract_text_exclude_table(hwp)
+        one_file_table_list = []
+        curr_images = {}
+        equations = []
+        start = time.time()
+        docs_cnt += 1
 
         for ctrl in hwp.ctrl_list:
             if ctrl.UserDesc in ctrls:
@@ -69,24 +78,39 @@ def main():
                         continue
 
                     table = Table(html=html, col=col_num, row=row_num)
-                    curr_data[f"table_{table_cnt}"] = dataframe_to_json(table)
-                    table_cnt += 1
+                    one_file_table_list.append(table)
             
                 elif ctrl.UserDesc == "그림":
                     try:
                         img_tmp_path = Path(get_image_from_clipboard())
                         if not img_tmp_path:
-                            continue
-                        
+                            continue         
+
                     except Exception as e:
                         logger.error(f"Image Error: {str(e)}")
-                    
-                    curr_data[f"image_{img_tmp_path.stem}"] = convert_image_to_json(img_tmp_path)
 
-        total_dict[doc_name] = curr_data        
+                elif ctrl.UserDesc == "수식":
+                    eqn_string = ctrl.Properties.Item("String")
+                    hwp.SetPosBySet(ctrl.GetAnchorPos(0))
+                    hwp.HAction.Run("MoveRight")
+                    hwp.HAction.Run("BreakPara")
+                    equations.append(eqn_string)
 
-    save_json(total_dict, OUTPUT_PATH)
+        end = time.time()
+        total_time += end - start
+        
+        total_texts.append(txt)
+        total_tables.extend(one_file_table_list)
+        total_equations.append(equations)
+        total_images.append(curr_images)
 
+    save_data_from_pickling(OUTPUT_DIR / 'output_text.pickle', total_texts)
+    save_data_from_pickling(OUTPUT_DIR / 'output_table.pickle',total_tables)
+    save_data_from_pickling(OUTPUT_DIR / 'output_equal.pickle',total_equations)
+    save_data_from_pickling(OUTPUT_DIR / 'output_image.pickle',total_images)
+
+    mean_time = total_time // docs_cnt
+    logger.info(f"Process time: {mean_time}")
 
 if __name__ == "__main__":
     main()
