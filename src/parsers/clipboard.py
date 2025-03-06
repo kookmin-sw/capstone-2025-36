@@ -69,41 +69,38 @@ def _get_html_from_clipboard(max_retries: int = 10) -> str:
                 pass
     return html.decode("utf-8", errors="ignore")
 
-# def get_tag_from_clipboard(tag: str, max_retries: int = 10) -> Optional[str]:
-#     """
-#     클립보드에서 html table을 가져옵니다.
 
-#     :param max_retries: 클립보드에서 접근 시도하는 횟수 제한
-#     :return: 클립보드에서 가져온 HTML 테이블 문자열
-#     :raises Exception: 클립보드 접근 실패 시 예외 발생
-#     """
-#     for attempt in range(1, max_retries):
-#         try:
+def extract_text_exclude_table(hwp_app: Hwp) -> str:
+  txt = ""
+  try:
+    # 문서 전체를 텍스트 포함 모든 컨트롤을 탐색함
+    hwp_app.InitScan(0x000F, 0x0077)
 
+    while True:
+      textdata = hwp_app.GetText()
+      if textdata[0] == 1:
+        break
 
-#             html = html.decode("utf-8", errors="ignore")
-#             html_soup = BeautifulSoup(html, "html.parser")
-#             html_tag = html_soup.find("html").find(tag)
+      # 201 = moveScanPos로 GetText 실행한 위치로 이동함
+      hwp_app.MovePos(201, 0, 0)
 
-#             if tag == 'img':
-#                 img_src = html_tag['src']
-#                 return img_src[8:] if img_src.startswith("file:///") else img_src
-            
-#             html_tag = html_tag.encode().decode("utf-8")
-#             logger.info(f"Success to get {tag} from clipboard")
+      # 현재 위치의 상위 컨트롤을 구함
+      parent_ctrl = hwp_app.ParentCtrl
 
-#             return html_tag
-#         except Exception as e:
-#             if attempt < max_retries:
-#                 sleep(0.1)
-#             else:
-#                 logger.error(f"Failed to access clipboard after {max_retries} attempts")
-#                 raise e
-#         finally:
-#             try:
-#                 # 종종 clipboard가 닫히지 않는 경우가 있음.
-#                 clipboard.CloseClipboard()
-#             except BaseException as e:  # noqa: F841
-#                 pass
+      if parent_ctrl == None:  # 일반 문장(paragraph)
+        txt = txt + textdata[1]
+        continue
 
-#     return None
+      ctrlch = parent_ctrl.CtrlCh
+
+      # 11 = 그리기 개체, 표
+      if ctrlch == 11:
+        # 상위 컨트롤이 '표'
+        if parent_ctrl.CtrlID == "tbl":
+          continue
+
+      txt = txt + textdata[1]
+  finally:
+    hwp_app.ReleaseScan()
+
+  return txt
