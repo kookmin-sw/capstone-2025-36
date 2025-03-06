@@ -2,27 +2,26 @@ import io
 import time
 from pathlib import Path
 
-from pyhwpx import Hwp
 import pandas as pd
 
 from utils.logger import init_logger
 from parsers.table_parser import Table, dataframe_to_json
 from parsers.image_ocr import convert_image_to_json
-from parsers.clipboard import get_table_from_clipboard, get_image_from_clipboard, extract_text_exclude_table
 from parsers.json_formatter import save_json
-
 from utils.file_handler import get_data_from_pickling, save_data_from_pickling
 from utils.logger import init_logger
-
-
-# DIR PATHS
-ROOT_DIR = Path(__file__).resolve().parent.parent
-DATA_DIR = ROOT_DIR / "assets" / "test"
-OUTPUT_DIR = ROOT_DIR / "assets" / "output"
-OUTPUT_JSON = OUTPUT_DIR / "output.json"
+from utils.constants import DATA_DIR, CTRL_TYPES, OUTPUT_DIR
 
 
 logger = init_logger(__file__, "DEBUG")
+
+try:
+    # Linux나 macOS 환경에서는 import 안하도록
+    from pyhwpx import Hwp
+    from parsers.clipboard import get_table_from_clipboard, get_image_from_clipboard, extract_text_exclude_table
+except ImportError:
+    logger.error("please install pyhwpx")
+
 
 def main():
     hwp = Hwp(visible=False)
@@ -34,8 +33,6 @@ def main():
     
     total_time = 0
     docs_cnt = 0
-
-    ctrls = ["표", "그림"]
 
     # 결과를 담을 DIR 생성
     if not OUTPUT_DIR.exists():
@@ -53,7 +50,7 @@ def main():
         docs_cnt += 1
 
         for ctrl in hwp.ctrl_list:
-            if ctrl.UserDesc in ctrls:
+            if ctrl.UserDesc in CTRL_TYPES:
                 # 글자처럼 취급 적용 (속성 미적용시 표를 넘어가기도 함)
                 prop = ctrl.Properties
                 prop.SetItem("TreatAsChar", True)
@@ -109,8 +106,9 @@ def main():
     save_data_from_pickling(OUTPUT_DIR / 'output_equal.pickle',total_equations)
     save_data_from_pickling(OUTPUT_DIR / 'output_image.pickle',total_images)
 
-    mean_time = total_time // docs_cnt
-    logger.info(f"Process time: {mean_time}")
+    if docs_cnt != 0:
+        mean_time = total_time / docs_cnt
+        logger.info(f"Process time: {mean_time}")
 
 if __name__ == "__main__":
     main()
