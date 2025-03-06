@@ -68,39 +68,3 @@ def _get_html_from_clipboard(max_retries: int = 10) -> str:
             except BaseException as e:  # noqa: F841
                 pass
     return html.decode("utf-8", errors="ignore")
-
-
-def extract_text_exclude_table(hwp_app: Hwp) -> str:
-  txt = ""
-  try:
-    # 문서 전체를 텍스트 포함 모든 컨트롤을 탐색함
-    hwp_app.InitScan(0x000F, 0x0077)
-
-    while True:
-      textdata = hwp_app.GetText()
-      if textdata[0] == 1:
-        break
-
-      # 201 = moveScanPos로 GetText 실행한 위치로 이동함
-      hwp_app.MovePos(201, 0, 0)
-
-      # 현재 위치의 상위 컨트롤을 구함
-      parent_ctrl = hwp_app.ParentCtrl
-
-      if parent_ctrl == None:  # 일반 문장(paragraph)
-        txt = txt + textdata[1]
-        continue
-
-      ctrlch = parent_ctrl.CtrlCh
-
-      # 11 = 그리기 개체, 표
-      if ctrlch == 11:
-        # 상위 컨트롤이 '표'
-        if parent_ctrl.CtrlID == "tbl":
-          continue
-
-      txt = txt + textdata[1]
-  finally:
-    hwp_app.ReleaseScan()
-
-  return txt
