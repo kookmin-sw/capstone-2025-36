@@ -55,41 +55,80 @@ def _html_table_to_dataframe(table: Table) -> pd.DataFrame:
     table = soup.find("table")
 
     rows = table.find_all("tr")
-    data = []
+    matrix = []
     rowspan_tracker = {}
 
     for row in rows:
-        cols = row.find_all(["td", "th"])
         row_data = []
         col_idx = 0
         
-        # 이전 행에서 내려온 colspan 값이 있는 경우 적용
-        for col in cols:
-            while col_idx in rowspan_tracker and rowspan_tracker[col_idx] > 0:
-                row_data.append(data[-1][col_idx])
-                rowspan_tracker[col_idx] -= 1
-                col_idx += 1
+        cells = row.find_all(["td", "th"])
+        
+        while col_idx in rowspan_tracker and rowspan_tracker[col_idx]["remaining_rows"] > 0:
+            row_data.append(rowspan_tracker[col_idx]["value"])
+            rowspan_tracker[col_idx]["remaining_rows"] -= 1
 
-            rowspan = int(col.get("rowspan", 1))
-            colspan = int(col.get("colspan", 1))
-            text = col.get_text(strip=True)
-
-            row_data.append(text)
-
-            if rowspan > 1:
-                rowspan_tracker[col_idx] = rowspan - 1
+            if rowspan_tracker[col_idx]["remaining_rows"] == 0:
+                del rowspan_tracker[col_idx]
             
-            # colspan으로 인한 빈 값 추가
-            for _ in range(1, colspan): 
-                row_data.append("")
-                col_idx += 1
-
             col_idx += 1
 
-        data.append(row_data)
+        for cell in cells:
+            while col_idx in rowspan_tracker and rowspan_tracker[col_idx]["remaining_rows"] > 0:
+                row_data.append(rowspan_tracker[col_idx]["value"])
+                rowspan_tracker[col_idx]["remaining_rows"] -= 1
+                
+                if rowspan_tracker[col_idx]["remaining_rows"] == 0:
+                    del rowspan_tracker[col_idx]
+                    
+                col_idx += 1
+            
+            # 셀 값 추출
+            cell_value = cell.get_text(strip=True)
+            
+            # rowspan 처리
+            rowspan = int(cell.get("rowspan", 1))
+            if rowspan > 1:
+                rowspan_tracker[col_idx] = {
+                    "remaining_rows": rowspan - 1,
+                    "value": cell_value
+                }
+            
+            # colspan 처리
+            colspan = int(cell.get("colspan", 1))
+            for _ in range(colspan):
+                row_data.append(cell_value)
+                col_idx += 1
 
-    df = pd.DataFrame(data)
-    return df.loc[:, (df != "").any(axis=0)]
+        matrix.append(row_data)
+
+    # 행 길이 표준화 (가장 긴 행 기준)
+    max_length = max(len(row) for row in matrix)
+    for row in matrix:
+        if len(row) < max_length:
+            row.extend([""] * (max_length - len(row)))
+    
+    # 헤더와 데이터 분리
+    header_row = matrix[0] if matrix else []
+    data_rows = matrix[1:] if len(matrix) > 1 else []
+    
+    # 딕셔너리 리스트 생성
+    result = []
+    for row in data_rows:
+        row_dict = {}
+        for i, value in enumerate(row):
+            if i < len(header_row):  # 헤더 범위 내에서만 매핑
+                column_name = header_row[i]
+                # 빈 헤더명 처리
+                if column_name == "":
+                    column_name = f"column_{i}"
+                # 중복 헤더명 처리
+                while column_name in row_dict:
+                    column_name = f"{column_name}_dup"
+                row_dict[column_name] = value
+        result.append(row_dict)
+    
+    return result
 
 
 def _extract_tables_with_llm(table: Table):
