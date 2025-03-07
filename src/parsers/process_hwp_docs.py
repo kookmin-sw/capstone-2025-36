@@ -61,7 +61,7 @@ class HwpController:
                 except Exception as e:
                     logger.error(f"ImageExtractionError: {str(e)}")
 
-            elif ctrl.UserDesc == "수식":
+            elif ctrl.UserDesc == "수식": #TODO 수식 파싱 추가
                 self._copy_ctrl(ctrl)
                 try: 
                     eqn_string = ctrl.Properties.Item("String")
