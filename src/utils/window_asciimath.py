@@ -1,6 +1,6 @@
 import site
 import os
-from logger import init_logger
+from utils.logger import init_logger
 
 logger = init_logger(__file__, "DEBUG")
 
