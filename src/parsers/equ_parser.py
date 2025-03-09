@@ -22,7 +22,7 @@ def extract_latex(hwp: Hwp) -> List[str] :
     """
     eq_list = get_eq_list(hwp)
     combined_eq = join_hwp_eq(eq_list)
-    pure_latex = unicode_list_to_latex(combined_eq)
+    pure_latex = [unicode_to_latex(text) for text in combined_eq]
     combined_latex = parse_mathml_to_latex(pure_latex, hwp)
     hwp.clear() # 한글 파일을 닫는 함수
     return split_latex(combined_latex)
@@ -46,20 +46,6 @@ def unicode_to_latex(text: str) -> str:
 
     return pattern.sub(replace_func, text)
 
-def unicode_list_to_latex(text_list: List[str]) -> List[str]:
-    
-    """
-    문자열 리스트의 모든 항목을 LaTeX 표현식으로 변환
-
-    Args:
-        text_list(List[str]): hwp 수식 문자열 리스트
-
-    Returns:
-        List[str]: 유니코드 문자와 not equal 문자를 미리 latex 형식으로 변환한 hwp 수식 문자열 리스트
-    
-    """
-    return [unicode_to_latex(text) for text in text_list]
-
 
 def latex_to_unicode(text: str) -> str:
     
@@ -79,19 +65,6 @@ def latex_to_unicode(text: str) -> str:
         return LATEX_UNICODE_MAP[match.group(0)]
 
     return pattern.sub(replace_func, text)
-
-def latex_list_to_unicode(text_list: List[str]) -> List[str]:
-    
-    """
-    Latex로 변경이 완료된 수식 문자열 리스트에서 유니코드를 처리하는 함수
-    
-    Args:
-        text_list(List[str]): Latex로 변경이 완료된 수식 문자열 리스트
-
-    Returns:
-        List[str]: 유니코드 문자를 처리한 LaTex 수식 문자열 리스트
-    """
-    return [latex_to_unicode(text) for text in text_list]
 
 def get_eq_list(hwp : Hwp) -> List[str]:
     
@@ -115,7 +88,7 @@ def get_eq_list(hwp : Hwp) -> List[str]:
 
     return eq_list
 
-def join_hwp_eq(eq_list : List[str], split_point="#", max_length=1500) -> List[str]:
+def join_hwp_eq(eq_list : List[str]) -> List[str]:
 
     """
     추출한 수식 리스트를 긴 문자열로 합치는 함수
@@ -131,20 +104,22 @@ def join_hwp_eq(eq_list : List[str], split_point="#", max_length=1500) -> List[s
         List[str]: 길게 합쳐진 수식 문자열 리스트
     """
     
+    SPLITPOINT = "#"
+    MAXLENTH = 1500
     combined_eq = []
     current = []
     
     for s in eq_list:
         # 문자열을 추가했을 때 길이가 max_length를 넘는지 확인
-        combined = split_point.join(current + [s])  # 현재 리스트에 문자열 s를 추가한 후, 구분자로 결합
-        if len(combined) > max_length:
-            combined_eq.append(split_point.join(current))  # 현재까지의 문자열을 구분자로 결합하여 저장
+        combined = SPLITPOINT.join(current + [s])  # 현재 리스트에 문자열 s를 추가한 후, 구분자로 결합
+        if len(combined) > MAXLENTH:
+            combined_eq.append(SPLITPOINT.join(current))  # 현재까지의 문자열을 구분자로 결합하여 저장
             current = [s]  # 새로운 문자열을 시작
         else:
             current.append(s)  # 기존 리스트에 문자열 추가
     
     if current:  # 마지막 남은 문자열 추가
-        combined_eq.append(split_point.join(current))
+        combined_eq.append(SPLITPOINT.join(current))
     
     return combined_eq
 
@@ -189,7 +164,7 @@ def parse_mathml_to_latex(combined_eq : List[str], hwp : Hwp) -> List[str]:
         tex_eq = mathml2tex.translate(mml_eq, network=True, from_file=False)
         combined_latex.append(tex_eq)
 
-    combined_latex = latex_list_to_unicode(combined_latex)
+    combined_latex = [latex_to_unicode(text) for text in combined_latex]
 
     return combined_latex
 
