@@ -1,7 +1,3 @@
-import sys
-import os
-sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
-
 import re
 from typing import List
 from pyhwpx import Hwp
@@ -11,6 +7,25 @@ from utils.window_asciimath import modify_init_py
 
 modify_init_py()
 logger = init_logger(__file__, "DEBUG")
+
+def extract_latex(hwp: Hwp) -> List[str] :
+    
+    """
+    hwp에서 latex 수식 리스트를 추출하는 함수
+
+    Args:
+        hwp: 수식을 추출하고 싶은 한글 파일
+
+    Returns:
+        List[str]:LaTex 수식 문자열 리스트
+    """
+    eq_list = get_eq_list(hwp)
+    combined_eq = join_hwp_eq(eq_list)
+    pure_latex = unicode_list_to_latex(combined_eq)
+    combined_latex = parse_mathml_to_latex(pure_latex, hwp)
+    hwp.clear() # 한글 파일을 닫는 함수
+    return split_latex(combined_latex)
+
 
 # 유니코드 폰트 문자 → LaTeX 변환 맵
 UNICODE_LATEX_MAP = {
@@ -231,21 +246,5 @@ def split_latex(combined_latex : List[str]) -> List[str]:
     
     return latex_list
 
-def extract_latex(hwp: Hwp) -> List[str] :
-    
-    """
-    hwp에서 latex 수식 리스트를 추출하는 함수
 
-    Args:
-        hwp: 수식을 추출하고 싶은 한글 파일
-
-    Returns:
-        List[str]:LaTex 수식 문자열 리스트
-    """
-    eq_list = get_eq_list(hwp)
-    combined_eq = join_hwp_eq(eq_list)
-    pure_latex = unicode_list_to_latex(combined_eq)
-    combined_latex = parse_mathml_to_latex(pure_latex, hwp)
-    hwp.clear() # 한글 파일을 닫는 함수
-    return split_latex(combined_latex)
   
