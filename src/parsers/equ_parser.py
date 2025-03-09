@@ -1,12 +1,14 @@
+import os
 import re
 from typing import List
 from pyhwpx import Hwp
 from py_asciimath.translator.translator import MathML2Tex
-from constants import UNICODE_LATEX_MAP, LATEX_UNICODE_MAP
+from parsers.constants import UNICODE_LATEX_MAP, LATEX_UNICODE_MAP
 from utils.logger import init_logger
 from utils.window_asciimath import modify_init_py
 
 modify_init_py()
+
 logger = init_logger(__file__, "DEBUG")
 
 def extract_latex_list(hwp: Hwp) -> List[str] :
@@ -24,8 +26,12 @@ def extract_latex_list(hwp: Hwp) -> List[str] :
     combined_eq_list = _join_hwp_eq(eq_list)
     pure_latex = [_unicode_to_latex(eq) for eq in combined_eq_list]
     combined_latex = _parse_mathml_to_latex(pure_latex, hwp)
+    latex_list = _split_latex(combined_latex)
+    logger.info(f"확인된 수식 갯수 : {len(eq_list)}")
+    logger.info(f"추출된 수식 갯수 : {len(latex_list)}")
+    delete_file("eq.mml")
     hwp.clear() # 한글 파일을 닫는 함수
-    return _split_latex(combined_latex)
+    return latex_list
 
 
 def _unicode_to_latex(eq_text: str) -> str:
@@ -162,9 +168,9 @@ def _parse_mathml_to_latex(combined_eq_list : List[str], hwp : Hwp) -> List[str]
         with open(mml_path) as f:
             mml_eq = f.read()
         latex_eq = mathml2tex.translate(mml_eq, network=True, from_file=False)
-        combined_latex_list.append(latex_eq)
+        latex_list.append(latex_eq)
 
-    combined_latex_list = [_latex_to_unicode(eq_text) for eq_text in latex_list]
+    combined_latex_list = [_latex_to_unicode(latex) for latex in latex_list]
 
     return combined_latex_list
 
@@ -199,5 +205,15 @@ def _split_latex(combined_latex : List[str]) -> List[str]:
     
     return latex_list
 
-
-  
+def delete_file(file_path):
+    """파일을 삭제하는 함수 (예외 처리 포함)"""
+    try:
+        if os.path.exists(file_path):
+            os.remove(file_path)
+            logger.info(f"✅ 파일 삭제 완료: {file_path}")
+        else:
+            logger.error(f"⚠ 파일이 존재하지 않음: {file_path}")
+    except PermissionError:
+        logger.exception(f"❌ 삭제 실패: {file_path} (권한 문제)")
+    except Exception as e:
+        logger.exception(f"❌ 삭제 실패: {file_path} (에러: {e})")
