@@ -7,6 +7,8 @@ import pandas as pd
 
 from utils.logger import init_logger
 from parsers.clipboard import get_table_from_clipboard, get_image_from_clipboard
+from parsers.table_parser import Table
+from parsers.equ_parser import extract_latex_list
 
 
 logger = init_logger(__file__, "DEBUG")
@@ -32,6 +34,19 @@ class HwpController:
         
         start = time.time()
         table_cnt = 0
+
+        # Latex 수식을 우선 추출
+        self.hwp_equation = []
+        for ctrl in self.hwp.ctrl_list:
+            if ctrl.UserDesc == "수식":
+                self._copy_ctrl(ctrl)
+                try: 
+                    self.hwp_equation.append(ctrl.Properties.Item('VisualString'))
+        
+                except Exception as e:
+                    logger.error(f"EqualationExtractionError: {str(e)}")
+        
+        self.one_file_equations = extract_latex_list(self.hwp, self.hwp_equation)
 
         for ctrl in self.hwp.ctrl_list:
             if ctrl.UserDesc == "표":
@@ -61,18 +76,6 @@ class HwpController:
 
                 except Exception as e:
                     logger.error(f"ImageExtractionError: {str(e)}")
-
-            elif ctrl.UserDesc == "수식": #TODO 수식 파싱 추가
-                self._copy_ctrl(ctrl)
-                try: 
-                    eqn_string = ctrl.Properties.Item("String")
-                    self.hwp.SetPosBySet(ctrl.GetAnchorPos(0))
-                    self.hwp.HAction.Run("MoveRight")
-                    self.hwp.HAction.Run("BreakPara")
-                    self.one_file_equations.append(eqn_string)
-                
-                except Exception as e:
-                    logger.error(f"EqualationExtractionError: {str(e)}")
 
         process_time = time.time()-start
 
