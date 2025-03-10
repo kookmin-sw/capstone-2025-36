@@ -3,7 +3,7 @@ import re
 from typing import List
 from pyhwpx import Hwp
 from py_asciimath.translator.translator import MathML2Tex
-from parsers.constants import UNICODE_LATEX_MAP, LATEX_UNICODE_MAP
+from utils.constants import UNICODE_LATEX_MAP, LATEX_UNICODE_MAP
 from utils.logger import init_logger
 from utils.window_asciimath import modify_init_py
 
@@ -72,6 +72,7 @@ def _latex_to_unicode(eq_text: str) -> str:
 
     return pattern.sub(replace_func, eq_text)
 
+
 def _get_eq_list(hwp : Hwp) -> List[str]:
     
     """
@@ -93,6 +94,7 @@ def _get_eq_list(hwp : Hwp) -> List[str]:
         #hwp.insert_text(r' {equ} ')
 
     return eq_list
+
 
 def _join_hwp_eq(eq_list : List[str]) -> List[str]:
 
@@ -128,6 +130,7 @@ def _join_hwp_eq(eq_list : List[str]) -> List[str]:
         combined_eq_list.append(SPLITPOINT.join(current))
     
     return combined_eq_list
+
 
 def _parse_mathml_to_latex(combined_eq_list : List[str], hwp : Hwp) -> List[str]:
 
@@ -174,6 +177,7 @@ def _parse_mathml_to_latex(combined_eq_list : List[str], hwp : Hwp) -> List[str]
 
     return combined_latex_list
 
+
 def _split_latex(combined_latex : List[str]) -> List[str]:
 
     """
@@ -204,6 +208,7 @@ def _split_latex(combined_latex : List[str]) -> List[str]:
         latex_list.extend([f"${elem}$" for elem in elements])
     
     return latex_list
+
 
 def delete_file(file_path):
     """파일을 삭제하는 함수 (예외 처리 포함)"""
