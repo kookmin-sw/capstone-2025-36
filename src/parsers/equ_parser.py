@@ -11,18 +11,19 @@ modify_init_py()
 
 logger = init_logger(__file__, "DEBUG")
 
-def extract_latex_list(hwp: Hwp) -> List[str] :
+def extract_latex_list(hwp: Hwp, eq_list : List[str]) -> List[str] :
     
     """
     hwp에서 latex 수식 리스트를 추출하는 함수
 
     Args:
-        hwp: 수식을 추출하고 싶은 한글 파일
+        hwp(Hwp): 수식을 추출하고 싶은 한글 파일
 
     Returns:
         List[str]:LaTex 수식 문자열 리스트
     """
-    eq_list = _get_eq_list(hwp)
+    #eq_list = _get_eq_list(hwp) 다음 과정을 HwpController에서 진행
+    
     combined_eq_list = _join_hwp_eq(eq_list)
     pure_latex = [_unicode_to_latex(eq) for eq in combined_eq_list]
     combined_latex = _parse_mathml_to_latex(pure_latex, hwp)
@@ -30,7 +31,6 @@ def extract_latex_list(hwp: Hwp) -> List[str] :
     logger.info(f"확인된 수식 갯수 : {len(eq_list)}")
     logger.info(f"추출된 수식 갯수 : {len(latex_list)}")
     delete_file("eq.mml")
-    hwp.clear() # 한글 파일을 닫는 함수
     return latex_list
 
 
@@ -117,19 +117,25 @@ def _join_hwp_eq(eq_list : List[str]) -> List[str]:
     combined_eq_list = []
     current = []
     
-    for s in eq_list:
-        # 문자열을 추가했을 때 길이가 max_length를 넘는지 확인
-        combined = SPLITPOINT.join(current + [s])  # 현재 리스트에 문자열 s를 추가한 후, 구분자로 결합
-        if len(combined) > MAXLENTH:
-            combined_eq_list.append(SPLITPOINT.join(current))  # 현재까지의 문자열을 구분자로 결합하여 저장
-            current = [s]  # 새로운 문자열을 시작
-        else:
-            current.append(s)  # 기존 리스트에 문자열 추가
+    try:
+        for s in eq_list:
+            # 문자열을 추가했을 때 길이가 max_length를 넘는지 확인
+            combined = SPLITPOINT.join(current + [s])  # 현재 리스트에 문자열 s를 추가한 후, 구분자로 결합
+            if len(combined) > MAXLENTH:
+                logger.info(f"문자열 분할: 현재 길이가 {len(combined)}로 최대 길이({MAXLENTH})를 초과하여 분할합니다.")
+                combined_eq_list.append(SPLITPOINT.join(current))  # 현재까지의 문자열을 구분자로 결합하여 저장
+                current = [s]  # 새로운 문자열을 시작
+            else:
+                current.append(s)  # 기존 리스트에 문자열 추가
+
+        if current:  # 마지막 남은 문자열 추가
+            combined_eq_list.append(SPLITPOINT.join(current))
+
+        return combined_eq_list
     
-    if current:  # 마지막 남은 문자열 추가
-        combined_eq_list.append(SPLITPOINT.join(current))
-    
-    return combined_eq_list
+    except Exception as e:
+        logger.exception(f"수식 문자열 병합 중 오류 발생 : (Error: {e})")
+        return []
 
 
 def _parse_mathml_to_latex(combined_eq_list : List[str], hwp : Hwp) -> List[str]:
@@ -152,26 +158,42 @@ def _parse_mathml_to_latex(combined_eq_list : List[str], hwp : Hwp) -> List[str]
     """
 
     latex_list = []
+    mathml2tex = MathML2Tex()
     
     for combined_eq in combined_eq_list:
         
-        hwp.MovePos(3)            #문서 끝으로 이동
-        action = "EquationCreate"
-        pset = hwp.HParameterSet.HEqEdit
-        pset.string = combined_eq
-        hwp.HAction.Execute(action, pset.HSet)
-        ctrl = hwp.LastCtrl
+        try:
+            hwp.MovePos(3) #문서 끝으로 이동
+            action = "EquationCreate"
+            pset = hwp.HParameterSet.HEqEdit
+            pset.string = combined_eq
 
-        hwp.select_ctrl(ctrl)
-        mml_path = "eq.mml"
-        hwp.export_mathml(mml_path)
-        hwp.delete_ctrl(ctrl)
-        
-        mathml2tex = MathML2Tex()
-        with open(mml_path) as f:
-            mml_eq = f.read()
-        latex_eq = mathml2tex.translate(mml_eq, network=True, from_file=False)
-        latex_list.append(latex_eq)
+            hwp.HAction.Execute(action, pset.HSet)
+            ctrl = hwp.LastCtrl
+
+            if not ctrl:
+                logger.error("ValueError : Equation control creation failed.")
+                raise 
+
+            hwp.select_ctrl(ctrl)
+            mml_path = "eq.mml"
+            hwp.export_mathml(mml_path)
+            hwp.delete_ctrl(ctrl)
+            
+            
+            with open(mml_path) as f:
+                mml_eq = f.read()
+            
+            if not mml_eq:
+                logger.error("ValueError : Exported MathML is empty.")
+                raise
+
+            latex_eq = mathml2tex.translate(mml_eq, network=True, from_file=False)
+            latex_list.append(latex_eq)
+
+        except Exception as e:
+            logger.exception(f"Error processing equation '{combined_eq}': (Error: {e})")
+            latex_list.append("ERROR")  # 오류 발생 시 'ERROR' 문자열 추가
 
     combined_latex_list = [_latex_to_unicode(latex) for latex in latex_list]
 
@@ -197,17 +219,22 @@ def _split_latex(combined_latex : List[str]) -> List[str]:
 
     latex_list = []
 
-    for latex in combined_latex:
-        if latex.startswith("$") and latex.endswith("$"):
-            latex = latex[1:-1]
+    try:
+        for latex in combined_latex:
+            if latex.startswith("$") and latex.endswith("$"):
+                latex = latex[1:-1]
 
-        # splitpoint 기준으로 분할
-        elements = latex.split("\\phantom{\\rule{0ex}{0ex}}")
+            # splitpoint 기준으로 분할
+            elements = latex.split("\\phantom{\\rule{0ex}{0ex}}")
 
-        # 모든 요소를 앞뒤 $로 감싸기
-        latex_list.extend([f"${elem}$" for elem in elements])
+            # 모든 요소를 앞뒤 $로 감싸기
+            latex_list.extend([f"${elem}$" for elem in elements])
+        
+        return latex_list
     
-    return latex_list
+    except Exception as e:
+        logger.exception(f"Latex 수식 분할 중 오류 발생 (Error: {e})")
+        return []  # 예외 발생 시 안전한 빈 리스트 반환
 
 
 def delete_file(file_path):
@@ -222,4 +249,4 @@ def delete_file(file_path):
     except PermissionError:
         logger.exception(f"❌ 삭제 실패: {file_path} (권한 문제)")
     except Exception as e:
-        logger.exception(f"❌ 삭제 실패: {file_path} (에러: {e})")
+        logger.exception(f"❌ 삭제 실패: {file_path} (Error: {e})")
