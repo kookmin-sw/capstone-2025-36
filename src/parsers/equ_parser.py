@@ -1,7 +1,7 @@
-import os
 import re
 from typing import List
 from pyhwpx import Hwp
+from pathlib import Path
 from py_asciimath.translator.translator import MathML2Tex
 from utils.constants import UNICODE_LATEX_MAP, LATEX_UNICODE_MAP
 from utils.logger import init_logger
@@ -212,9 +212,10 @@ def _split_latex(combined_latex : List[str]) -> List[str]:
 
 def delete_file(file_path):
     """파일을 삭제하는 함수 (예외 처리 포함)"""
+    path = Path(file_path)
     try:
-        if os.path.exists(file_path):
-            os.remove(file_path)
+        if path.exists():
+            path.unlink()  # 파일 삭제
             logger.info(f"✅ 파일 삭제 완료: {file_path}")
         else:
             logger.error(f"⚠ 파일이 존재하지 않음: {file_path}")
