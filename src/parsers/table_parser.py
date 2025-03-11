@@ -20,7 +20,7 @@ class TableParser:
     def __init__(self) -> None:
         pass
 
-    def parse_table_from_html(self, html: str) -> Dict[List[str]]:
+    def parse_table_from_html(self, html: str) -> Dict[str, List[str]]:
         """
         Table 객체를 Dict 형식으로 변환하는 함수
 
