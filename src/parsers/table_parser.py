@@ -42,15 +42,42 @@ class TableParser:
         return self._convert_matrix_to_dict(matrix)
     
     def _convert_matrix_to_dict(self, matrix: List[List]) -> Dict:
-        keys = matrix[0]
-        result = {key: [] for key in keys}
+        header_row = matrix[0]
+        second_row = matrix[1]
 
-        for row in matrix[1:]:
+        header_counts = set()
+        has_duplicates = False
+
+        for header in header_row:
+            if header in header_counts:
+                has_duplicates = True
+                break
+            else:
+                header_counts.add(header)
+
+        keys = []
+        seen_keys = set()
+        for i, (header, value) in enumerate(zip(header_row, second_row)):
+            if has_duplicates:
+                base_key = f"{value}_{header}" if value is not None and value != header else header
+                key = base_key
+                if key in seen_keys:
+                    key = f"{base_key}_{i}"
+            else:
+                key = header
+
+            keys.append(key)
+            seen_keys.add(key)
+
+        result = {key: [] for key in keys}
+        start = 1 if not has_duplicates else 2
+        for row in matrix[start:]:
             for i, value in enumerate(row):
-                result[keys[i]].append(value)
+                if i < len(keys):
+                    result[keys[i]].append(value)
 
         return result
-
+    
     def _get_row_and_column_length(self, html: str):
         soup = BeautifulSoup(html, "html.parser")
         table_html = soup.find("table")
