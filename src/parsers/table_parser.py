@@ -1,8 +1,7 @@
 import re
-from typing import List, Dict
+from typing import List, Dict, Tuple
 from bs4 import BeautifulSoup
 from collections import deque
-from langchain_ollama import ChatOllama
 from dataclasses import dataclass
 from utils.logger import init_logger
 
@@ -21,27 +20,53 @@ class TableParser:
     def __init__(self) -> None:
         pass
 
-    def parse_table_from_html(self, html: str) -> Dict:
+    def parse_table_from_html(self, html: str) -> Dict[List[str]]:
         """
-        Table 객체를 Dict 형식으로 변환합니다.
+        Table 객체를 Dict 형식으로 변환하는 함수
 
-        :param table: 변환할 Table 객체
-        :return: 변환된 Dict
-        :raises Exception: 변환 과정에서 오류 발생 시 예외 처리
+        Args:
+            html: html 문자열 데이터
+
+        Returns:
+            result(Dict[List[str]]): 표의 첫번째 행을 Key로 가지는 Dict
         """
-        row_len, col_len = self._get_row_and_column_length(html)
+        try:
+            row_len, col_len = self._get_row_and_column_length(html)
 
-        table = Table(html, row_len, col_len)
-        if not table:
-            logger.warning("Table is Empty")
+            table = Table(html, row_len, col_len)
+            if not table:
+                logger.warning("Table is Empty")
 
-        matrix = self._html_to_matrix(table)
-        if row_len == 1 and col_len == 1:  # 문자 하나만 존재할 경우
-            return matrix[0][0]
+            matrix = self._html_to_matrix(table)
+            if not matrix:
+                logger.error("Table is Empty")
+                return
+            if row_len == 1 and col_len == 1:
+                return {'content': matrix[0][0]}
+            elif row_len == 1:
+                return {matrix[0][0]: matrix[0][1:]}
+            elif col_len == 1:
+                return {matrix[0][0]: [matrix[i][0] for i in range(row_len)]}
+            result = self._convert_matrix_to_dict(matrix)
+            logger.info("Success parsing table from html")
 
-        return self._convert_matrix_to_dict(matrix)
+            return result
+        
+        except Exception as e:
+            logger.critical(f"Unexpect Error {e}")
     
     def _convert_matrix_to_dict(self, matrix: List[List]) -> Dict:
+        """
+        2차원 배열을 Dict로 변환하는 함수
+            만약 첫번째 행에서 중복되는 값이 있는 경우 두번째 행을 이용하여 Primary Key를 생성함
+            두번째 키와 조합해서도 중복이 생기면 뒤에 수를 추가해서 차이를 만듦
+
+        Args:
+            matrix: 2차원 배열로 된 표 데이터
+
+        Returns:
+            result(Dict[List[str]]): 표의 첫번째 행을 Key로 가지는 Dict
+        """
         header_row = matrix[0]
         second_row = matrix[1]
 
@@ -78,7 +103,16 @@ class TableParser:
 
         return result
     
-    def _get_row_and_column_length(self, html: str):
+    def _get_row_and_column_length(self, html: str) -> Tuple[int, int]:
+        """
+        html 데이터에서 행렬의 크기를 구하는 함수
+
+        Args:
+            html: html 문자열 데이터
+
+        Returns:
+            row_len, col_len: 각각 행의 길이, 열의 길이
+        """        
         soup = BeautifulSoup(html, "html.parser")
         table_html = soup.find("table")
 
@@ -97,7 +131,18 @@ class TableParser:
             col_lens.append(col_len)
         return row_len, max(col_lens)
 
-    def _html_to_matrix(self, table: Table) -> List[List]:
+    def _html_to_matrix(self, table: Table) -> List[List[str]]:
+        """
+        Table 객체에서 2차원 행렬로 변환하는 함수
+            만약 행 또는 열끼리 결합한 경우 같은 값을 추가해 줌
+            또 값이 없다면 None으로 표의 형태를 유지함
+
+        Args:
+            table: Table 크기와 html이 담긴 객체
+
+        Returns:
+            matrix: 2차원 행렬로 표현한 표 데이터
+        """        
         soup = BeautifulSoup(table.html, "html.parser")
         table_html = soup.find("table")
 
@@ -151,44 +196,3 @@ class TableParser:
             matrix.append(row_data)
             
         return matrix
-
-
-def _extract_tables_with_llm(table: Table):
-    """LLM을 이용하여 table parsing"""
-    messages = [
-        {"role": "system", "content": """
-            아래 html문서에서 테이블 데이터를 JSON으로 변환해주세요. JSON 형식은 다음과 같이 유지되어야 합니다:
-            {
-                "tables": [
-                    {
-                        "name": "테이블 제목",
-                        "headers": ["열 제목1", "열 제목2", "열 제목3"],
-                        "rows": [
-                            ["값1", "값2", "값3"],
-                            ["값4", "값5", "값6"]
-                        ]
-                    }
-                ]
-            }
-            JSON 형식 이외의 불필요한 설명은 포함하지 말고 순수한 JSON 데이터만 출력하세요.
-        """},
-        {"role": "user", "content": f"""
-            === 원본 텍스트 ===
-            {table.html}
-            ==================
-            위 html 문서에서 모든 테이블을 JSON으로 변환해줘.
-        """}
-    ]
-
-    llm = ChatOllama(model="deepseek-r1:8b")
-
-    ai_msg = llm.invoke(messages)
-    response_content = ai_msg.content if hasattr(ai_msg, "content") else ai_msg
-    if not response_content:
-        logger.error("답변을 받지 못했습니다.")
-    logger.info(response_content)
-
-    json_pattern = r"```json\n(.*?)\n```"
-    match = re.search(json_pattern, response_content, re.DOTALL)
-    json_content = match.group(1) if match else None
-    return json_content
