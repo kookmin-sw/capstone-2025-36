@@ -4,9 +4,9 @@ from pathlib import Path
 from typing import List, Dict
 from pyhwpx import Hwp
 import pandas as pd
+
 from utils.logger import init_logger
 from parsers.clipboard import get_table_from_clipboard, get_image_from_clipboard
-from parsers.table_parser import Table
 
 
 logger = init_logger(__file__, "DEBUG")
@@ -26,11 +26,12 @@ class HwpController:
     def get_tag_from_html(self, hwp_path: Path) -> Dict[str, List]:
         self._open_hwp_file(hwp_path)
     
-        self.one_file_table_list = []
+        self.one_file_table_list = {}
         self.one_file_images = {}
         self.one_file_equations = []
         
         start = time.time()
+        table_cnt = 0
 
         for ctrl in self.hwp.ctrl_list:
             if ctrl.UserDesc == "표":
@@ -46,9 +47,9 @@ class HwpController:
 
                 if not row_num or not col_num:
                     continue
-
-                table = Table(html=html, col=col_num, row=row_num)
-                self.one_file_table_list.append(table)
+                
+                table_cnt += 1
+                self.one_file_table_list[table_cnt] = html
             
             elif ctrl.UserDesc == "그림":
                 self._copy_ctrl(ctrl)

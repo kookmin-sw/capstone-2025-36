@@ -40,15 +40,11 @@ def main():
         components = get_data_from_pickling(output_path)
 
     # table parsing
-    #TODO REMOVE test
-    from test.test_table_template import tables
-
+    table_data = components['tables']
     table_parser = TableParser()
-    for html_table in tables:
-        table_parser.parse_table_from_html(html_table)
 
-    # for table in components['tables']:
-    #     print(dataframe_to_json(table))
+    for table_name in table_data.keys():
+        table_data[table_name] = table_parser.parse_table_from_html(table_data[table_name])
 
 
 if __name__ == "__main__":
