@@ -1,10 +1,7 @@
 import os
-import time
 from pathlib import Path
 
-
-
-from parsers.table_parser import Table, dataframe_to_json
+from parsers.table_parser import TableParser
 from parsers.image_ocr import convert_image_to_json
 from parsers.json_formatter import save_json
 from utils.file_handler import get_data_from_pickling, save_data_from_pickling
@@ -43,8 +40,15 @@ def main():
         components = get_data_from_pickling(output_path)
 
     # table parsing
-    for table in components['tables']:
-        print(dataframe_to_json(table))
+    #TODO REMOVE test
+    from test.test_table_template import tables
+
+    table_parser = TableParser()
+    for html_table in tables:
+        table_parser.parse_table_from_html(html_table)
+
+    # for table in components['tables']:
+    #     print(dataframe_to_json(table))
 
 
 if __name__ == "__main__":
