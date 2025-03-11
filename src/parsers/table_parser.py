@@ -30,12 +30,26 @@ class TableParser:
         :raises Exception: 변환 과정에서 오류 발생 시 예외 처리
         """
         row_len, col_len = self._get_row_and_column_length(html)
+
         table = Table(html, row_len, col_len)
+        if not table:
+            logger.warning("Table is Empty")
 
         matrix = self._html_to_matrix(table)
-        print(matrix)
+        if row_len == 1 and col_len == 1:  # 문자 하나만 존재할 경우
+            return matrix[0][0]
 
-        return 
+        return self._convert_matrix_to_dict(matrix)
+    
+    def _convert_matrix_to_dict(self, matrix: List[List]) -> Dict:
+        keys = matrix[0]
+        result = {key: [] for key in keys}
+
+        for row in matrix[1:]:
+            for i, value in enumerate(row):
+                result[keys[i]].append(value)
+
+        return result
 
     def _get_row_and_column_length(self, html: str):
         soup = BeautifulSoup(html, "html.parser")
