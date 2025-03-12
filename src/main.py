@@ -1,4 +1,5 @@
 import os
+import json
 from pathlib import Path
 
 from parsers.table_parser import TableParser
@@ -36,7 +37,7 @@ def main():
         except ImportError:
             logger.error("please install pyhwpx")
     else:
-        output_path = OUTPUT_DIR / "공업수학(KREYSZIG)_정진교" / "23강.pickle"
+        output_path = OUTPUT_DIR / "test" / "test4.pickle"
         components = get_data_from_pickling(output_path)
 
     # table parsing
@@ -45,6 +46,7 @@ def main():
 
     for table_name in table_data.keys():
         table_data[table_name] = table_parser.parse_table_from_html(table_data[table_name])
+    print(json.dumps(table_data, ensure_ascii=False, indent=4))
 
 
 if __name__ == "__main__":
