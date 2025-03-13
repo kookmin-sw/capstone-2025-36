@@ -7,7 +7,7 @@ from parsers.image_ocr import ImageOCR
 from parsers.json_formatter import save_json
 from utils.file_handler import get_data_from_pickling, save_data_from_pickling
 from utils.logger import init_logger
-from utils.constants import DATA_DIR, OUTPUT_DIR
+from utils.constants import DATA_DIR, OUTPUT_DIR, OUTPUT_JSON
 
 
 logger = init_logger(__file__, "DEBUG")
@@ -36,17 +36,37 @@ def main():
 
         except ImportError:
             logger.error("please install pyhwpx")
-    else:
-        output_path = OUTPUT_DIR / "test" / "test4.pickle"
+    
+    total_dict = dict()
+
+    for output_path in OUTPUT_DIR.rglob("*.pickle"):
         components = get_data_from_pickling(output_path)
+        logger.info(f"Open pickling file: {output_path}")
 
-    # table parsing
-    table_data = components['tables']
-    table_parser = TableParser()
+        #table parsing
+        table_parser = TableParser()
 
-    for table_name in table_data.keys():
-        table_data[table_name] = table_parser.parse_table_from_html(table_data[table_name])
-    print(json.dumps(table_data, ensure_ascii=False, indent=4))
+        for table_name in components['tables'].keys():
+            components['tables'][table_name] = table_parser.parse_table_from_html(components['tables'][table_name])
+
+        # image Text 변환
+        for img_path in components['images'].keys():
+            components['images'][img_path] = convert_image_to_json(Path(img_path))
+        
+        # Text 전처리
+        # components["texts"] = preprocess_markdown(components["texts"])
+
+        # Metadata 추가
+
+        total_dict[f"{output_path.stem}"] = components
+    
+    try:
+        with OUTPUT_JSON.open("w", encoding="utf-8") as json_file:
+            json.dump(total_dict, json_file, ensure_ascii=False, indent=4)
+        logger.info(f"Successfully save json file: {str(OUTPUT_JSON)}")
+        
+    except Exception as e:
+        logger.error(f"Failed save json file: {e}")
 
     # image to text
     image_data = components['images']
