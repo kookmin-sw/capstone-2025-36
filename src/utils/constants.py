@@ -5,6 +5,7 @@ from pathlib import Path
 ROOT_DIR = Path(__file__).resolve().parent.parent.parent
 DATA_DIR = ROOT_DIR / "assets" / "input"
 OUTPUT_DIR = ROOT_DIR / "assets" / "output"
+OUTPUT_PICKLE = OUTPUT_DIR / "output.pickle"
 OUTPUT_JSON = OUTPUT_DIR / "output.json"
 
 # 추출할 Ctrl obj

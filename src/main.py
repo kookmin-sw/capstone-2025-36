@@ -7,13 +7,15 @@ from parsers.image_ocr import ImageOCR
 from parsers.json_formatter import save_json
 from utils.file_handler import get_data_from_pickling, save_data_from_pickling
 from utils.logger import init_logger
-from utils.constants import DATA_DIR, OUTPUT_DIR, OUTPUT_JSON
+from utils.constants import DATA_DIR, OUTPUT_JSON, OUTPUT_PICKLE
 
 
 logger = init_logger(__file__, "DEBUG")
 
 
 def main():
+    total_dict = dict()
+
     if os.name == "nt":
         try:
             # Linux나 macOS 환경에서는 import 안하도록
@@ -32,33 +34,30 @@ def main():
                     os.makedirs(output_path)
                 save_data_from_pickling(output_path / f'{hwp_path.stem}.pickle', components)
                 
+                total_dict[hwp_path] = components
             del hwp_ctrl
 
         except ImportError:
             logger.error("please install pyhwpx")
-    
-    total_dict = dict()
+    else:
+        total_dict = get_data_from_pickling(OUTPUT_PICKLE)
+        logger.info(f"Open pickling file: {OUTPUT_PICKLE}")
 
-    for output_path in OUTPUT_DIR.rglob("*.pickle"):
-        components = get_data_from_pickling(output_path)
-        logger.info(f"Open pickling file: {output_path}")
+    #table parsing
+    table_parser = TableParser()
 
-        #table parsing
-        table_parser = TableParser()
-
-        for table_name in components['tables'].keys():
-            components['tables'][table_name] = table_parser.parse_table_from_html(components['tables'][table_name])
+    for curr_doc in total_dict:
+        for table_name in curr_doc['tables'].keys():
+            curr_doc['tables'][table_name] = table_parser.parse_table_from_html(curr_doc['tables'][table_name])
 
         # image Text 변환
-        for img_path in components['images'].keys():
-            components['images'][img_path] = convert_image_to_json(Path(img_path))
-        
+        for img_path in curr_doc['images'].keys():
+            curr_doc['images'][img_path] = convert_image_to_json(Path(img_path))
+    
         # Text 전처리
-        # components["texts"] = preprocess_markdown(components["texts"])
+        curr_doc["texts"] = preprocess_markdown(curr_doc["texts"])
 
         # Metadata 추가
-
-        total_dict[f"{output_path.stem}"] = components
     
     try:
         with OUTPUT_JSON.open("w", encoding="utf-8") as json_file:
