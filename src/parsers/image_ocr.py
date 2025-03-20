@@ -1,15 +1,19 @@
 import io
 import os
 import cv2
+import json
 import numpy as np
 import easyocr
-import pytesseract
+import uuid
+import requests
+import time
 from pathlib import Path
 from dotenv import load_dotenv
 from PIL import Image
 from transformers import pipeline
 from langchain_community.document_loaders import AzureAIDocumentIntelligenceLoader
 from utils.logger import init_logger
+from utils.constants import IMAGE_CATEGORY
 from transformers import TrOCRProcessor, VisionEncoderDecoderModel
 import requests
 
@@ -21,18 +25,15 @@ logger = init_logger(__file__, "DEBUG")
 class ImageOCR:
     def __init__(self) -> None:
         self.reader = easyocr.Reader(["en", "ko"])
-        self.type_list = ["Graph", "Diagram", "Text", "Formula"]
-        self.detector = pipeline(model="openai/clip-vit-large-patch14", task="zero-shot-image-classification")
-        pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
-        self.processor = TrOCRProcessor.from_pretrained("microsoft/trocr-base-handwritten")
-        self.vision_model = VisionEncoderDecoderModel.from_pretrained("microsoft/trocr-base-handwritten")
+        self.candidate_labels = [f'This is a photo of {label}' for label in IMAGE_CATEGORY]
+        self.image_classifier = pipeline(model="openai/clip-vit-large-patch14", task="zero-shot-image-classification")
 
     def convert_img_to_txt(self, binary_image: bytes) -> str:
         image = Image.open(io.BytesIO(binary_image))
         image_type = self._classficate_image(image)
+        
         if image_type == "Text":
-            # binary_image = self._preprocess_image(binary_image)
-            ocr_text = pytesseract.image_to_string(image, lang="kor")
+            ocr_text = self._use_ocr_naver(binary_image)
             return ocr_text
         elif image_type == "Formula":
             return self._process_equation(image)
@@ -46,23 +47,10 @@ class ImageOCR:
         Returns:
     
         """
-        predictions = self.detector(image, candidate_labels=self.type_list)
-        pred_max = 0
-        pred_val = None
+        predictions = self.image_classifier(image, candidate_labels=self.candidate_labels)
+        best_output = max(predictions, key=lambda x: x["score"])
 
-        for pred in predictions:
-            if pred['score'] > pred_max:
-                pred_max = pred['score']
-                pred_val = pred['label']
-
-        return pred_val
-    
-    def _preprocess_image(self, image_bytes: bytes):
-        """이미지 전처리 (흑백 변환 + 이진화)"""
-        image = Image.open(io.BytesIO(image_bytes)).convert("L") 
-        img_array = np.array(image)
-        _, binary_img = cv2.threshold(img_array, 150, 255, cv2.THRESH_BINARY)  # 이진화
-        return Image.fromarray(binary_img)
+        return best_output["label"]
 
     def _process_equation(self, image: Image.Image):
         pixel_values = self.processor(images=image.convert('RGB'), return_tensors="pt").pixel_values
@@ -70,6 +58,34 @@ class ImageOCR:
         text = self.processor.batch_decode(generated_ids, skip_special_tokens=True)[0]
 
         return text
+
+    def _use_ocr_naver(self, binary_img):
+        secret_key = "bXFGVWN6ZlN6a3VieW5oZHVRQVN4QmhlUVhwenhZeUw="
+        api_url = "http://clovaocr-api-kr.ncloud.com/external/v1/39574/0abdca05b34ecdb1edf0cd4f0039b45f569d3d0bd6be8707b9b7c577b60eb876"
+
+        request_json = {
+            'images': [
+                {
+                    'format': 'jpg',
+                    'name': 'demo'
+                }
+            ],
+            'requestId': str(uuid.uuid4()),
+            'version': 'V2',
+            'timestamp': int(round(time.time() * 1000))
+        }
+
+        payload = {'message': json.dumps(request_json).encode('UTF-8')}
+        files = [
+        ('file', binary_img)
+        ]
+        headers = {
+        'X-OCR-SECRET': secret_key
+        }
+
+        response = requests.request("POST", api_url, headers=headers, data = payload, files = files)
+
+        print(response.text.encode('utf8'))
 
 
 def _extract_text_from_img(jpg_path:str) -> str:

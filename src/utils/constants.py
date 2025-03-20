@@ -32,3 +32,6 @@ LATEX_UNICODE_MAP = {
     "\\text{mathbbH}" : "ℍ",
     "\\text{mathbbP}" : "ℙ"
 }
+
+# image 분류 카테고리
+IMAGE_CATEGORY = ["Graph", "Diagram", "Text", "Formula"]
