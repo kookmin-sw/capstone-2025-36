@@ -83,6 +83,10 @@ class HwpController:
                 table_cnt += 1
             
             elif ctrl.UserDesc == "그림":
+                # 이미지가 '글과 겹치게 하여 글 뒤로'로 설정 되어 있으면 워터마크이기 때문에 추출하지 않는다.
+                if ctrl.Properties.Item("TextWrap") == 2:
+                    continue
+
                 image_cnt += 1
                 self._copy_ctrl(ctrl)
                 try:
