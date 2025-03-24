@@ -28,8 +28,6 @@ def extract_latex_list(hwp: Hwp, eq_list : List[str]) -> List[str] :
     pure_latex = [_unicode_to_latex(eq) for eq in combined_eq_list]
     combined_latex = _parse_mathml_to_latex(pure_latex, hwp)
     latex_list = _split_latex(combined_latex)
-    logger.info(f"확인된 수식 갯수 : {len(eq_list)}")
-    logger.info(f"추출된 수식 갯수 : {len(latex_list)}")
     delete_file("eq.mml")
     return latex_list
 

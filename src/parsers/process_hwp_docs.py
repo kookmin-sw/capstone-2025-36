@@ -32,8 +32,7 @@ class HwpController:
         self.one_file_table_list = {}
         self.one_file_images = {}
         self.one_file_equations = []
-        
-        start = time.time()
+
         image_cnt = 0
         table_cnt = 0
         equation_cnt = 0
@@ -111,6 +110,13 @@ class HwpController:
         process_time = time.time()-start
 
         self.total_time += process_time
+
+        logger.info(f"확인된 수식 개수 : {equation_cnt}")
+        logger.info(f"추출된 수식 개수 : {len(self.one_file_equations)}")
+        logger.info(f"확인된 표 개수 : {table_cnt}")
+        logger.info(f"추출된 표 개수 : {len(self.one_file_table_list)}")
+        logger.info(f"확인된 이미지 개수 : {image_cnt}")
+        logger.info(f"추출된 이미지 개수 : {len(self.one_file_images)}")
 
         logger.info(f"Success extract from hwp file: {process_time}")
 
