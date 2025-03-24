@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 
 from parsers.table_parser import TableParser
-from parsers.image_ocr import convert_image_to_json
+from parsers.image_ocr import ImageOCR
 from parsers.json_formatter import save_json
 from utils.file_handler import get_data_from_pickling, save_data_from_pickling
 from utils.logger import init_logger
@@ -47,6 +47,14 @@ def main():
     for table_name in table_data.keys():
         table_data[table_name] = table_parser.parse_table_from_html(table_data[table_name])
     print(json.dumps(table_data, ensure_ascii=False, indent=4))
+
+    # image to text
+    image_data = components['images']
+    image_ocr = ImageOCR()
+    
+    for image_data in image_data.keys():
+        image_data[image_data] = image_ocr.convert_img_to_txt(image_data[image_data])
+    print(json.dumps(image_data, ensure_ascii=False, indent=4))
 
 
 if __name__ == "__main__":
