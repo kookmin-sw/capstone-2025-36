@@ -33,7 +33,8 @@ class HwpController:
         self.one_file_equations = []
         
         start = time.time()
-        table_cnt = 0
+        table_cnt = 1
+        image_count = 1
 
         # Latex 수식을 우선 추출
         self.hwp_equation = []
@@ -63,16 +64,20 @@ class HwpController:
                 if not row_num or not col_num:
                     continue
                 
-                table_cnt += 1
                 self.one_file_table_list[table_cnt] = html
+                table_cnt += 1
             
             elif ctrl.UserDesc == "그림":
                 self._copy_ctrl(ctrl)
                 try:
                     img_tmp_path = Path(get_image_from_clipboard())
                     if not img_tmp_path:
-                        continue   
-                    self.one_file_images[str(img_tmp_path)] = ''    
+                        continue
+                    with img_tmp_path.open("rb") as f:
+                        img_data = f.read()
+                        
+                    self.one_file_images[f"image_{image_count}"] = img_data
+                    image_count += 1
 
                 except Exception as e:
                     logger.error(f"ImageExtractionError: {str(e)}")
@@ -110,6 +115,17 @@ class HwpController:
         self.hwp.SetPosBySet(ctrl.GetAnchorPos(0))
         self.hwp.HAction.Run("SelectCtrlFront")
         self.hwp.HAction.Run("Copy")
+    
+    def get_img_with_binary(img_path: Path) -> bytes:
+        """
+        image Path를 토대로 binary 형태로 변환하는 코드
+
+        Args:
+
+        Returns:
+
+        """
+
 
     def extract_text(self) -> str:
         txt = ""
