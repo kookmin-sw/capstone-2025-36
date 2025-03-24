@@ -1,5 +1,6 @@
 import io
 import time
+import re
 from pathlib import Path
 from typing import List, Dict
 from pyhwpx import Hwp
@@ -182,5 +183,5 @@ class HwpController:
         finally:
             self.hwp.ReleaseScan()
 
-            return txt
+            return re.sub(r'(\n\s*){3,}', '\n\n\n', txt)
     
