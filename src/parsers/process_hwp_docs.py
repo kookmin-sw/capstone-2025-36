@@ -50,10 +50,10 @@ class HwpController:
                     self.hwp_equation.append(ctrl.Properties.Item('VisualString'))
                     
                     self.hwp.move_to_ctrl(ctrl)
-                    self.hwp.insert_text(f'{{eqation_{self.equation_cnt}}}')
+                    self.hwp.insert_text(f'{{equation_{self.equation_cnt}}}')
         
                 except Exception as e:
-                    logger.error(f"EqualationExtractionError: {str(e)}")
+                    logger.error(f"EquationExtractionError: {str(e)}")
         
         self.one_file_equations = extract_latex_list(self.hwp, self.hwp_equation)
 
@@ -106,12 +106,9 @@ class HwpController:
 
         self.total_time += process_time
 
-        logger.info(f"확인된 수식 개수 : {self.equation_cnt}")
-        logger.info(f"추출된 수식 개수 : {len(self.one_file_equations)}")
-        logger.info(f"확인된 표 개수 : {self.table_cnt}")
-        logger.info(f"추출된 표 개수 : {len(self.one_file_table_list)}")
-        logger.info(f"확인된 이미지 개수 : {self.image_cnt}")
-        logger.info(f"추출된 이미지 개수 : {len(self.one_file_images)}")
+        logger.info(f"확인된 수식 개수 : {self.equation_cnt} / 추출된 수식 개수 : {len(self.one_file_equations)}")
+        logger.info(f"확인된 표 개수 : {self.table_cnt} / 추출된 표 개수 : {len(self.one_file_table_list)}")
+        logger.info(f"확인된 이미지 개수 : {self.image_cnt} / 추출된 이미지 개수 : {len(self.one_file_images)}")
 
         logger.info(f"Success extract from hwp file: {process_time}")
 
