@@ -7,7 +7,7 @@ import json
 import requests
 from sympy import sympify, latex 
 from PIL import Image
-from typing import Optional
+from typing import Tuple
 from dotenv import load_dotenv
 from transformers import pipeline
 from langchain_community.document_loaders import AzureAIDocumentIntelligenceLoader
@@ -26,29 +26,29 @@ logger = init_logger(__file__, "DEBUG")
 class ImageOCR:
     def __init__(self) -> None:
         self.reader = easyocr.Reader(["en", "ko"])  # test용 ocr 모델
-        self.candidate_labels = [f'This is a photo of {label}' for label in IMAGE_CATEGORY]
         self.image_classifier = pipeline(model="openai/clip-vit-large-patch14", task="zero-shot-image-classification", use_fast=True)
         self.formular_processor = AutoProcessor.from_pretrained("ds4sd/SmolDocling-256M-preview")
         self.formular_model = AutoModelForImageTextToText.from_pretrained("ds4sd/SmolDocling-256M-preview").to("cpu")
 
 
-    def convert_img_to_txt(self, binary_image: bytes) -> Optional[str]:
+    def convert_img_to_txt(self, binary_image: bytes) -> Tuple[str, str]:
         '''
         이미지를 분류하고 각 카테고리에 따라서 str, latex, None으로 값을 리턴
         Args:
             binary_image(bytes): image data
         Return:
-            ocr_text(str|None): 이미지가 수식인 경우 텍스트 데이터, 문자열은 LaTeX입니다. 이미지가 그래프인 경우 None을 반환합니다.
+            image_type(str): 이미지 형태 리턴 IMAGE_CATEGORY의 값 중 하나이다
+            ocr_text(str|None): 이미지를 변환한 데이터 str 값
         '''
         image = Image.open(io.BytesIO(binary_image))
         image_type = self._classificate_image(image)
 
-        if image_type == "This is a photo of Text":
-            return self._extract_text_from_img(binary_image)
-        elif image_type == "This is a photo of Formula":
-            return fr"{self._extract_formula_from_img(image)}"
+        if image_type == IMAGE_CATEGORY[2]:
+            return image_type, self._extract_text_from_img(binary_image)
+        elif image_type == IMAGE_CATEGORY[0]:
+            return image_type, fr"{self._extract_formula_from_img(image)}"
         else:
-            return None
+            return image_type, None
     
     def _classificate_image(self, image: Image.Image) -> str:
         '''
@@ -59,10 +59,8 @@ class ImageOCR:
             labels: label types
         Return:
             label: image label
-            category: image category
-            score: image score
         '''
-        outputs = self.image_classifier(image, candidate_labels=self.candidate_labels)
+        outputs = self.image_classifier(image, candidate_labels=IMAGE_CATEGORY)
 
         best_output = max(outputs, key=lambda x: x["score"])
         return best_output["label"]
