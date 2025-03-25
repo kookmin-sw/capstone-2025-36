@@ -1,6 +1,10 @@
 import io
 import os
 import re
+import uuid
+import time
+import json
+import requests
 from sympy import sympify, latex 
 from PIL import Image
 from typing import Optional
@@ -103,7 +107,7 @@ class ImageOCR:
 
         return latex_result
 
-    def _extract_text_from_img(self, binary_img: bytes) -> str:
+    def _extract_text_from_img(self, binary_img: bytes, ocr_model="") -> str:
         '''
         이미지에서 텍스트를 추출합니다
         Args:
@@ -111,16 +115,45 @@ class ImageOCR:
         Return:
             text(str): image에서 추출한 text
         '''
-        # OCRLoader = AzureAIDocumentIntelligenceLoader(
-        #     api_endpoint=os.getenv("AZURE_COGNITIVE_API_ENDPOINT"), 
-        #     api_key=os.getenv("AZURE_COGNITIVE_API_KEY"),  
-        #     api_model="prebuilt-layout",
-        #     bytes_source=binary_img,
-        #     mode="page"
-        # )
-        # documents = OCRLoader.load()
-        # texts = [doc.page_content for doc in documents]
-        
-        texts = self.reader.readtext(binary_img)
-        
-        return texts[1]
+        if ocr_model == "azure":
+            OCRLoader = AzureAIDocumentIntelligenceLoader(
+                api_endpoint=os.getenv("AZURE_COGNITIVE_API_ENDPOINT"), 
+                api_key=os.getenv("AZURE_COGNITIVE_API_KEY"),  
+                api_model="prebuilt-layout",
+                bytes_source=binary_img,
+                mode="page"
+            )
+            documents = OCRLoader.load()
+            texts = [doc.page_content for doc in documents]
+
+        elif ocr_model == "easyocr":
+            texts = self.reader.readtext(binary_img)[1]
+
+        else:
+            secret_key = os.getenv('NAVER_API_KEY')
+            api_url = os.getenv('AZURE_COGNITIVE_API_KEY')
+
+            request_json = {
+                'images': [
+                    {
+                        'format': 'jpg',
+                        'name': 'demo'
+                    }
+                ],
+                'requestId': str(uuid.uuid4()),
+                'version': 'V2',
+                'timestamp': int(round(time.time() * 1000))
+            }
+
+            payload = {'message': json.dumps(request_json).encode('UTF-8')}
+            files = [
+            ('file', binary_img)
+            ]
+            headers = {
+            'X-OCR-SECRET': secret_key
+            }
+
+            response = requests.request("POST", api_url, headers=headers, data = payload, files = files)
+
+            texts = response.text.encode('utf8')
+        return texts
