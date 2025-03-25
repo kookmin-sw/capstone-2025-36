@@ -33,9 +33,9 @@ class HwpController:
         self.one_file_images = {}
         self.one_file_equations = []
 
-        image_cnt = 0
-        table_cnt = 0
-        equation_cnt = 0
+        self.image_cnt = 0
+        self.table_cnt = 0
+        self.equation_cnt = 0
         
         table_cnt = 1
         image_count = 1
@@ -44,13 +44,13 @@ class HwpController:
         self.hwp_equation = []
         for ctrl in self.hwp.ctrl_list:
             if ctrl.UserDesc == "수식":
-                equation_cnt += 1
+                self.equation_cnt += 1
                 self._copy_ctrl(ctrl)
                 try:
                     self.hwp_equation.append(ctrl.Properties.Item('VisualString'))
                     
                     self.hwp.move_to_ctrl(ctrl)
-                    self.hwp.insert_text(f'{{eqation_{equation_cnt}}}')
+                    self.hwp.insert_text(f'{{eqation_{self.equation_cnt}}}')
         
                 except Exception as e:
                     logger.error(f"EqualationExtractionError: {str(e)}")
@@ -59,9 +59,9 @@ class HwpController:
 
         for ctrl in self.hwp.ctrl_list:
             if ctrl.UserDesc == "표":
-                table_cnt += 1
+                self.table_cnt += 1
                 self.hwp.move_to_ctrl(ctrl)
-                self.hwp.insert_text(f'{{table_{table_cnt}}}')
+                self.hwp.insert_text(f'{{table_{self.table_cnt}}}')
                 self._copy_ctrl(ctrl)
 
                 try:
@@ -77,31 +77,26 @@ class HwpController:
                 if not row_num or not col_num:
                     continue
 
-                
-                self.one_file_table_list[table_cnt] = html
-                table_cnt += 1
+                self.one_file_table_list[self.table_cnt] = html
             
             elif ctrl.UserDesc == "그림":
                 # 이미지가 '글과 겹치게 하여 글 뒤로'로 설정 되어 있으면 워터마크이기 때문에 추출하지 않는다.
                 if ctrl.Properties.Item("TextWrap") == 2:
                     continue
 
-                image_cnt += 1
+                self.image_cnt += 1
                 self._copy_ctrl(ctrl)
                 try:
                     img_tmp_path = Path(get_image_from_clipboard())
                     if not img_tmp_path:
                         continue   
-                    self.one_file_images[str(img_tmp_path)] = ''
-                    
-                    self.hwp.move_to_ctrl(ctrl)
-                    self.hwp.insert_text(f'{{image_{image_cnt}}}')  
-                        continue
                     with img_tmp_path.open("rb") as f:
                         img_data = f.read()
-                        
-                    self.one_file_images[f"image_{image_count}"] = img_data
-                    image_count += 1
+    
+                    self.one_file_images[f"image_{self.image_cnt}"] = img_data
+                    
+                    self.hwp.move_to_ctrl(ctrl)
+                    self.hwp.insert_text(f'{{image_{self.image_cnt}}}')  
 
                 except Exception as e:
                     logger.error(f"ImageExtractionError: {str(e)}")
@@ -111,11 +106,11 @@ class HwpController:
 
         self.total_time += process_time
 
-        logger.info(f"확인된 수식 개수 : {equation_cnt}")
+        logger.info(f"확인된 수식 개수 : {self.equation_cnt}")
         logger.info(f"추출된 수식 개수 : {len(self.one_file_equations)}")
-        logger.info(f"확인된 표 개수 : {table_cnt}")
+        logger.info(f"확인된 표 개수 : {self.table_cnt}")
         logger.info(f"추출된 표 개수 : {len(self.one_file_table_list)}")
-        logger.info(f"확인된 이미지 개수 : {image_cnt}")
+        logger.info(f"확인된 이미지 개수 : {self.image_cnt}")
         logger.info(f"추출된 이미지 개수 : {len(self.one_file_images)}")
 
         logger.info(f"Success extract from hwp file: {process_time}")
