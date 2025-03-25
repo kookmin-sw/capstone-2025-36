@@ -34,7 +34,7 @@ LATEX_UNICODE_MAP = {
 }
 
 # image 분류 카테고리
-IMAGE_CATEGORY = ["Formula", "Graph", "Something other than a graph or formula"]
+IMAGE_CATEGORY = ["Latex", "Chart", "Something other than a graph or formula"]
 
 FORMULA_OCR_MESSAGE = [
     {
