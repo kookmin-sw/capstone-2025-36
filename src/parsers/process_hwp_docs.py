@@ -6,11 +6,14 @@ from pathlib import Path
 from typing import List, Dict
 from pyhwpx import Hwp
 import pandas as pd
+import json
 
 from utils.logger import init_logger
 from parsers.clipboard import get_table_from_clipboard, get_image_from_clipboard
-from parsers.table_parser import Table
+from parsers.table_parser import TableParser
+from parsers.image_ocr import ImageOCR
 from parsers.equ_parser import extract_latex_list
+from utils.constants import OUTPUT_JSON
 
 
 logger = init_logger(__file__, "DEBUG")
@@ -113,12 +116,30 @@ class HwpController:
 
         logger.info(f"Success extract from hwp file: {process_time}")
 
-        return {
+        logger.info(f"JSON 변환 진행 중")
+        table_parser = TableParser()
+        image_ocr = ImageOCR()
+
+        for table_name in self.one_file_table_list.keys():
+            self.one_file_table_list[table_name] = table_parser.parse_table_from_html(self.one_file_table_list[table_name])
+
+        for image_data in self.one_file_images.keys():
+            self.one_file_images[image_data] = image_ocr.convert_img_to_txt(self.one_file_images[image_data])
+
+        components = {
+            "texts": self.extract_text(),
             "tables": self.one_file_table_list,
             "images": self.one_file_images,
-            "equals": self.one_file_equations,
-            "content": self.extract_text()
+            "equals": self.one_file_equations
         }
+    
+        try:
+            with OUTPUT_JSON.open("w", encoding="utf-8") as json_file:
+                json.dump(components, json_file, ensure_ascii=False, indent=4)
+            logger.info(f"Successfully save json file: {str(OUTPUT_JSON)}")
+        
+        except Exception as e:
+            logger.error(f"Failed save json file: {e}")
 
     def get_process_time(self) -> int:
         return round(self.total_time / self.docs_count, 2)
