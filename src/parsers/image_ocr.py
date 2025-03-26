@@ -46,14 +46,17 @@ class ImageOCR:
         '''
         binary_image = base64.b64decode(encoding_image)
         image = Image.open(io.BytesIO(binary_image))
+        logger.info("Image Loading..")
+
         image_type = self._classificate_image(image)
+        logger.info(f"Success Image Classification: {image_type}")
 
         if image_type == IMAGE_CATEGORY[2]:
-            return image_type, self._extract_text_from_img(binary_image)
+            return self._extract_text_from_img(binary_image)
         elif image_type == IMAGE_CATEGORY[0]:
-            return image_type, fr"{self._extract_formula_from_img(image)}"
+            return fr"{self._extract_formula_from_img(image)}"
         else:
-            return image_type, image_type
+            return image_type
     
     def _classificate_image(self, image: Image.Image) -> str:
         '''
@@ -82,11 +85,7 @@ class ImageOCR:
         generated_ids = self.formula_model.generate(**inputs, max_new_tokens=500)
         generated_text = self.formula_processor.batch_decode(generated_ids, skip_special_tokens=True)[0]
 
-        latex_result = self._extract_and_convert_to_latex(generated_text)
-
-        return latex_result
-
-    def _extract_and_convert_to_latex(self, text: str):
+        def extract_and_convert_to_latex(text: str) -> str:
             '''
             수식을 감지하고 LaTeX 형식으로 변환합니다.
             Args:
