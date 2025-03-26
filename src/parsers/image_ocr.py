@@ -35,7 +35,7 @@ class ImageOCR:
         self.formula_prompt = self.formula_processor.apply_chat_template(FORMULA_OCR_MESSAGE, add_generation_prompt=True)
 
 
-    def convert_img_to_txt(self, encoding_image: str) -> Tuple[str, str]:
+    def convert_img_to_txt(self, encoding_image: str) -> str:
         '''
         이미지를 분류하고 각 카테고리에 따라서 str, latex, None으로 값을 리턴
         Args:
