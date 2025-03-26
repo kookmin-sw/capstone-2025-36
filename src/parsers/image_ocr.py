@@ -120,4 +120,5 @@ class ImageOCR:
         logger.info(f'Success extract text')
         result = self.reader.readtext(binary_img, detail = 0)
         
-        return result
+        texts = self.reader.readtext(binary_img)
+        return " ".join([result[1] for result in texts])
