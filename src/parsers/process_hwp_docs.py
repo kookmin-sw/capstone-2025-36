@@ -10,11 +10,7 @@ import json
 
 from utils.logger import init_logger
 from parsers.clipboard import get_table_from_clipboard, get_image_from_clipboard
-from parsers.table_parser import TableParser
-from parsers.image_ocr import ImageOCR
 from parsers.equ_parser import extract_latex_list
-from utils.constants import OUTPUT_JSON
-
 
 logger = init_logger(__file__, "DEBUG")
 
@@ -95,10 +91,10 @@ class HwpController:
                     img_tmp_path = Path(get_image_from_clipboard())
                     if not img_tmp_path:
                         continue   
+
                     with img_tmp_path.open("rb") as f:
-                        img_data = f.read()
-    
-                    self.one_file_images[f"image_{self.image_cnt}"] = base64.b64encode(img_data)
+                        img_data = base64.b64encode(f.read()).decode("utf-8")
+                    self.one_file_images[f"image_{self.image_cnt}"] = img_data
                     
                     self.hwp.move_to_ctrl(ctrl)
                     self.hwp.insert_text(f'{{image_{self.image_cnt}}}')  
@@ -118,14 +114,6 @@ class HwpController:
         logger.info(f"Success extract from hwp file: {process_time}")
 
         logger.info(f"JSON 변환 진행 중")
-        table_parser = TableParser()
-        #image_ocr = ImageOCR()
-
-        for table_name in self.one_file_table_list.keys():
-            self.one_file_table_list[table_name] = table_parser.parse_table_from_html(self.one_file_table_list[table_name])
-
-        #for image_data in self.one_file_images.keys():
-            #self.one_file_images[image_data] = image_ocr.convert_img_to_txt(self.one_file_images[image_data])
 
         components = {
             "texts": self.extract_text(),
@@ -133,14 +121,9 @@ class HwpController:
             "images": self.one_file_images,
             "equations": self.one_file_equations
         }
-    
-        try:
-            with OUTPUT_JSON.open("w", encoding="utf-8") as json_file:
-                json.dump(components, json_file, ensure_ascii=False, indent=4)
-            logger.info(f"Successfully save json file: {str(OUTPUT_JSON)}")
-        
-        except Exception as e:
-            logger.error(f"Failed save json file: {e}")
+
+        return components
+
 
     def get_process_time(self) -> int:
         return round(self.total_time / self.docs_count, 2)

@@ -1,5 +1,6 @@
 import io
 import os
+import base64
 import re
 import base64
 from sympy import sympify, latex 
@@ -34,29 +35,18 @@ class ImageOCR:
         self.formula_prompt = self.formula_processor.apply_chat_template(FORMULA_OCR_MESSAGE, add_generation_prompt=True)
 
 
-    def convert_img_to_txt(self, encode_image: str) -> Tuple[str, str]:
+    def convert_img_to_txt(self, encoding_image: str) -> Tuple[str, str]:
         '''
         이미지를 분류하고 각 카테고리에 따라서 str, latex, None으로 값을 리턴
         Args:
-            encode_image(bytes): encoding된 image 데이터
+            encoding_image(str): encoding된 image 데이터
         Return:
             image_type(str): 이미지 형태 리턴 IMAGE_CATEGORY의 값 중 하나이다
             ocr_text(str|None): 이미지를 변환한 데이터 str 값
         '''
-        try:
-            binary_image = base64.b64decode(encode_image)
-            image = Image.open(io.BytesIO(binary_image))
-            logger.info("Success loading image")
-        except Exception as e:
-            logger.error(f"Failed loading image: {e}")
-            return encode_image
-        
-        try:
-            image_type = self._classificate_image(image)
-            logger.info(f"classificate image: {image_type}")
-        except Exception as e:
-            logger.error(f"Failed classificate image: {e}")
-            return encode_image
+        binary_image = base64.b64decode(encoding_image)
+        image = Image.open(io.BytesIO(binary_image))
+        image_type = self._classificate_image(image)
 
         if image_type == IMAGE_CATEGORY[2]:
             return image_type, self._extract_text_from_img(binary_image)
