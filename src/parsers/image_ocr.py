@@ -55,7 +55,7 @@ class ImageOCR:
         elif image_type == IMAGE_CATEGORY[0]:
             return image_type, fr"{self._extract_formula_from_img(image)}"
         else:
-            return image_type, None
+            return image_type, image_type
     
     def _classificate_image(self, image: Image.Image) -> str:
         '''
