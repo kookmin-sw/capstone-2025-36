@@ -25,10 +25,16 @@ logger = init_logger(__file__, "DEBUG")
 
 class ImageOCR:
     def __init__(self) -> None:
+        # OCR Model init
         self.reader = easyocr.Reader(["en", "ko"])  # test용 ocr 모델
+        
+        # Classification Model
         self.image_classifier = pipeline(model="openai/clip-vit-large-patch14", task="zero-shot-image-classification", use_fast=True)
-        self.formular_processor = AutoProcessor.from_pretrained("ds4sd/SmolDocling-256M-preview")
-        self.formular_model = AutoModelForImageTextToText.from_pretrained("ds4sd/SmolDocling-256M-preview").to("cpu")
+        
+        # Formula Model
+        self.formula_processor = AutoProcessor.from_pretrained("ds4sd/SmolDocling-256M-preview")
+        self.formula_model = AutoModelForImageTextToText.from_pretrained("ds4sd/SmolDocling-256M-preview").to("cpu")
+        self.formula_prompt = self.formula_processor.apply_chat_template(FORMULA_OCR_MESSAGE, add_generation_prompt=True)
 
 
     def convert_img_to_txt(self, binary_image: bytes) -> Tuple[str, str]:
@@ -41,7 +47,10 @@ class ImageOCR:
             ocr_text(str|None): 이미지를 변환한 데이터 str 값
         '''
         image = Image.open(io.BytesIO(binary_image))
+        logger.info("success loading image")
+        
         image_type = self._classificate_image(image)
+        logger.info(f"classificate image: {image_type}")
 
         if image_type == IMAGE_CATEGORY[2]:
             return image_type, self._extract_text_from_img(binary_image)
@@ -73,11 +82,11 @@ class ImageOCR:
         Return:
             latex_result(str): 추출된 latex를 str으로 변환하여 리턴
         '''
-        prompt = self.formular_processor.apply_chat_template(FORMULA_OCR_MESSAGE, add_generation_prompt=True)
-        inputs = self.formular_processor(text=prompt, images=[image], return_tensors="pt").to("cpu")
+        
+        inputs = self.formula_processor(text=self.formula_prompt, images=[image], return_tensors="pt").to("cpu")
 
-        generated_ids = self.formular_model.generate(**inputs, max_new_tokens=500)
-        generated_text = self.formular_processor.batch_decode(generated_ids, skip_special_tokens=True)[0]
+        generated_ids = self.formula_model.generate(**inputs, max_new_tokens=500)
+        generated_text = self.formula_processor.batch_decode(generated_ids, skip_special_tokens=True)[0]
 
         latex_result = self._extract_and_convert_to_latex(generated_text)
 
