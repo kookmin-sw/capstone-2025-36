@@ -1,6 +1,7 @@
 import io
 import time
 import re
+import base64
 from pathlib import Path
 from typing import List, Dict
 from pyhwpx import Hwp
@@ -93,7 +94,7 @@ class HwpController:
                     with img_tmp_path.open("rb") as f:
                         img_data = f.read()
     
-                    self.one_file_images[f"image_{self.image_cnt}"] = img_data
+                    self.one_file_images[f"image_{self.image_cnt}"] = base64.b64encode(img_data)
                     
                     self.hwp.move_to_ctrl(ctrl)
                     self.hwp.insert_text(f'{{image_{self.image_cnt}}}')  

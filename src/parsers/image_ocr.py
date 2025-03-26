@@ -1,10 +1,7 @@
 import io
 import os
 import re
-import uuid
-import time
-import json
-import requests
+import base64
 from sympy import sympify, latex 
 from PIL import Image
 from typing import Tuple
@@ -32,20 +29,21 @@ class ImageOCR:
         self.image_classifier = pipeline(model="openai/clip-vit-large-patch14", task="zero-shot-image-classification", use_fast=True)
         
         # Formula Model
-        self.formula_processor = AutoProcessor.from_pretrained("ds4sd/SmolDocling-256M-preview")
+        self.formula_processor = AutoProcessor.from_pretrained("ds4sd/SmolDocling-256M-preview", use_fast=True)
         self.formula_model = AutoModelForImageTextToText.from_pretrained("ds4sd/SmolDocling-256M-preview").to("cpu")
         self.formula_prompt = self.formula_processor.apply_chat_template(FORMULA_OCR_MESSAGE, add_generation_prompt=True)
 
 
-    def convert_img_to_txt(self, binary_image: bytes) -> Tuple[str, str]:
+    def convert_img_to_txt(self, encode_image: str) -> Tuple[str, str]:
         '''
         이미지를 분류하고 각 카테고리에 따라서 str, latex, None으로 값을 리턴
         Args:
-            binary_image(bytes): image data
+            encode_image(bytes): encoding된 image 데이터
         Return:
             image_type(str): 이미지 형태 리턴 IMAGE_CATEGORY의 값 중 하나이다
             ocr_text(str|None): 이미지를 변환한 데이터 str 값
         '''
+        binary_image = base64.b64decode(encode_image)
         image = Image.open(io.BytesIO(binary_image))
         logger.info("success loading image")
         
