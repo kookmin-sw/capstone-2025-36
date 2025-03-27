@@ -40,9 +40,9 @@ if uploaded_file is not None:
                 
                 for image_name, image_byte in image_data.items():
                     try:
-                        image_type, image_text = st.session_state.image_ocr.convert_img_to_txt(image_byte)
+                        image_text = st.session_state.image_ocr.convert_img_to_txt(image_byte)
                         json_data[curr_key]['images'][image_name] = image_text
-                        st.session_state.logger.info(f"Image {image_type}: {image_name} processed successfully.")
+                        st.session_state.logger.info(f"Image {image_name} processed successfully.")
                     except Exception as e:
                         st.session_state.logger.error(f"Error processing image {image_name}: {e}")
 

@@ -3,9 +3,7 @@ import os
 import base64
 import re
 import base64
-from sympy import sympify, latex 
 from PIL import Image
-from typing import Tuple
 from dotenv import load_dotenv
 from transformers import pipeline
 from langchain_community.document_loaders import AzureAIDocumentIntelligenceLoader
@@ -27,7 +25,8 @@ class ImageOCR:
         self.reader = easyocr.Reader(["en", "ko"])  # test용 ocr 모델
         
         # Classification Model
-        self.image_classifier = pipeline(model="google/siglip2-so400m-patch14-384", task="zero-shot-image-classification", use_fast=True)
+        checkpoint = "google/siglip2-so400m-patch14-384"  # openai/clip-vit-large-patch14
+        self.image_classifier = pipeline(task="zero-shot-image-classification", model=checkpoint)
         
         # Formula Model
         self.formula_processor = AutoProcessor.from_pretrained("ds4sd/SmolDocling-256M-preview", use_fast=True)
@@ -35,7 +34,7 @@ class ImageOCR:
         self.formula_prompt = self.formula_processor.apply_chat_template(FORMULA_OCR_MESSAGE, add_generation_prompt=True)
 
 
-    def convert_img_to_txt(self, encoding_image: str) -> str:
+    def convert_img_to_txt(self, encode_image: str) -> str:
         '''
         이미지를 분류하고 각 카테고리에 따라서 str, latex, None으로 값을 리턴
         Args:
@@ -44,20 +43,27 @@ class ImageOCR:
             image_type(str): 이미지 형태 리턴 IMAGE_CATEGORY의 값 중 하나이다
             ocr_text(str|None): 이미지를 변환한 데이터 str 값
         '''
-        binary_image = base64.b64decode(encoding_image)
-        image = Image.open(io.BytesIO(binary_image))
-        logger.info("Image Loading..")
+        try:
+            binary_image = base64.b64decode(encode_image)
+            image = Image.open(io.BytesIO(binary_image)).convert("RGB")
+            logger.info("Success loading image")
+        except Exception as e:
+            logger.error(f"Failed loading image: {e}")
+            return  
+        
+        try:
+            image_type = self._classificate_image(image)
 
-        image_type = self._classificate_image(image)
-        logger.info(f"Success Image Classification: {image_type}")
+            if image_type == IMAGE_CATEGORY[2]:
+                return self._extract_text_from_img(binary_image)
+            elif image_type == IMAGE_CATEGORY[0]:
+                return fr"{self._extract_formula_from_img(image)}"
+            else:
+                return image_type
+            
+        except Exception as e:
+            return encode_image
 
-        if image_type == IMAGE_CATEGORY[2]:
-            return self._extract_text_from_img(binary_image)
-        elif image_type == IMAGE_CATEGORY[0]:
-            return fr"{self._extract_formula_from_img(image)}"
-        else:
-            return image_type
-    
     def _classificate_image(self, image: Image.Image) -> str:
         '''
         이미지 분류 (그래프, 표, 텍스트로 구분)
@@ -66,10 +72,15 @@ class ImageOCR:
         Return:
             label: image label
         '''
-        outputs = self.image_classifier(image, candidate_labels=IMAGE_CATEGORY)
+        try:
+            outputs = self.image_classifier(image, candidate_labels=IMAGE_CATEGORY)
+            best_output = max(outputs, key=lambda x: x["score"])['label']
+            logger.info(f"classificate image: {best_output}")
 
-        best_output = max(outputs, key=lambda x: x["score"])
-        return best_output["label"]
+            return best_output
+        
+        except Exception as e:
+            logger.error(f"Failed classificate image: {e}")
 
     def _extract_formula_from_img(self, image: Image.Image) -> str:
         '''

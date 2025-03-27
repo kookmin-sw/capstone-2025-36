@@ -24,6 +24,6 @@ if uploaded_file is not None:
 if st.button("텍스트 추출"):
     if image is not None:
             with st.spinner("텍스트를 추출 중입니다..."):
-                image_type, image_text = st.session_state.image_ocr.convert_img_to_txt(encode_image)    
+                image_text = st.session_state.image_ocr.convert_img_to_txt(encode_image)    
 
     st.text_area("OCR 결과", image_text, height=200)
