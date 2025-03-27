@@ -57,7 +57,7 @@ def main():
 
         # image OCR 
         for image_key, image_data in curr_document['images'].items():
-            total_dict[curr_name]['tables'][image_key] = image_ocr.convert_img_to_txt(image_data)
+            total_dict[curr_name]['images'][image_key] = image_ocr.convert_img_to_txt(image_data)
     
     try:
         with OUTPUT_JSON.open("w", encoding="utf-8") as json_file:
