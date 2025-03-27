@@ -19,10 +19,6 @@ def load_resource():
     }  # 예시 리소스
     return resource
 
-
-st.cache_data.clear()
-st.cache_resource.clear()
-
 resource = load_resource()
 
 
@@ -54,8 +50,6 @@ if uploaded_file is not None:
                         resource["logger"].info(f"Image {image_type}: {image_name} processed successfully.")
                     except Exception as e:
                         resource["logger"].error(f"Error processing image {image_name}: {e}")
-                        # curr_json[image_name] = f"Error: {e}"
-                    # curr_json[image_name] = 
 
     st.write("업로드된 JSON 데이터:")
     st.json(json_data)
