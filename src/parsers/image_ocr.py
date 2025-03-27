@@ -26,7 +26,7 @@ class ImageOCR:
         self.reader = easyocr.Reader(["en", "ko"])  # test용 ocr 모델
         
         # Classification Model
-        self.image_classifier = pipeline(model="openai/clip-vit-large-patch14", task="zero-shot-image-classification", use_fast=True)
+        self.image_classifier = pipeline(model="google/siglip2-so400m-patch14-384", task="zero-shot-image-classification", use_fast=True)
         
         # Formula Model
         self.formula_processor = AutoProcessor.from_pretrained("ds4sd/SmolDocling-256M-preview", use_fast=True)
@@ -62,8 +62,6 @@ class ImageOCR:
         이미지 분류 (그래프, 표, 텍스트로 구분)
         Args:
             image(Image.Image): pillow image data composed RGB
-            category(str): image label
-            labels: label types
         Return:
             label: image label
         '''
@@ -98,21 +96,14 @@ class ImageOCR:
             Return:
                 latex_text(str): 유효한 수식 패턴이 감지되면 LaTeX 형식으로 반환하고, 그렇지 않으면 원본 텍스트를 반환합니다.
             '''
-            math_pattern = r"[0-9a-zA-Z\s\+\-\*/=\(\)\^\{\}]+"
-            equations = re.findall(math_pattern, text)
+            text = re.sub(r"User:\s*Extract mathematical expressions in LaTeX format\s*Assistant: 0>0>500>500>", "", text)
+            text = re.sub(r"\\, \.$", "", text)
+            return f"${text}$"
 
-            latex_expressions = []
-            for eq in equations:
-                try:
-                    sympy_expr = sympify(eq)
-                    latex_expr = latex(sympy_expr)
-                    latex_expressions.append(f"${latex_expr}$")
-                except Exception:
-                    latex_expressions.append(f"${eq}$")
+        latex_result = extract_and_convert_to_latex(generated_text)
+        return latex_result
 
-            return "\n".join(latex_expressions)
-
-    def _extract_text_from_img(self, binary_img: bytes, ocr_model="easyocr") -> str:
+    def _extract_text_from_img(self, binary_img: bytes) -> str:
         '''
         이미지에서 텍스트를 추출합니다
         Args:
@@ -120,45 +111,16 @@ class ImageOCR:
         Return:
             text(str): image에서 추출한 text
         '''
-        if ocr_model == "azure":
-            OCRLoader = AzureAIDocumentIntelligenceLoader(
-                api_endpoint=os.getenv("AZURE_COGNITIVE_API_ENDPOINT"), 
-                api_key=os.getenv("AZURE_COGNITIVE_API_KEY"),  
-                api_model="prebuilt-layout",
-                bytes_source=binary_img,
-                mode="page"
-            )
-            documents = OCRLoader.load()
-            texts = [doc.page_content for doc in documents]
-
-        elif ocr_model == "easyocr":
-            texts = self.reader.readtext(binary_img)[1]
-
-        else:
-            secret_key = os.getenv('NAVER_API_KEY')
-            api_url = os.getenv('AZURE_COGNITIVE_API_KEY')
-
-            request_json = {
-                'images': [
-                    {
-                        'format': 'jpg',
-                        'name': 'demo'
-                    }
-                ],
-                'requestId': str(uuid.uuid4()),
-                'version': 'V2',
-                'timestamp': int(round(time.time() * 1000))
-            }
-
-            payload = {'message': json.dumps(request_json).encode('UTF-8')}
-            files = [
-            ('file', binary_img)
-            ]
-            headers = {
-            'X-OCR-SECRET': secret_key
-            }
-
-            response = requests.request("POST", api_url, headers=headers, data = payload, files = files)
-
-            texts = response.text.encode('utf8')
-        return texts
+        # OCRLoader = AzureAIDocumentIntelligenceLoader(
+        #     api_endpoint=os.getenv("AZURE_COGNITIVE_API_ENDPOINT"), 
+        #     api_key=os.getenv("AZURE_COGNITIVE_API_KEY"),  
+        #     api_model="prebuilt-layout",
+        #     bytes_source=binary_img,
+        #     mode="page"
+        # )
+        # documents = OCRLoader.load()
+        # texts = [doc.page_content for doc in documents]
+        logger.info(f'Success extract text')
+        result = self.reader.readtext(binary_img, detail = 0)
+        
+        return result
