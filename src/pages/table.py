@@ -1,16 +1,16 @@
-import base64
 import streamlit as st
 import streamlit.components.v1 as components
-from PIL import Image
 
 from parsers.table_parser import TableParser
 from utils.logger import init_logger
 
 
 logger = init_logger(__file__, "DEBUG")
-table_parser = TableParser()
-html_string = None
 
+if 'table_parser' not in st.session_state:
+    st.session_state.table_parser = TableParser()
+
+html_string = None
 
 st.title("Table to JSON")
 
@@ -25,7 +25,7 @@ if uploaded_file is not None:
 if st.button("json 변환"):
     if html_string:
         with st.spinner("json 변환 중입니다..."):
-            json_data = table_parser.parse_table_from_html(html_string) 
+            json_data = st.session_state.table_parser.parse_table_from_html(html_string) 
 
         st.write("업로드된 JSON 데이터:")
         st.json(json_data)

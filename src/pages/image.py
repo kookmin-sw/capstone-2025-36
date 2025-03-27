@@ -5,6 +5,8 @@ from PIL import Image
 from parsers.image_ocr import ImageOCR
 from utils.logger import init_logger
 
+if 'image_ocr' not in st.session_state:
+    st.session_state.image_ocr = ImageOCR()
 
 logger = init_logger(__file__, "DEBUG")
 
@@ -19,11 +21,9 @@ if uploaded_file is not None:
     image = Image.open(uploaded_file)
     st.image(image, caption='업로드한 이미지', use_container_width=True)
 
-image_ocr = ImageOCR()
-
 if st.button("텍스트 추출"):
     if image is not None:
             with st.spinner("텍스트를 추출 중입니다..."):
-                image_type, image_text = image_ocr.convert_img_to_txt(encode_image)    
+                image_type, image_text = st.session_state.image_ocr.convert_img_to_txt(encode_image)    
 
     st.text_area("OCR 결과", image_text, height=200)
