@@ -35,7 +35,22 @@ LATEX_UNICODE_MAP = {
 }
 
 # image 분류 카테고리
-IMAGE_CATEGORY = ["Latex", "Chart", "Other"]
+IMAGE_CATEGORY = {
+    "Graph": [
+        'a picture including curve graph',
+        'a picture including linear graph',
+        'a picture including bar graph',
+    ],
+
+    "Formula": [
+        'formula with korean',
+        'equilibrium expression for a chemical reaction',
+        'formula include fraction',
+    ],
+    "Text": [
+        'Sentences containing Korean',
+    ]
+}
 
 FORMULA_OCR_MESSAGE = [
     {

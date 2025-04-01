@@ -8,6 +8,7 @@ import time
 import json
 import requests
 from PIL import Image
+from itertools import chain
 from dotenv import load_dotenv
 from transformers import pipeline
 from langchain_community.document_loaders import AzureAIDocumentIntelligenceLoader
@@ -58,9 +59,9 @@ class ImageOCR:
         try:
             image_type = self._classificate_image(image)
 
-            if image_type == IMAGE_CATEGORY[2]:
+            if image_type in IMAGE_CATEGORY['Text']:
                 return self._extract_text_from_img(binary_image)
-            elif image_type == IMAGE_CATEGORY[0]:
+            elif image_type in IMAGE_CATEGORY['Formula']:
                 return fr"{self._extract_formula_from_img(image)}"
             else:
                 return image_type
@@ -77,7 +78,8 @@ class ImageOCR:
             label: image label
         '''
         try:
-            outputs = self.image_classifier(image, candidate_labels=IMAGE_CATEGORY)
+            candidate_labels = list(chain(*IMAGE_CATEGORY.values()))
+            outputs = self.image_classifier(image, candidate_labels=candidate_labels)
             best_output = max(outputs, key=lambda x: x["score"])['label']
             logger.info(f"classificate image: {best_output}")
 
