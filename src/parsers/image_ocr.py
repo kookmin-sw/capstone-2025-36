@@ -79,7 +79,11 @@ class ImageOCR:
         generated_ids = self.formular_model.generate(**inputs, max_new_tokens=500)
         generated_text = self.formular_processor.batch_decode(generated_ids, skip_special_tokens=True)[0]
 
-        def extract_and_convert_to_latex(text: str):
+        latex_result = self._extract_and_convert_to_latex(generated_text)
+
+        return latex_result
+
+    def _extract_and_convert_to_latex(self, text: str):
             '''
             수식을 감지하고 LaTeX 형식으로 변환합니다.
             Args:
@@ -101,11 +105,7 @@ class ImageOCR:
 
             return "\n".join(latex_expressions)
 
-        latex_result = extract_and_convert_to_latex(generated_text)
-
-        return latex_result
-
-    def _extract_text_from_img(self, binary_img: bytes, ocr_model="") -> str:
+    def _extract_text_from_img(self, binary_img: bytes, ocr_model="easyocr") -> str:
         '''
         이미지에서 텍스트를 추출합니다
         Args:
