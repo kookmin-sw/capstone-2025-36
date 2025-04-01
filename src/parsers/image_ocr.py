@@ -3,6 +3,10 @@ import os
 import base64
 import re
 import base64
+import uuid
+import time
+import json
+import requests
 from PIL import Image
 from dotenv import load_dotenv
 from transformers import pipeline
