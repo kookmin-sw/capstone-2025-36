@@ -43,12 +43,13 @@ IMAGE_CATEGORY = {
     ],
 
     "Formula": [
-        'formula with korean',
-        'equilibrium expression for a chemical reaction',
-        'formula include fraction',
+        'a formula including Hangul',
+        'equilibrium expression for a chemical',
+        'formula including fraction or symbols',
     ],
     "Text": [
-        'Sentences containing Korean',
+        'a sentence including Hangul',
+        'a photo including Hangul',
     ]
 }
 

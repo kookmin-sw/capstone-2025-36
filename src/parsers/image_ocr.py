@@ -30,7 +30,7 @@ class ImageOCR:
         self.ocr_model = PaddleOCR(lang='korean')
         
         # Classification Model
-        checkpoint = "google/siglip2-so400m-patch14-384"  # openai/clip-vit-large-patch14
+        checkpoint = "google/siglip2-so400m-patch14-384"
         self.image_classifier = pipeline(task="zero-shot-image-classification", model=checkpoint)
         
         # Formula Model
