@@ -22,21 +22,26 @@ def convert_image(image: Image.Image):
 
 
 logging.disable(logging.DEBUG)
-dataset = load_dataset("naver-clova-ix/synthdog-ko", split="train[:100]")
+dataset = load_dataset("naver-clova-ix/synthdog-ko", split="train", streaming=True)
 image_ocr = ImageOCR()
 
-for i in range(10):
-    image = dataset[i]['image']
-    image = image.convert('L')
+LIMIT = 10
+count = 0
 
-    image_caption = ast.literal_eval(dataset[i]['ground_truth'])
-    image_caption = image_caption['gt_parse']['text_sequence']
+print(next(iter(dataset)))
 
-    image_bytes = convert_image(image)
-    del image
+#     image = data[count]['image']
+#     image = image.convert('L')
 
-    ocr_text = image_ocr._extract_text_from_image_with_paddle(image_bytes)
-    del image_bytes
+#     image_caption = ast.literal_eval(dataset[count]['ground_truth'])
+#     image_caption = image_caption['gt_parse']['text_sequence']
 
-    cer, wer = get_score(refs=image_caption, preds=ocr_text)
-    print(f"CER: {cer}, WER: {wer}")
+#     image_bytes = convert_image(image)
+#     del image
+
+#     ocr_text = image_ocr._extract_text_from_image_with_paddle(image_bytes)
+#     del image_bytes
+
+#     cer, wer = get_score(refs=image_caption, preds=ocr_text)
+#     print(f"CER: {cer}, WER: {wer}")
+#     count += 1
