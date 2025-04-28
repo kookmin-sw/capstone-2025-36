@@ -11,12 +11,15 @@ import json
 from utils.logger import init_logger
 from parsers.clipboard import get_table_from_clipboard, get_image_from_clipboard
 from parsers.equ_parser import extract_latex_list
+from utils.window_asciimath import modify_init_py
 
 logger = init_logger(__file__, "DEBUG")
 
 
 class HwpController:
     def __init__(self) -> None:
+
+        modify_init_py()
         self.hwp = Hwp(visible=False)
         self.total_time = 0
         self.docs_count = 0
@@ -27,6 +30,7 @@ class HwpController:
 
 
     def get_tag_from_html(self, hwp_path: Path) -> Dict[str, List]:
+        
         self._open_hwp_file(hwp_path)
     
         self.one_file_table_list = {}
@@ -57,6 +61,8 @@ class HwpController:
         
         for idx, latex in enumerate(extract_latex_list(self.hwp, self.hwp_equation)):
             self.one_file_equations[f"equation_{idx+1}"] = latex
+
+        self.delete_file("eq.mml")
 
         for ctrl in self.hwp.ctrl_list:
             if ctrl.UserDesc == "표":
@@ -100,7 +106,8 @@ class HwpController:
                     self.hwp.insert_text(f'{{image_{self.image_cnt}}}')  
 
                 except Exception as e:
-                    logger.error(f"ImageExtractionError: {str(e)}")
+                    pass
+                    #logger.info(f"Success to get image from clipboard")
         
 
         process_time = time.time()-start
@@ -113,13 +120,11 @@ class HwpController:
 
         logger.info(f"Success extract from hwp file: {process_time}")
 
-        logger.info(f"JSON 변환 진행 중")
-
         components = {
             "texts": self.extract_text(),
+            "equations": self.one_file_equations,
             "tables": self.one_file_table_list,
-            "images": self.one_file_images,
-            "equations": self.one_file_equations
+            "images": self.one_file_images
         }
 
         return components
@@ -157,39 +162,71 @@ class HwpController:
 
         """
 
-
     def extract_text(self) -> str:
         txt = ""
         try:
-        # 문서 전체를 텍스트 포함 모든 컨트롤을 탐색함
-            self.hwp.InitScan(0x000F, 0x0077)
+            try:
+                self.hwp.InitScan(0x000F, 0x0077)
+            except Exception as e:
+                print(f"[Critical Error] InitScan 실패: {e}")
+                return ""  # InitScan 안 되면 더 진행 불가, 바로 빠져나가기
 
             while True:
-                textdata = self.hwp.GetText()
-                if textdata[0] == 1:
+                try:
+                    textdata = self.hwp.GetText()
+                except Exception as e:
+                    print(f"[Warning] GetText 실패: {e}")
+                    break  # 텍스트를 못 읽으면 루프 중단
+
+                if not textdata or textdata[0] == 1:
                     break
 
-                # 201 = moveScanPos로 GetText 실행한 위치로 이동함
-                self.hwp.MovePos(201, 0, 0)
+                try:
+                    self.hwp.MovePos(201, 0, 0)
+                except Exception as e:
+                    print(f"[Warning] MovePos 실패: {e}")
+                    continue  # 다음으로
 
-                # 현재 위치의 상위 컨트롤을 구함
-                parent_ctrl = self.hwp.ParentCtrl
+                try:
+                    parent_ctrl = self.hwp.ParentCtrl
+                except Exception as e:
+                    print(f"[Warning] ParentCtrl 접근 실패: {e}")
+                    parent_ctrl = None
 
-                if not parent_ctrl:  # 일반 문장(paragraph)
-                    txt = txt + textdata[1]
+                if not parent_ctrl:
+                    txt += textdata[1]
                     continue
 
-                ctrlch = parent_ctrl.CtrlCh
+                try:
+                    ctrlch = parent_ctrl.CtrlCh
+                    if ctrlch == 11 and parent_ctrl.CtrlID == "tbl":
+                        continue  # 표는 건너뛰기
+                except Exception as e:
+                    print(f"[Warning] Ctrl 정보 읽기 실패: {e}")
 
-                # 11 = 그리기 개체, 표
-                if ctrlch == 11:
-                # 상위 컨트롤이 '표'
-                    if parent_ctrl.CtrlID == "tbl":
-                        continue
+                txt += textdata[1]
 
-                txt = txt + textdata[1]
+        except Exception as e:
+            print(f"[Critical Error] extract_text 전체 실패: {e}")
+
         finally:
-            self.hwp.ReleaseScan()
+            try:
+                self.hwp.ReleaseScan()
+            except Exception as e:
+                print(f"[Warning] ReleaseScan 실패: {e}")
 
-            return re.sub(r'(\n\s*){3,}', '\n\n\n', txt)
+        return re.sub(r'(\n\s*){3,}', '\n\n\n', txt)
     
+    def delete_file(self, file_path):
+        """파일을 삭제하는 함수 (예외 처리 포함)"""
+        path = Path(file_path)
+        try:
+            if path.exists():
+                path.unlink()  # 파일 삭제
+                logger.info(f"✅ 파일 삭제 완료: {file_path}")
+            else:
+                logger.error(f"⚠ 파일이 존재하지 않음: {file_path}")
+        except PermissionError:
+            logger.exception(f"❌ 삭제 실패: {file_path} (권한 문제)")
+        except Exception as e:
+            logger.exception(f"❌ 삭제 실패: {file_path} (Error: {e})")
