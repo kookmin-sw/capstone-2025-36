@@ -126,9 +126,9 @@ class ImageOCR:
         '''
         image = Image.open(BytesIO(binary_image))
         ocr_result = self.ocr_model.ocr(asarray(image), cls=False)
-        texts = " ".join(text for _, (text, _) in ocr_result[0])
-        
-        return texts
+        if not ocr_result or not ocr_result[0]:
+            return ""
+        return " ".join(text for _, (text, _) in ocr_result[0])
 
     def extract_graph(self, binary_image: bytes):
         return None
