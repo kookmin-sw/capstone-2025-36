@@ -1,50 +1,29 @@
-import json
-import asyncio
+import base64
 import streamlit as st
+from PIL import Image
 
 from parsers.image_ocr import ImageOCR
-from parsers.table_parser import TableParser
 from utils.logger import init_logger
-
 
 if 'image_ocr' not in st.session_state:
     st.session_state.image_ocr = ImageOCR()
 
-if 'logger' not in st.session_state:
-    st.session_state.logger = init_logger(__file__, "DEBUG")
-    
-if 'table_parser' not in st.session_state:
-    st.session_state.table_parser = TableParser()
+logger = init_logger(__file__, "DEBUG")
 
 
-uploaded_file = st.file_uploader("JSON 파일을 업로드하세요", type=["json"], key="file_uploader")
+st.title("이미지 OCR 추출기")
+image_text = None
 
+uploaded_file = st.file_uploader("이미지를 업로드 하세요", type=["jpg", "png", "jpeg"])
 if uploaded_file is not None:
-    json_data = json.load(uploaded_file)
+    file_bytes = uploaded_file.getvalue()
+    encode_image = base64.b64encode(file_bytes)
+    image = Image.open(uploaded_file)
+    st.image(image, caption='업로드한 이미지', use_container_width=True)
 
-    if st.button("텍스트 추출"):
-        with st.spinner("텍스트를 추출 중입니다..."):
-            for curr_key, curr_json in json_data.items():
-                st.session_state.logger.info('complete json loading')
+if st.button("텍스트 추출"):
+    if image is not None:
+            with st.spinner("텍스트를 추출 중입니다..."):
+                image_text = st.session_state.image_ocr.convert_img_to_txt(encode_image)    
 
-                # table parsing
-                table_data = curr_json['tables']
-                st.session_state.logger.info('load Table data')
-            
-                for table_name, table_html in table_data.items():
-                    json_data[curr_key]['tables'][table_name] = st.session_state.table_parser.parse_table_from_html(table_html)
-    
-                # image to text
-                image_data = curr_json['images']
-                st.session_state.logger.info('load image data')
-                
-                for image_name, image_byte in image_data.items():
-                    try:
-                        image_text = st.session_state.image_ocr.convert_img_to_txt(image_byte)
-                        json_data[curr_key]['images'][image_name] = image_text
-                        st.session_state.logger.info(f"Image {image_name} processed successfully.")
-                    except Exception as e:
-                        st.session_state.logger.error(f"Error processing image {image_name}: {e}")
-
-    st.write("업로드된 JSON 데이터:")
-    st.json(json_data)
+    st.text_area("OCR 결과", image_text, height=200)
