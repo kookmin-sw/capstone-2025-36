@@ -38,7 +38,6 @@ class ImageOCR:
         self.formula_model = AutoModelForImageTextToText.from_pretrained("ds4sd/SmolDocling-256M-preview").to("cpu")
         self.formula_prompt = self.formula_processor.apply_chat_template(FORMULA_OCR_MESSAGE, add_generation_prompt=True)
 
-
     def convert_img_to_txt(self, encode_image: str) -> str:
         '''
         이미지를 분류하고 각 카테고리에 따라서 str, latex, None으로 값을 리턴
@@ -54,22 +53,22 @@ class ImageOCR:
             logger.info("Success loading image")
         except Exception as e:
             logger.error(f"Failed loading image: {e}")
-            return  
+            return None
         
         try:
-            image_type = self._classificate_image(image)
+            image_type = self.classificate_image(image)
 
             if image_type in IMAGE_CATEGORY['Text']:
-                return self._extract_text_from_image_with_paddle(binary_image)
+                return self.extract_text(binary_image)
             elif image_type in IMAGE_CATEGORY['Formula']:
-                return fr"{self._extract_formula_from_image(image)}"
+                return fr"{self.extract_formula(image)}"
             else:
                 return image_type
             
         except Exception as e:
             return encode_image
 
-    def _classificate_image(self, image: Image.Image) -> str:
+    def classificate_image(self, image: Image.Image) -> str:
         '''
         이미지 분류 (그래프, 표, 텍스트로 구분)
         Args:
@@ -88,7 +87,7 @@ class ImageOCR:
         except Exception as e:
             logger.error(f"Failed classificate image: {e}")
 
-    def _extract_formula_from_image(self, image: Image.Image) -> str:
+    def extract_formula(self, image: Image.Image) -> str:
         '''
         hugginface open ocr 모델을 활용해서 formula를 추출 합니다
         Args:
@@ -101,11 +100,11 @@ class ImageOCR:
         generated_ids = self.formula_model.generate(**inputs, max_new_tokens=500)
         generated_text = self.formula_processor.batch_decode(generated_ids, skip_special_tokens=True)[0]
 
-        latex_result = self._convert_text_to_latex(generated_text)
+        latex_result = self.convert_to_latex(generated_text)
 
         return latex_result
 
-    def _convert_text_to_latex(self, text: str):
+    def convert_to_latex(self, text: str):
             '''
             수식을 감지하고 LaTeX 형식으로 변환합니다.
             Args:
@@ -117,7 +116,7 @@ class ImageOCR:
             text = re.sub(r"\\, \.$", "", text)
             return f"${text}$"
 
-    def _extract_text_from_image_with_paddle(self, binary_image: bytes) -> str:
+    def extract_text(self, binary_image: bytes) -> str:
         '''
         Paddle ocr로 이미지에서 텍스트를 추출합니다
         Args:
@@ -130,50 +129,6 @@ class ImageOCR:
         texts = " ".join(text for _, (text, _) in ocr_result[0])
         
         return texts
-    
-    def _extract_text_from_image_with_azure(binary_image: bytes) -> str:
-        '''
-        azure document ai로 이미지에서 텍스트를 추출합니다
-        Args:
-            Image(bytes): bytes 타입의 Image
-        Return:
-            text(str): image에서 추출한 text
-        '''
-        OCRLoader = AzureAIDocumentIntelligenceLoader(
-            api_endpoint=os.getenv("AZURE_COGNITIVE_API_ENDPOINT"), 
-            api_key=os.getenv("AZURE_COGNITIVE_API_KEY"),  
-            api_model="prebuilt-layout",
-            bytes_source=binary_image,
-            mode="page"
-        )
-        documents = OCRLoader.load()
-        texts = [doc.page_content for doc in documents]
-        return " ".join(texts)
 
-    def _extract_text_from_image_with_clova(binary_image: bytes) -> str:
-        '''
-        clova ocr로 이미지에서 텍스트를 추출합니다
-        Args:
-            Image(bytes): bytes 타입의 Image
-        Return:
-            text(str): image에서 추출한 text
-        '''
-        request_json = {
-            'images': [
-                {
-                    'format': 'jpg',
-                    'name': 'demo'
-                }
-            ],
-            'requestId': str(uuid.uuid4()),
-            'version': 'V2',
-            'timestamp': int(round(time.time() * 1000))
-        }
-
-        payload = {'message': json.dumps(request_json).encode('UTF-8')}
-        files = [('file', binary_image)]
-        headers = {'X-OCR-SECRET': os.getenv('NAVER_API_KEY')}
-
-        response = requests.request("POST", os.getenv('AZURE_COGNITIVE_API_KEY'), headers=headers, data = payload, files = files)
-
-        return response.text.encode('utf8')
+    def extract_graph(self, binary_image: bytes):
+        return None
