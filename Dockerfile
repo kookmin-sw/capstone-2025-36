@@ -1,19 +1,23 @@
 FROM python:3.11-slim
 
-RUN apt-get update && apt-get install -y && apt-get install -y libgl1-mesa-glx \
+RUN apt-get update && apt-get install -y \
     libgl1-mesa-glx \
     libglib2.0-0 \
     libgomp1 \
-    && rm -rf /var/lib/apt/lists/* 
+    build-essential \
+    git \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
 
+RUN useradd -m -u 1000 devuser && \
+    mkdir -p /app && chown devuser:devuser /app
+USER devuser
 WORKDIR /app
+
+COPY requirements.txt .
+
+RUN pip install -r requirements.txt
 
 COPY . .
 
-RUN pip install uv
-RUN uv pip install --system --no-cache-dir --upgrade -r requirements.txt
-
-
-EXPOSE 8501
-
-CMD ["streamlit", "run", "src/app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+EXPOSE 80

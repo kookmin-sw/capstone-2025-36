@@ -4,3 +4,4 @@ __pycache__/
 assets/
 *.cmd
 *.json
+.DS_Store
