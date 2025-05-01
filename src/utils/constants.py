@@ -40,6 +40,7 @@ IMAGE_CATEGORY = {
         'a picture including curve graph',
         'a picture including linear graph',
         'a picture including bar graph',
+        'a picture including unexpected data',
     ],
 
     "Formula": [
@@ -47,10 +48,11 @@ IMAGE_CATEGORY = {
         'formula including fraction or symbols',
     ],
     "Text": [
-        'a formula including Korean',
         'a sentence including Hangul',
+        'a phrase including Hangul',
         'a photo including Hangul',
-        'a sentence including English',
+        'a sentence including English word',
+        'a sentence including korean language',
     ]
 }
 
