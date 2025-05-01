@@ -17,3 +17,4 @@ sentencepiece==0.2.0
 nlptutti==0.0.0.8
 datasets==3.5.0
 transformers==4.51.3
+google-genai==1.12.1
