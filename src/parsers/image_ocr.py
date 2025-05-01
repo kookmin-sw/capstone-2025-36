@@ -9,12 +9,12 @@ import json
 import requests
 from PIL import Image
 from io import BytesIO
+from google import genai
 from numpy import asarray
 from itertools import chain
 from dotenv import load_dotenv
 from paddleocr import PaddleOCR
-from transformers import pipeline
-from transformers import AutoProcessor, AutoModelForImageTextToText
+from transformers import AutoProcessor, AutoModelForImageTextToText, pipeline
 from langchain_community.document_loaders import AzureAIDocumentIntelligenceLoader
 from utils.logger import init_logger
 from utils.constants import IMAGE_CATEGORY, FORMULA_OCR_MESSAGE
@@ -27,11 +27,12 @@ logger = init_logger(__file__, "DEBUG")
 class ImageOCR:
     def __init__(self) -> None:
         # OCR Model init
-        self.ocr_model = PaddleOCR(lang='korean')
+        self.ocr_model = PaddleOCR(lang='korean', use_gpu=False)
         
         # Classification Model
         checkpoint = "google/siglip2-so400m-patch14-384"
         self.image_classifier = pipeline(task="zero-shot-image-classification", model=checkpoint)
+        self.CLASSIFICATION_SCORE_LIMIT = 0.01
         
         # Formula Model
         self.formula_processor = AutoProcessor.from_pretrained("ds4sd/SmolDocling-256M-preview", use_fast=True)
@@ -63,7 +64,7 @@ class ImageOCR:
             elif image_type in IMAGE_CATEGORY['Formula']:
                 return fr"{self.extract_formula(image)}"
             else:
-                return image_type
+                return self.extract_graph(binary_image)
             
         except Exception as e:
             return encode_image
@@ -79,10 +80,13 @@ class ImageOCR:
         try:
             candidate_labels = list(chain(*IMAGE_CATEGORY.values()))
             outputs = self.image_classifier(image, candidate_labels=candidate_labels)
-            best_output = max(outputs, key=lambda x: x["score"])['label']
-            logger.info(f"classificate image: {best_output}")
+            best_output = max(outputs, key=lambda x: x["score"])
+            logger.info(f"classificate image: {best_output['label']} {best_output['score']}")
+            
+            if best_output['score'] < self.CLASSIFICATION_SCORE_LIMIT:
+                return 'a picture including unexpected data'
 
-            return best_output
+            return best_output['label']
         
         except Exception as e:
             logger.error(f"Failed classificate image: {e}")
@@ -131,4 +135,15 @@ class ImageOCR:
         return " ".join(text for _, (text, _) in ocr_result[0])
 
     def extract_graph(self, binary_image: bytes):
-        return None
+        client = genai.Client(api_key=os.getenv("GOOGLE_API_KEY"))
+
+        image_part = genai.types.Part.from_bytes(
+            data=binary_image,
+            mime_type="image/jpeg"
+        )
+
+        response = client.models.generate_content(
+            model="gemini-2.0-flash",
+            contents=[image_part, "이 이미지에 대해서 알려줘"],
+        )
+        return response.text
