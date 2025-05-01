@@ -9,9 +9,6 @@ RUN apt-get update && apt-get install -y \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-RUN useradd -m -u 1000 devuser && \
-    mkdir -p /app && chown devuser:devuser /app
-USER devuser
 WORKDIR /app
 
 COPY requirements.txt .
