@@ -5,3 +5,4 @@ assets/
 *.cmd
 *.json
 .DS_Store
+.github/
