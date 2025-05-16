@@ -137,7 +137,7 @@
 
 <div align="center"> 
     <p align = "center">
-    <img src = "https://github.com/user-attachments/assets/833266f1-2e8f-4b4f-9ef4-9d222da8ac94" width = 90%/>
+    <img src = "https://github.com/user-attachments/assets/00106595-3290-4aa8-9c5b-199a8681d854" width = 90%/>
     </p>
 </div>
 
