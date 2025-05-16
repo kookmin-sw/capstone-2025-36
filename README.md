@@ -4,17 +4,16 @@
 <br/> <br/> 
 <div align="center"> 
     <p align = "center">
-        <img src = "![러닝메이트 로고](https://github.com/user-attachments/assets/9abecf57-7082-462e-b6f4-14ab56e320d4)"" width = "40%"/>
+        <img src = "https://github.com/user-attachments/assets/9abecf57-7082-462e-b6f4-14ab56e320d4"" width = "40%"/>
     </p>
 </div>
 
-![시스템구조도](https://github.com/user-attachments/assets/8e6a74fa-185d-4c8c-b267-776a667cb15b)
 ### 논문
 <a href="" target="_blank">
 <p align = "center">
-  <img src="[사진](https://github.com/user-attachments/assets/43997e03-f80f-4b24-baea-ac9fe23d4559)" width="40%">
+  <img src="https://github.com/user-attachments/assets/43997e03-f80f-4b24-baea-ac9fe23d4559" width="40%">
 <a href="" target="_blank">
-  <img src="[사진](https://github.com/user-attachments/assets/7591b229-8542-4c11-82ae-3fcccdbf662f)" width="40%">
+  <img src="https://github.com/user-attachments/assets/7591b229-8542-4c11-82ae-3fcccdbf662f" width="40%">
 </a>
 
 
