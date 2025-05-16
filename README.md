@@ -4,7 +4,7 @@
 <br/> <br/> 
 <div align="center"> 
     <p align = "center">
-        <img src = "https://github.com/user-attachments/assets/9abecf57-7082-462e-b6f4-14ab56e320d4"" width = "40%"/>
+        <img src = "https://github.com/user-attachments/assets/58245b83-0a7d-4d90-b53c-f607ae98be4e"" width = "40%"/>
     </p>
 </div>
 
@@ -41,7 +41,7 @@
 
 <div align="center"> 
     <p align = "center">
-    <img src = "![LearningMate_포스터](https://github.com/user-attachments/assets/c5fd538f-ad98-4694-a8f1-f3eed5ef5cce)" width = "60%"/>
+    <img src = "https://github.com/user-attachments/assets/c5fd538f-ad98-4694-a8f1-f3eed5ef5cce" width = "60%"/>
     </p>
 </div>
 
@@ -70,32 +70,32 @@
 <table>
     <tr align="center">
         <td style="min-width: 100px;">
-            <a href="[깃허브 주소](https://github.com/blue-ladder)">
-              <img src="![차민수](https://github.com/user-attachments/assets/a4a3548c-9576-4ebb-b99e-91c021052a10)" width="80">
+            <a href="https://github.com/blue-ladder">
+              <img src="https://github.com/user-attachments/assets/a4a3548c-9576-4ebb-b99e-91c021052a10" width="80">
               <br />
               <b>차민수</b>
             </a> 
             <br/>
         </td>
         <td style="min-width: 100px;">
-            <a href="[깃허브주소](https://github.com/UH3135)">
-              <img src="![정의현](https://github.com/user-attachments/assets/5d9cb075-9fbc-4b88-a009-9a28f9bad5bd)" width="80">
+            <a href="https://github.com/UH3135">
+              <img src="https://github.com/user-attachments/assets/5d9cb075-9fbc-4b88-a009-9a28f9bad5bd" width="80">
               <br />
               <b>정의현</b>
             </a>
             <br/>
         </td>
         <td style="min-width: 100px;">
-            <a href="[깃허브 주소](https://github.com/handsomem1n)">
-              <img src="![한승민](https://github.com/user-attachments/assets/e7557acd-d289-4ddb-a2f4-7cd02fc8ea22)" width="80">
+            <a href="https://github.com/handsomem1n">
+              <img src="https://github.com/user-attachments/assets/e7557acd-d289-4ddb-a2f4-7cd02fc8ea22" width="80">
               <br />
               <b>한승민 </b>
             </a> 
             <br/>
         </td>
         <td style="min-width: 100px;">
-            <a href="[깃허브주소](https://github.com/imaboybut)">
-              <img src="![정진우](https://github.com/user-attachments/assets/b74ff799-2c55-48b1-a28f-537c68bcc8a3)" width="80">
+            <a href="https://github.com/imaboybut">
+              <img src="https://github.com/user-attachments/assets/b74ff799-2c55-48b1-a28f-537c68bcc8a3" width="80">
               <br />
               <b>정진우</b>
             </a> 
@@ -139,7 +139,7 @@
 
 <div align="center"> 
     <p align = "center">
-    <img src = "![시스템구조도](https://github.com/user-attachments/assets/8e6a74fa-185d-4c8c-b267-776a667cb15b)" width = 90%/>
+    <img src = "https://github.com/user-attachments/assets/8e6a74fa-185d-4c8c-b267-776a667cb15b" width = 90%/>
     </p>
 </div>
 
