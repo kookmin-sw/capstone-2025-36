@@ -1,77 +1,213 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/gFPznrUY)
-# Welcome to GitHub
 
-캡스톤 팀 생성을 축하합니다.
+# 공학인재 양성을 위한 멀티모달 기반 AI tutor, Learning Mate
+<br/> <br/> 
+<div align="center"> 
+    <p align = "center">
+        <img src = "로고사진"" width = "40%"/>
+    </p>
+</div>
 
-## 팀소개 및 페이지를 꾸며주세요.
-
-- 프로젝트 소개
-  - 프로젝트 설치방법 및 데모, 사용방법, 프리뷰등을 readme.md에 작성.
-  - Api나 사용방법등 내용이 많을경우 wiki에 꾸미고 링크 추가.
-
-- 팀페이지 꾸미기
-  - 프로젝트 소개 및 팀원 소개
-  - index.md 예시보고 수정.
-
-- GitHub Pages 리파지토리 Settings > Options > GitHub Pages 
-  - Source를 marster branch
-  - Theme Chooser에서 태마선택
-  - 수정후 팀페이지 확인하여 점검.
-
-**팀페이지 주소** -> https://kookmin-sw.github.io/ '{{자신의 리파지토리 아이디}}'
-
-**예시)** 2023년 0조  https://kookmin-sw.github.io/capstone-2023-00/
+### 논문
+<a href="" target="_blank">
+<p align = "center">
+  <img src="사진" width="40%">
+<a href="" target="_blank">
+  <img src="사진" width="40%">
+</a>
 
 
-## 내용에 아래와 같은 내용들을 추가하세요.
+<br/> <br/> 
 
-### 1. 프로잭트 소개
+## 🔗 목차 
+[프로젝트 소개](#-프로젝트-소개) 
 
-프로젝트
+[주요 기능](#-주요-기능)
 
-### 2. 소개 영상
+[시연 영상](#-시연-영상)
 
-프로젝트 소개하는 영상을 추가하세요
+[팀원 소개](#-팀원-소개)
 
-### 3. 팀 소개
+[시스템 구조](#-시스템-구조)
 
-팀을 소개하세요.
+[기술 스택](#-기술-스택)   
 
-팀원정보 및 담당이나 사진 및 SNS를 이용하여 소개하세요.
+[디렉토리 구조](#-디렉토리-구조)  
 
-### 4. 사용법
+[참고 자료](#-참고-자료)
 
-소스코드제출시 설치법이나 사용법을 작성하세요.
+<br/> 
 
-### 5. 기타
+## 프로젝트 소개
 
-추가적인 내용은 자유롭게 작성하세요.
+<div align="center"> 
+    <p align = "center">
+    <img src = "https://raw.githubusercontent.com/kookmin-sw/capstone-2025-10/master/assets/poster.png" width = "60%"/>
+    </p>
+</div>
 
 
-## Markdown을 사용하여 내용꾸미기
 
-Markdown은 작문을 스타일링하기위한 가볍고 사용하기 쉬운 구문입니다. 여기에는 다음을위한 규칙이 포함됩니다.
+## 주요 기능
 
-```markdown
-Syntax highlighted code block
+### **주요 기능1**
 
-# Header 1
-## Header 2
-### Header 3
+### **주요 기능2**
 
-- Bulleted
-- List
 
-1. Numbered
-2. List
+### **주요 기능3**
 
-**Bold** and _Italic_ and `Code` text
+### **주요 기능4**
 
-[Link](url) and ![Image](src)
+<br/>
+
+## 소개 영상
+
+
+<br/>
+
+## 팀원 소개
+
+<table>
+    <tr align="center">
+        <td style="min-width: 100px;">
+            <a href="깃허브 주소">
+              <img src="이미지" width="80">
+              <br />
+              <b>차민수</b>
+            </a> 
+            <br/>
+        </td>
+        <td style="min-width: 100px;">
+            <a href="깃허브주소">
+              <img src="사진" width="80">
+              <br />
+              <b>정의현</b>
+            </a>
+            <br/>
+        </td>
+        <td style="min-width: 100px;">
+            <a href="깃허브 주소">
+              <img src="사진" width="80">
+              <br />
+              <b>한승민 </b>
+            </a> 
+            <br/>
+        </td>
+        <td style="min-width: 100px;">
+            <a href="깃허브주소">
+              <img src="사진" width="80">
+              <br />
+              <b>정진우</b>
+            </a> 
+            <br/>
+        </td>
+    </tr>
+    <tr align="center">
+        <td>
+            역할
+        </td>
+        <td>
+            역할
+        </td>
+        <td>
+            역할
+        </td>
+                <td>
+            역할
+        </td>
+                <td>
+            역할
+        </td>
+    </tr>
+    <tr align="center">
+        <td>
+            <span style="font-size: 12px;">minns00@kookmin.ac.kr</span>
+        </td>
+        <td>
+            <span style="font-size: 12px;">rabbitdy0101@kookmin.ac.kr</span>
+        </td>
+        <td>
+            <span style="font-size: 12px;">handsomemin@kookmin.ac.kr</span>
+        </td>
+                <td>
+            <span style="font-size: 12px;">imaboybut@kookmin.ac.kr</span>
+        </td>
+    </tr>
+</table>
+
+<br/>
+
+## 시스템 구조도
+<br/>
+
+<div align="center"> 
+    <p align = "center">
+    <img src = "사진" width = 90%/>
+    </p>
+</div>
+
+<br/>
+
+## 🛠 기술 스택
+
+
+### 💻 Backend
+|역할|종류|
+|-|-|
+|**Programming Language**| ![JAVA](https://img.shields.io/badge/JAVA-004027?style=for-the-badge&logo=Jameson&logoColor=white) 
+|**Framework**| ![SpringBoot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=SpringBoot&logoColor=white)
+|**Build Tool**| ![Gradle](https://img.shields.io/badge/Gradle-02303A?style=for-the-badge&logo=Gradle&logoColor=white) 
+|**API**| ![Rest](https://img.shields.io/badge/Rest_API-000000?style=for-the-badge&logo=iRobot&logoColor=white)
+|**Database**| ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=PostgreSQL&logoColor=white)
+|**Database Service**| ![Redis](https://img.shields.io/badge/Redis-FF4438?style=for-the-badge&logo=Redis&logoColor=white)
+|**Application Service**| ![NaverSMS](https://img.shields.io/badge/Naver_SMS-03C75A?style=for-the-badge&logo=Naver&logoColor=white) 
+|**Message Queue**| ![ApacheKafka](https://img.shields.io/badge/Apache_Kafka-231F20?style=for-the-badge&logo=ApacheKafka&logoColor=white) 
+
+<br />
+
+### 💻 AI
+|역할|종류|
+|-|-|
+|**Programming Language**| ![Python](https://img.shields.io/badge/Python_3.10-3776AB?style=for-the-badge&logo=python&logoColor=white) 
+|**Operating System**| ![Ubuntu](https://img.shields.io/badge/ubuntu_22.04-E95420?style=for-the-badge&logo=ubuntu&logoColor=white) 
+|**Deep Learning Framework**| ![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=PyTorch&logoColor=white)
+<br />
+
+<br/>
+
+### ETC
+|Role|Things|
+|-|-|
+|**Communication**| ![Discord](https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=Discord&logoColor=white) 
+|**Version Control**|![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white) ![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white)
+|**Project Management**| ![Notion](https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=Notion&logoColor=white) ![Trello](https://img.shields.io/badge/Trello-0052CC?style=for-the-badge&logo=Trello&logoColor=white)
+
+<br />
+
+
+<br/>
+
+## 폴더 구조
+```
+├── 📂 FR1
+
+├── 📂 FR2
+
+├── 📂 FR3
+    
+└── 📜 package
+
+└── 📕 README.md
 ```
 
-자세한 내용은 [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+<br/>
 
-### Support or Contact
 
-readme 파일 생성에 추가적인 도움이 필요하면 [도움말](https://help.github.com/articles/about-readmes/) 이나 [contact support](https://github.com/contact) 을 이용하세요.
+### [중간 발표 자료]()
+### [중간 보고서]()
+### [시연 동영상]()
+### [포스터]()
+### [최종 발표 자료]()
+### [결과 보고서]()
+### [회의록]()
