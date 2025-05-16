@@ -4,16 +4,17 @@
 <br/> <br/> 
 <div align="center"> 
     <p align = "center">
-        <img src = "로고사진"" width = "40%"/>
+        <img src = "![러닝메이트 로고](https://github.com/user-attachments/assets/9abecf57-7082-462e-b6f4-14ab56e320d4)"" width = "40%"/>
     </p>
 </div>
+
 
 ### 논문
 <a href="" target="_blank">
 <p align = "center">
-  <img src="사진" width="40%">
+  <img src="[사진](https://github.com/user-attachments/assets/43997e03-f80f-4b24-baea-ac9fe23d4559)" width="40%">
 <a href="" target="_blank">
-  <img src="사진" width="40%">
+  <img src="[사진](https://github.com/user-attachments/assets/7591b229-8542-4c11-82ae-3fcccdbf662f)" width="40%">
 </a>
 
 
@@ -30,7 +31,6 @@
 
 [시스템 구조](#-시스템-구조)
 
-[기술 스택](#-기술-스택)   
 
 [디렉토리 구조](#-디렉토리-구조)  
 
@@ -39,9 +39,10 @@
 
 ## 프로젝트 소개
 
+
 <div align="center"> 
     <p align = "center">
-    <img src = "포스터사진" width = "60%"/>
+    <img src = "![LearningMate_포스터](https://github.com/user-attachments/assets/c5fd538f-ad98-4694-a8f1-f3eed5ef5cce)" width = "60%"/>
     </p>
 </div>
 
@@ -70,32 +71,32 @@
 <table>
     <tr align="center">
         <td style="min-width: 100px;">
-            <a href="깃허브 주소">
-              <img src="이미지" width="80">
+            <a href="[깃허브 주소](https://github.com/blue-ladder)">
+              <img src="![차민수](https://github.com/user-attachments/assets/a4a3548c-9576-4ebb-b99e-91c021052a10)" width="80">
               <br />
               <b>차민수</b>
             </a> 
             <br/>
         </td>
         <td style="min-width: 100px;">
-            <a href="깃허브주소">
-              <img src="사진" width="80">
+            <a href="[깃허브주소](https://github.com/UH3135)">
+              <img src="![정의현](https://github.com/user-attachments/assets/5d9cb075-9fbc-4b88-a009-9a28f9bad5bd)" width="80">
               <br />
               <b>정의현</b>
             </a>
             <br/>
         </td>
         <td style="min-width: 100px;">
-            <a href="깃허브 주소">
-              <img src="사진" width="80">
+            <a href="[깃허브 주소](https://github.com/handsomem1n)">
+              <img src="![한승민](https://github.com/user-attachments/assets/e7557acd-d289-4ddb-a2f4-7cd02fc8ea22)" width="80">
               <br />
               <b>한승민 </b>
             </a> 
             <br/>
         </td>
         <td style="min-width: 100px;">
-            <a href="깃허브주소">
-              <img src="사진" width="80">
+            <a href="[깃허브주소](https://github.com/imaboybut)">
+              <img src="![정진우](https://github.com/user-attachments/assets/b74ff799-2c55-48b1-a28f-537c68bcc8a3)" width="80">
               <br />
               <b>정진우</b>
             </a> 
@@ -139,36 +140,12 @@
 
 <div align="center"> 
     <p align = "center">
-    <img src = "사진" width = 90%/>
+    <img src = "![시스템구조도](https://github.com/user-attachments/assets/8e6a74fa-185d-4c8c-b267-776a667cb15b)" width = 90%/>
     </p>
 </div>
 
 <br/>
 
-## 🛠 기술 스택
-
-
-### 💻 Backend
-|역할|종류|
-|-|-|
-|**Programming Language**| ![JAVA](https://img.shields.io/badge/JAVA-004027?style=for-the-badge&logo=Jameson&logoColor=white) 
-|**Framework**| ![SpringBoot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=SpringBoot&logoColor=white)
-|**Build Tool**| ![Gradle](https://img.shields.io/badge/Gradle-02303A?style=for-the-badge&logo=Gradle&logoColor=white) 
-|**API**| ![Rest](https://img.shields.io/badge/Rest_API-000000?style=for-the-badge&logo=iRobot&logoColor=white)
-|**Database**| ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=PostgreSQL&logoColor=white)
-|**Database Service**| ![Redis](https://img.shields.io/badge/Redis-FF4438?style=for-the-badge&logo=Redis&logoColor=white)
-|**Application Service**| ![NaverSMS](https://img.shields.io/badge/Naver_SMS-03C75A?style=for-the-badge&logo=Naver&logoColor=white) 
-|**Message Queue**| ![ApacheKafka](https://img.shields.io/badge/Apache_Kafka-231F20?style=for-the-badge&logo=ApacheKafka&logoColor=white) 
-
-<br />
-
-### 💻 AI
-|역할|종류|
-|-|-|
-|**Programming Language**| ![Python](https://img.shields.io/badge/Python_3.10-3776AB?style=for-the-badge&logo=python&logoColor=white) 
-|**Operating System**| ![Ubuntu](https://img.shields.io/badge/ubuntu_22.04-E95420?style=for-the-badge&logo=ubuntu&logoColor=white) 
-|**Deep Learning Framework**| ![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=PyTorch&logoColor=white)
-<br />
 
 <br/>
 
@@ -177,7 +154,7 @@
 |-|-|
 |**Communication**| ![Discord](https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=Discord&logoColor=white) 
 |**Version Control**|![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white) ![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white)
-|**Project Management**| ![Notion](https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=Notion&logoColor=white) ![Trello](https://img.shields.io/badge/Trello-0052CC?style=for-the-badge&logo=Trello&logoColor=white)
+|**Project Management**| ![Notion](https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=Notion&logoColor=white)
 
 <br />
 
