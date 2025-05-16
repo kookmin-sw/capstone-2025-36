@@ -1,7 +1,6 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/gFPznrUY)
 
 # 공학인재 양성을 위한 멀티모달 기반 AI tutor, Learning Mate
-<br/> <br/> 
 <div align="center"> 
     <p align = "center">
         <img src = "https://github.com/user-attachments/assets/58245b83-0a7d-4d90-b53c-f607ae98be4e"" width = "40%"/>
@@ -139,7 +138,7 @@
 
 <div align="center"> 
     <p align = "center">
-    <img src = "https://github.com/user-attachments/assets/8e6a74fa-185d-4c8c-b267-776a667cb15b" width = 90%/>
+    <img src = "https://github.com/user-attachments/assets/833266f1-2e8f-4b4f-9ef4-9d222da8ac94" width = 90%/>
     </p>
 </div>
 
