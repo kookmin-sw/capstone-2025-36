@@ -40,10 +40,9 @@
 
 <div align="center"> 
     <p align = "center">
-    <img src = "https://github.com/user-attachments/assets/c5fd538f-ad98-4694-a8f1-f3eed5ef5cce" width = "60%"/>
+    <img src = "https://github.com/user-attachments/assets/e99dccde-823c-4cfc-a6c5-863678c1bab4" width = "555"/>
     </p>
 </div>
-
 
 
 ## 주요 기능
