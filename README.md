@@ -19,7 +19,7 @@
 
 <br/> <br/> 
 
-## 🔗 목차 
+## 목차 
 [프로젝트 소개](#-프로젝트-소개) 
 
 [주요 기능](#-주요-기능)
@@ -34,7 +34,6 @@
 
 [디렉토리 구조](#-디렉토리-구조)  
 
-[참고 자료](#-참고-자료)
 
 <br/> 
 
@@ -42,7 +41,7 @@
 
 <div align="center"> 
     <p align = "center">
-    <img src = "https://raw.githubusercontent.com/kookmin-sw/capstone-2025-10/master/assets/poster.png" width = "60%"/>
+    <img src = "포스터사진" width = "60%"/>
     </p>
 </div>
 
@@ -111,9 +110,6 @@
             역할
         </td>
         <td>
-            역할
-        </td>
-                <td>
             역할
         </td>
                 <td>
