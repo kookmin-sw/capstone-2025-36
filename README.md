@@ -8,7 +8,7 @@
     </p>
 </div>
 
-
+![시스템구조도](https://github.com/user-attachments/assets/8e6a74fa-185d-4c8c-b267-776a667cb15b)
 ### 논문
 <a href="" target="_blank">
 <p align = "center">
