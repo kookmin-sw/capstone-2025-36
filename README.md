@@ -39,9 +39,6 @@
 - 공학 및 이공계열 과목 254개 운영  
 - 1.2만개 강의 영상, 10만 건 이상의 성취도 자료 보유  
 - 연 평균 5%의 데이터 증가율 기록
-
----
-
 ## 르몽 Lemong
 <img width="250" alt="르몽로고" src="https://github.com/user-attachments/assets/3e912d49-dac2-465b-95ce-38a71ba6e27e" />
 
@@ -54,7 +51,7 @@
 - 유니와이즈 : 문제점 도출 및 서비스 기획  
 - 르몽 : AI 기술 자문 및 연구 개발 참여
 
-
+---
 
 ### 연구 및 프로젝트 성과
 <a href="" target="_blank">
@@ -90,28 +87,15 @@
 ## 프로젝트 성과
 ### hwp 파일 내 수식 LaTex 변환 파이프라인 구축 및 처리를 위한 소요 시간 단축
 <img width="1174" alt="hwp 파일 내 수식 LaTex 변환 파이프라인 구축 및 처리를 위한 소요 시간 단축" src="https://github.com/user-attachments/assets/e2447ea7-4307-41f5-b352-97ffab4caf96" />
-#### 접근법
-<br>
-1. asdfa<br>
-2. fdsafd<br>
-3. dsfasdfsda<br>
+
 
 ### 이미지 분류 성능 개선
 <img width="1174" alt="이미지 분류 성능 개선" src="https://github.com/user-attachments/assets/44a327ce-de2f-42fe-b33b-6598863238b8" />
-#### 접근법
-<br>
-1. asdfa<br>
-2. fdsafd<br>
-3. dsfasdfsda<br>
 
 
 ### 음성 인식 일반화 성능 향상 및 VRAM 효율화
 <img width="1174" alt="음성 인식 일반화 성능 향상 및 VRAM 효율화" src="https://github.com/user-attachments/assets/09e3d32d-08d4-49b0-831d-3dedf129f62d" />
-#### 접근법
-<br>
-1. asdfa <br>
-2. fdsafd <br>
-3. dsfasdfsda <br>
+
 
 
 # 활용 방안
@@ -256,9 +240,11 @@
 한글 파일 데이터 추출 및 수식 LaTeX 변환
 
 [![FR1 - Latex 수식 추출 확인](https://img.youtube.com/vi/j2N-JqMUSc4/0.jpg)](https://www.youtube.com/watch?v=j2N-JqMUSc4)
+
 Latex 수식 추출 확인
 
 [![FR3 - 중요 영상 생성 시연 영상](https://www.youtube.com/watch?v=I_m72ifjmNI/0.jpg)]
+<hr>
 중요 영상 생성 시연 영상
 
 
