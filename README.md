@@ -8,10 +8,16 @@
 </div>
 
 # 협업 기업
+
+<img width="104" alt="유니와이즈로고" src="https://github.com/user-attachments/assets/19fcea30-f8eb-4b91-bff3-38582a1fc1fa" />
 유니와이즈
+<br>
+
+![르몽로고](https://github.com/user-attachments/assets/3e912d49-dac2-465b-95ce-38a71ba6e27e)
 르몽
 
-### 논문
+
+### 연구 및 프로젝트 성과
 <a href="" target="_blank">
 <p align = "center">
   <img src="https://github.com/user-attachments/assets/43997e03-f80f-4b24-baea-ac9fe23d4559" width="40%">
@@ -23,7 +29,7 @@
 <br/> <br/> 
 
 ## 목차 
-[Learning Mate](#-포스터) 
+[포스터](#-포스터) 
 
 [주요 기능](#-주요-기능)
 
@@ -48,6 +54,8 @@
     </p>
 </div>
 
+## 개발 배경
+ㄴㅇㄹㅁㅇㄴㄹㅇㄴㅁ
 
 ## 주요 기능
 
@@ -59,6 +67,9 @@
 ### **주요 기능3**
 
 ### **주요 기능4**
+
+# 향후 계획
+ㄹㅇㅁㄹㄴㅁㅇㄹ
 
 <br/>
 
@@ -182,9 +193,18 @@
 [수행계획서.pdf](https://github.com/user-attachments/files/20263831/default.pdf)
 
 
-### [시연 동영상]()
-수식 OCR 시연 : https://www.youtube.com/watch?v=-VvAF1rPMuI <br>
-한글 파일 데이터 추출 및 수식 Latex 변환 : https://www.youtube.com/watch?v=zxh2DVamLao
+### 시연 영상
+
+[![FR1 - 수식 OCR 시연](https://img.youtube.com/vi/-VvAF1rPMuI/0.jpg)](https://www.youtube.com/watch?v=-VvAF1rPMuI)  
+수식 OCR 시연
+
+[![FR1 - 한글 파일 데이터 추출 및 수식 LaTeX 변환](https://img.youtube.com/vi/zxh2DVamLao/0.jpg)](https://www.youtube.com/watch?v=zxh2DVamLao)  
+한글 파일 데이터 추출 및 수식 LaTeX 변환
+
+[![FR1 - Latex 수식 추출 확인](https://www.youtube.com/watch?v=j2N-JqMUSc4/0.jpg)](https://www.youtube.com/watch?v=j2N-JqMUSc4)
+Latex 수식 추출 확인
+
+[![FR3 - 중요 영상 생성 시연 영상](https://www.youtube.com/watch?v=I_m72ifjmNI/0.jpg)](https://www.youtube.com/watch?v=I_m72ifjmNI)
 
 ### [최종 발표 자료]()
 ### [결과 보고서]()
