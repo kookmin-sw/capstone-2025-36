@@ -6,11 +6,12 @@
         <img width="538" alt="고화질로고" src="https://github.com/user-attachments/assets/16c33156-e91d-4bff-abde-464cb7771227" />
     </p>
 </div>
+<img width="960" alt="록오" src="https://github.com/user-attachments/assets/db9469b1-21a1-4729-b82d-e504cf980069" />
 
 
 # 협업 기업
 
-<img width="700" alt="유니와이즈-jpeg" src="https://github.com/user-attachments/assets/4bbc8006-e216-4ca2-9abc-00bdab2df05d" />
+<img width="300" alt="유니와이즈-jpeg" src="https://github.com/user-attachments/assets/4bbc8006-e216-4ca2-9abc-00bdab2df05d" />
 <br>
 ### 유니와이즈
 <br>
@@ -21,7 +22,7 @@
 
 <br>
 
-<img width="700" alt="르몽로고" src="https://github.com/user-attachments/assets/3e912d49-dac2-465b-95ce-38a71ba6e27e" />
+<img width="300" alt="르몽로고" src="https://github.com/user-attachments/assets/3e912d49-dac2-465b-95ce-38a71ba6e27e" />
 <br>
 ### 르몽
 <br>
