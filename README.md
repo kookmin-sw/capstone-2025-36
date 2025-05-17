@@ -64,6 +64,7 @@
 ### n. dsfadf
 <img width="1174" alt="dddd" src="" />
 #### 접근법
+<br>
 1. asdfa<br>
 2. fdsafd<br>
 3. dsfasdfsda<br>
@@ -71,6 +72,7 @@
 ### n. dsfadf
 <img width="1174" alt="dddd" src="" />
 #### 접근법
+<br>
 1. asdfa<br>
 2. fdsafd<br>
 3. dsfasdfsda<br>
@@ -78,6 +80,7 @@
 ### n. dsfadf
 <img width="1174" alt="dddd" src="" />
 #### 접근법
+<br>
 1. asdfa<br>
 2. fdsafd<br>
 3. dsfasdfsda<br>
@@ -85,6 +88,7 @@
 ### n. dsfadf
 <img width="1174" alt="dddd" src="" />
 #### 접근법
+<br>
 1. asdfa<br>
 2. fdsafd<br>
 3. dsfasdfsda<br>
@@ -92,6 +96,7 @@
 ### n. 강의 영상 음성 인식
 <img width="1174" alt="강의 영상 음성 인식 결과" src="https://github.com/user-attachments/assets/ace4ceb6-0490-454e-a652-1832043dabaa" />
 #### 접근법
+<br>
 1. asdfa<br>
 2. fdsafd<br>
 3. dsfasdfsda<br>
@@ -101,6 +106,7 @@
 ### hwp 파일 내 수식 LaTex 변환 파이프라인 구축 및 처리를 위한 소요 시간 단축
 <img width="1174" alt="hwp 파일 내 수식 LaTex 변환 파이프라인 구축 및 처리를 위한 소요 시간 단축" src="https://github.com/user-attachments/assets/d3c3e6a4-f778-4665-bca5-b521059ad3a3" />
 #### 접근법
+<br>
 1. asdfa<br>
 2. fdsafd<br>
 3. dsfasdfsda<br>
@@ -108,31 +114,32 @@
 ### 이미지 분류 성능 개선
 <img width="1174" alt="이미지 분류 성능 개선" src="https://github.com/user-attachments/assets/44a327ce-de2f-42fe-b33b-6598863238b8" />
 #### 접근법
-1. asdfa<hr>
-2. fdsafd<hr>
-3. dsfasdfsda<hr>
+<br>
+1. asdfa<br>
+2. fdsafd<br>
+3. dsfasdfsda<br>
 
 
 ### 음성 인식 일반화 성능 향상 및 VRAM 효율화
 <img width="1174" alt="음성 인식 일반화 성능 향상 및 VRAM 효율화" src="https://github.com/user-attachments/assets/09e3d32d-08d4-49b0-831d-3dedf129f62d" />
 #### 접근법
-1. asdfa <hr>
-2. fdsafd <hr>
-3. dsfasdfsda <hr>
+<br>
+1. asdfa <br>
+2. fdsafd <br>
+3. dsfasdfsda <br>
 
 
 # 활용 방안
-### **기능 활용 방안1**
+### 기능 활용 방안1 - 실시간 질의 응답 시스템
 <img width="674" alt="image" src="https://github.com/user-attachments/assets/a61d153b-b071-4695-a9d4-24746b421890" /> <br>
-실시간 질의 응답 시스템
 
-### **기능 활용 방안2**
+
+### 기능 활용 방안2 - 난이도 별 자동화 문제은행 제공
 <img width="674" alt="난이도 별 자동화 문제은행" src="https://github.com/user-attachments/assets/cee9e3e5-5083-49a8-a615-f6f0be2590cd" /> <br>
-난이도 별 자동화 문제은행 제공
 
-### **기능 활용 방안3**
+
+### 기능 활용 방안3 - “이 개념, 어디서 설명했더라?” 해결
 <img width="674" alt="image" src="https://github.com/user-attachments/assets/a10f2313-8485-4750-998f-5552f32f2cc2" /> <br>
-“이 개념, 어디서 설명했더라?”를 해결
 
 
 <br/>
