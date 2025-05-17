@@ -135,55 +135,48 @@
 ## 역할 분담
 
 <table>
-    <tr align="center">
-        <td style="min-width: 100px;">
-            <a href="https://github.com/blue-ladder">
-              <img src="https://github.com/user-attachments/assets/a4a3548c-9576-4ebb-b99e-91c021052a10" width="80">
-              <br />
-              <b>차민수</b>
-            </a> 
-            <br/>
-        </td>
-        <td style="min-width: 100px;">
-            <a href="https://github.com/UH3135">
-              <img src="https://github.com/user-attachments/assets/5d9cb075-9fbc-4b88-a009-9a28f9bad5bd" width="80">
-              <br />
-              <b>정의현</b>
-            </a>
-            <br/>
-        </td>
-        <td style="min-width: 100px;">
-            <a href="https://github.com/handsomem1n">
-              <img src="https://github.com/user-attachments/assets/e7557acd-d289-4ddb-a2f4-7cd02fc8ea22" width="80">
-              <br />
-              <b>한승민 </b>
-            </a> 
-            <br/>
-        </td>
-        <td style="min-width: 100px;">
-            <a href="https://github.com/imaboybut">
-              <img src="https://github.com/user-attachments/assets/b74ff799-2c55-48b1-a28f-537c68bcc8a3" width="80">
-              <br />
-              <b>정진우</b>
-            </a> 
-            <br/>
-        </td>
-    </tr>
-    <tr align="center">
-        <td>
-            차민수의 역할이 무엇인지 적어주세요
-        </td>
-        <td>
-            (정의현의 역할이 무엇인지 적어주세요) 프로젝트 관리, 공유 문서 관리
-        </td>
-        <td>
-            STT 모델 구축, 프로젝트 기획, 일정 관리
-        </td>
-                <td>
-            정진우의 역할이 무엇인지 적어주세요
-        </td>
-    </tr>
+  <tr align="center">
+    <td style="min-width: 120px;">
+      <a href="https://github.com/blue-ladder">
+        <img src="https://github.com/user-attachments/assets/a4a3548c-9576-4ebb-b99e-91c021052a10" width="100" height="100"><br />
+        <b>차민수</b>
+      </a>
+    </td>
+    <td style="min-width: 120px;">
+      <a href="https://github.com/UH3135">
+        <img src="https://github.com/user-attachments/assets/5d9cb075-9fbc-4b88-a009-9a28f9bad5bd" width="100" height="100"><br />
+        <b>정의현</b>
+      </a>
+    </td>
+    <td style="min-width: 120px;">
+      <a href="https://github.com/handsomem1n">
+        <img src="https://github.com/user-attachments/assets/e7557acd-d289-4ddb-a2f4-7cd02fc8ea22" width="100" height="100"><br />
+        <b>한승민</b>
+      </a>
+    </td>
+    <td style="min-width: 120px;">
+      <a href="https://github.com/imaboybut">
+        <img src="https://github.com/user-attachments/assets/b74ff799-2c55-48b1-a28f-537c68bcc8a3" width="100" height="100"><br />
+        <b>정진우</b>
+      </a>
+    </td>
+  </tr>
+  <tr align="center">
+    <td>
+      차민수의 역할이 무엇인지<br />적어주세요
+    </td>
+    <td>
+      프로젝트 관리<br />공유 문서 관리
+    </td>
+    <td>
+      STT 모델 구축<br />프로젝트 기획<br />일정 관리
+    </td>
+    <td>
+      정진우의 역할이 무엇인지<br />적어주세요
+    </td>
+  </tr>
 </table>
+
 
 <br/>
 
