@@ -201,10 +201,12 @@
 [![FR1 - 한글 파일 데이터 추출 및 수식 LaTeX 변환](https://img.youtube.com/vi/zxh2DVamLao/0.jpg)](https://www.youtube.com/watch?v=zxh2DVamLao)  
 한글 파일 데이터 추출 및 수식 LaTeX 변환
 
-[![FR1 - Latex 수식 추출 확인](https://www.youtube.com/watch?v=j2N-JqMUSc4/0.jpg)](https://www.youtube.com/watch?v=j2N-JqMUSc4)
+[![FR1 - Latex 수식 추출 확인](https://img.youtube.com/vi/j2N-JqMUSc4/0.jpg)](https://www.youtube.com/watch?v=j2N-JqMUSc4)
 Latex 수식 추출 확인
 
-[![FR3 - 중요 영상 생성 시연 영상](https://www.youtube.com/watch?v=I_m72ifjmNI/0.jpg)](https://www.youtube.com/watch?v=I_m72ifjmNI)
+[![FR3 - 중요 영상 생성 시연 영상](https://www.youtube.com/watch?v=I_m72ifjmNI/0.jpg)]
+중요 영상 생성 시연 영상
+
 
 ### [최종 발표 자료]()
 ### [결과 보고서]()
