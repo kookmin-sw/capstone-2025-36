@@ -1,11 +1,12 @@
-![image](https://github.com/user-attachments/assets/c9d364d2-b27a-4c5d-84eb-492079dff14b)![image](https://github.com/user-attachments/assets/d577a20a-855c-4c5e-b97b-41251fc43f9a)[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/gFPznrUY)
+[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/gFPznrUY)
 
 # 공학인재 양성을 위한 멀티모달 기반 AI tutor, Learning Mate
 <div align="center"> 
     <p align = "center">
-        <img src = "https://github.com/user-attachments/assets/dd76622c-e86a-4772-86ab-e5e300cd6fdd"" width = "40%"/>
+        <img width="538" alt="고화질로고" src="https://github.com/user-attachments/assets/16c33156-e91d-4bff-abde-464cb7771227" />
     </p>
 </div>
+
 
 # 협업 기업
 
