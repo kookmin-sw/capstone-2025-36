@@ -1,27 +1,35 @@
-![image](https://github.com/user-attachments/assets/d577a20a-855c-4c5e-b97b-41251fc43f9a)[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/gFPznrUY)
+![image](https://github.com/user-attachments/assets/c9d364d2-b27a-4c5d-84eb-492079dff14b)![image](https://github.com/user-attachments/assets/d577a20a-855c-4c5e-b97b-41251fc43f9a)[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/gFPznrUY)
 
 # 공학인재 양성을 위한 멀티모달 기반 AI tutor, Learning Mate
 <div align="center"> 
     <p align = "center">
-        <img src = "https://github.com/user-attachments/assets/58245b83-0a7d-4d90-b53c-f607ae98be4e"" width = "40%"/>
+        <img src = "https://github.com/user-attachments/assets/dd76622c-e86a-4772-86ab-e5e300cd6fdd"" width = "40%"/>
     </p>
 </div>
 
 # 협업 기업
 
-<img width="104" alt="유니와이즈-jpeg" src="https://github.com/user-attachments/assets/4bbc8006-e216-4ca2-9abc-00bdab2df05d" />
+<img width="700" alt="유니와이즈-jpeg" src="https://github.com/user-attachments/assets/4bbc8006-e216-4ca2-9abc-00bdab2df05d" />
 <br>
-유니와이즈
+### 유니와이즈
 <br>
-기업소개 : 
+#### 기업소개
+- 2008년부터 온라인 교육 콘텐츠 플랫폼을 운영
+- 대학인강 12만명, 학점은행제 1만명의 회원을 보유하고 있으며, 총 254개에 달하는 공학 및 이공계열 과목을 운영 중
+- 현재 1.2만개의 강의 영상과 10만 건 이상의 성취도 자료를 보유중이며, 연 평균 5%의 데이터 증가율을 기록하고 있음
+
 <br>
 
-<img width="104" alt="르몽로고" src="https://github.com/user-attachments/assets/3e912d49-dac2-465b-95ce-38a71ba6e27e" />
+<img width="700" alt="르몽로고" src="https://github.com/user-attachments/assets/3e912d49-dac2-465b-95ce-38a71ba6e27e" />
 <br>
-르몽
+### 르몽
 <br>
-기업소개 : 
+#### 기업소개
+- AI 전문 스타트업으로 삼성전자, 삼성 SDS, 쿠팡 출신 개발자가 운영 중인 기업
+- AI 기반 외식업 리뷰 관리 솔루션 '댓글몽' 운영, 리뷰 통합 및 자동 응답 기능 제공
 
+#### 협업 형태
+유니와이즈를 통해 정확한 문제점 파악 및 서비스 기획을 진행 / AI 전문 스타트업 개발자로부터 자문을 통하여 연구 개발을 진행
 
 
 ### 연구 및 프로젝트 성과
