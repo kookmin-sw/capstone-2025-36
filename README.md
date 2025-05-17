@@ -9,18 +9,24 @@
 
 # 협업 기업
 
-<img width="104" alt="유니와이즈로고" src="https://github.com/user-attachments/assets/19fcea30-f8eb-4b91-bff3-38582a1fc1fa" />
+<img width="104" alt="유니와이즈-jpeg" src="https://github.com/user-attachments/assets/4bbc8006-e216-4ca2-9abc-00bdab2df05d" />
+<br>
 유니와이즈
 <br>
+기업소개 : 
+<br>
 
-![르몽로고](https://github.com/user-attachments/assets/3e912d49-dac2-465b-95ce-38a71ba6e27e)
+<img width="104" alt="르몽로고" src="https://github.com/user-attachments/assets/3e912d49-dac2-465b-95ce-38a71ba6e27e" />
+<br>
 르몽
+<br>
+기업소개 : 
 
 
 
 ### 연구 및 프로젝트 성과
 <a href="" target="_blank">
-    <img width="450" height ="276" alt="음성 인식 모델 경량화 연구" src="https://github.com/user-attachments/assets/44bcd70a-619f-4e12-b453-64f6dcdbd0de" /> <img width="450" alt="HWP 문서 파싱 및 전처리 방법 연구" src="https://github.com/user-attachments/assets/4aef9a9e-8b8a-45a9-82f7-8932704aa5fa" />
+    <img width="400" height ="246" alt="음성 인식 모델 경량화 연구" src="https://github.com/user-attachments/assets/44bcd70a-619f-4e12-b453-64f6dcdbd0de" /> <img width="400" alt="HWP 문서 파싱 및 전처리 방법 연구" src="https://github.com/user-attachments/assets/4aef9a9e-8b8a-45a9-82f7-8932704aa5fa" />
 
 
 <br/> <br/> 
@@ -67,7 +73,7 @@
 <img width="674" alt="image" src="https://github.com/user-attachments/assets/a61d153b-b071-4695-a9d4-24746b421890" />
 특정 개념을 설명하는 강의가에 대하여 질문하면, '강의'와 '
 
-# 향후 계획
+# 활용 방안
 ㄹㅇㅁㄹㄴㅁㅇㄹ
 
 <br/>
