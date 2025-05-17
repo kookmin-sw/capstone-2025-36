@@ -146,7 +146,7 @@
         </td>
         <td style="min-width: 100px;">
             <a href="https://github.com/UH3135">
-              <img src="https://github.com/user-attachments/assets/5d9cb075-9fbc-4b88-a009-9a28f9bad5bd" width="100">
+              <img src="https://github.com/user-attachments/assets/5d9cb075-9fbc-4b88-a009-9a28f9bad5bd" width="120">
               <br />
               <b>정의현</b>
             </a>
@@ -154,7 +154,7 @@
         </td>
         <td style="min-width: 100px;">
             <a href="https://github.com/handsomem1n">
-              <img src="https://github.com/user-attachments/assets/e7557acd-d289-4ddb-a2f4-7cd02fc8ea22" width="100">
+              <img src="https://github.com/user-attachments/assets/e7557acd-d289-4ddb-a2f4-7cd02fc8ea22" width="110">
               <br />
               <b>한승민 </b>
             </a> 
@@ -162,7 +162,7 @@
         </td>
         <td style="min-width: 100px;">
             <a href="https://github.com/imaboybut">
-              <img src="https://github.com/user-attachments/assets/b74ff799-2c55-48b1-a28f-537c68bcc8a3" width="100">
+              <img src="https://github.com/user-attachments/assets/b74ff799-2c55-48b1-a28f-537c68bcc8a3" width="130">
               <br />
               <b>정진우</b>
             </a> 
