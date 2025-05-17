@@ -233,19 +233,20 @@
 
 ### 시연 영상
 
+#### 수식 OCR 시연
 [![FR1 - 수식 OCR 시연](https://img.youtube.com/vi/-VvAF1rPMuI/0.jpg)](https://www.youtube.com/watch?v=-VvAF1rPMuI)  
-수식 OCR 시연
 
+#### 한글 파일 데이터 추출 및 수식 LaTeX 변환
 [![FR1 - 한글 파일 데이터 추출 및 수식 LaTeX 변환](https://img.youtube.com/vi/zxh2DVamLao/0.jpg)](https://www.youtube.com/watch?v=zxh2DVamLao)  
-한글 파일 데이터 추출 및 수식 LaTeX 변환
 
+#### Latex 수식 추출 확인
 [![FR1 - Latex 수식 추출 확인](https://img.youtube.com/vi/j2N-JqMUSc4/0.jpg)](https://www.youtube.com/watch?v=j2N-JqMUSc4)
 
-Latex 수식 추출 확인
 
+#### 중요 영상 생성 시연 영상
 [![FR3 - 중요 영상 생성 시연 영상](https://www.youtube.com/watch?v=I_m72ifjmNI/0.jpg)]
 <hr>
-중요 영상 생성 시연 영상
+
 
 
 ### [최종 발표 자료]()
