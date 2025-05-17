@@ -7,6 +7,10 @@
     </p>
 </div>
 
+# 협업 기업
+유니와이즈
+르몽
+
 ### 논문
 <a href="" target="_blank">
 <p align = "center">
@@ -19,23 +23,23 @@
 <br/> <br/> 
 
 ## 목차 
-[프로젝트 소개](#-프로젝트-소개) 
+[Learning Mate](#-포스터) 
 
 [주요 기능](#-주요-기능)
 
 [시연 영상](#-시연-영상)
 
-[팀원 소개](#-팀원-소개)
+[역할 분담](#-역할-분담)
 
-[시스템 구조](#-시스템-구조)
-
+[시스템 구조도 - Abstraction Ver.](#-시스템-구조도-Abstraction-Ver.)
+[시스템 구조도 - Detail Ver.](#-시스템-구조도-Detail-Ver.)
 
 [디렉토리 구조](#-디렉토리-구조)  
 
 
 <br/> 
 
-## 프로젝트 소개
+## Learning Mate 포스터
 
 
 <div align="center"> 
@@ -63,7 +67,7 @@
 
 <br/>
 
-## 팀원 소개
+## 역할 분담
 
 <table>
     <tr align="center">
@@ -105,7 +109,7 @@
             차민수의 역할이 무엇인지 적어주세요
         </td>
         <td>
-            (정의현의 역할이 무엇인지 적어주세요) 프로젝트 관리, 회의 관리
+            (정의현의 역할이 무엇인지 적어주세요) 프로젝트 관리, 공유 문서 관리
         </td>
         <td>
             STT 모델 구축, 프로젝트 기획, 일정 관리
@@ -118,12 +122,21 @@
 
 <br/>
 
-## 시스템 구조도
+## 시스템 구조도 - Abstraction Ver.
 <br/>
 
 <div align="center"> 
     <p align = "center">
     <img src = "https://github.com/user-attachments/assets/00106595-3290-4aa8-9c5b-199a8681d854" width = 90%/>
+    </p>
+</div>
+
+## 시스템 구조도 - Detail Ver.
+<br/>
+
+<div align="center"> 
+    <p align = "center">
+    <img src = "https://github.com/user-attachments/assets/6847177f-c322-4ac8-9bb9-69d7f1bf678a" width = 90%/>
     </p>
 </div>
 
@@ -153,8 +166,6 @@
 ├── 📂 FR2
 
 ├── 📂 FR3
-    
-└── 📜 package
 
 └── 📕 README.md
 ```
@@ -163,9 +174,18 @@
 
 
 ### [중간 발표 자료]()
-### [중간 보고서]()
+[LearningMate_중간발표2.pdf](https://github.com/user-attachments/files/20263827/LearningMate_.2.pdf)
+
+
+
+### [수행 계획서]()
+[수행계획서.pdf](https://github.com/user-attachments/files/20263831/default.pdf)
+
+
 ### [시연 동영상]()
-### [포스터]()
+수식 OCR 시연 : https://www.youtube.com/watch?v=-VvAF1rPMuI
+한글 파일 데이터 추출 및 수식 Latex 변환 : https://www.youtube.com/watch?v=zxh2DVamLao
+
 ### [최종 발표 자료]()
 ### [결과 보고서]()
 ### [회의록]()
