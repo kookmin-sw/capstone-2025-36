@@ -20,7 +20,7 @@
 
 ### 연구 및 프로젝트 성과
 <a href="" target="_blank">
-    <img width="323" alt="음성 인식 모델 경량화 연구" src="https://github.com/user-attachments/assets/44bcd70a-619f-4e12-b453-64f6dcdbd0de" /> <img width="323" alt="HWP 문서 파싱 및 전처리 방법 연구" src="https://github.com/user-attachments/assets/4aef9a9e-8b8a-45a9-82f7-8932704aa5fa" />
+    <img width="450"alt="음성 인식 모델 경량화 연구" src="https://github.com/user-attachments/assets/44bcd70a-619f-4e12-b453-64f6dcdbd0de" /> <img width="450" alt="HWP 문서 파싱 및 전처리 방법 연구" src="https://github.com/user-attachments/assets/4aef9a9e-8b8a-45a9-82f7-8932704aa5fa" />
 
 
 <br/> <br/> 
