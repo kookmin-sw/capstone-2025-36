@@ -64,60 +64,61 @@
 ### n. dsfadf
 <img width="1174" alt="dddd" src="" />
 #### 접근법
-1. asdfa
-2. fdsafd
-3. dsfasdfsda
+1. asdfa<hr>
+2. fdsafd<hr>
+3. dsfasdfsda<hr>
 
 ### n. dsfadf
 <img width="1174" alt="dddd" src="" />
 #### 접근법
-1. asdfa
-2. fdsafd
-3. dsfasdfsda
+1. asdfa<hr>
+2. fdsafd<hr>
+3. dsfasdfsda<hr>
 
 ### n. dsfadf
 <img width="1174" alt="dddd" src="" />
 #### 접근법
-1. asdfa
-2. fdsafd
-3. dsfasdfsda
+1. asdfa<hr>
+2. fdsafd<hr>
+3. dsfasdfsda<hr>
 
 ### n. dsfadf
 <img width="1174" alt="dddd" src="" />
 #### 접근법
-1. asdfa
-2. fdsafd
-3. dsfasdfsda
+1. asdfa<hr>
+2. fdsafd<hr>
+3. dsfasdfsda<hr>
 
 ### n. 강의 영상 음성 인식
 <img width="1174" alt="강의 영상 음성 인식 결과" src="https://github.com/user-attachments/assets/ace4ceb6-0490-454e-a652-1832043dabaa" />
 #### 접근법
-1. asdfa
-2. fdsafd
-3. dsfasdfsda
+1. asdfa<hr>
+2. fdsafd<hr>
+3. dsfasdfsda<hr>
+
 
 ## 프로젝트 성과
 ### hwp 파일 내 수식 LaTex 변환 파이프라인 구축 및 처리를 위한 소요 시간 단축
-<img width="1174" alt="hwp 파일 내 수식 LaTex 변환 파이프라인 구축 및 처리를 위한 소요 시간 단축" src="https://github.com/user-attachments/assets/f99a51d3-0c79-4499-bc15-724105f107e9" />
+<img width="1174" alt="hwp 파일 내 수식 LaTex 변환 파이프라인 구축 및 처리를 위한 소요 시간 단축" src="https://github.com/user-attachments/assets/d3c3e6a4-f778-4665-bca5-b521059ad3a3" />
 #### 접근법
-1. asdfa
-2. fdsafd
-3. dsfasdfsda
+1. asdfa<hr>
+2. fdsafd<hr>
+3. dsfasdfsda<hr>
 
 ### 이미지 분류 성능 개선
-<img width="1174" alt="이미지 분류 성능 개선" src="https://github.com/user-attachments/assets/53425de5-6033-4024-adf2-a276496fe525" />
+<img width="1174" alt="이미지 분류 성능 개선" src="https://github.com/user-attachments/assets/44a327ce-de2f-42fe-b33b-6598863238b8" />
 #### 접근법
-1. asdfa
-2. fdsafd
-3. dsfasdfsda
+1. asdfa<hr>
+2. fdsafd<hr>
+3. dsfasdfsda<hr>
 
 
 ### 음성 인식 일반화 성능 향상 및 VRAM 효율화
-<img width="1174" alt="음성 인식 일반화 성능 향상 및 VRAM 효율화" src="https://github.com/user-attachments/assets/ef3dc73b-b08e-4362-85e9-af06eff89ecf" />
+<img width="1174" alt="음성 인식 일반화 성능 향상 및 VRAM 효율화" src="https://github.com/user-attachments/assets/09e3d32d-08d4-49b0-831d-3dedf129f62d" />
 #### 접근법
-1. asdfa
-2. fdsafd
-3. dsfasdfsda
+1. asdfa <hr>
+2. fdsafd <hr>
+3. dsfasdfsda <hr>
 
 
 # 활용 방안
