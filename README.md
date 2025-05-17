@@ -3,35 +3,36 @@
 # 공학인재 양성을 위한 멀티모달 기반 AI tutor, Learning Mate
 <div align="center"> 
     <p align = "center">
-        <img width="538" alt="고화질로고" src="https://github.com/user-attachments/assets/16c33156-e91d-4bff-abde-464cb7771227" />
+        ![temp](https://github.com/user-attachments/assets/7acfff44-5619-43d6-9a78-63cc5d6fe786)
     </p>
 </div>
-<img width="960" alt="록오" src="https://github.com/user-attachments/assets/db9469b1-21a1-4729-b82d-e504cf980069" />
 
+# 🤝 협업 기업
 
-# 협업 기업
+## 유니와이즈  
+<img width="250" alt="유니와이즈로고" src="https://github.com/user-attachments/assets/7ef16927-fe4f-4e13-8126-7ec9df0f7774" />
 
-<img width="300" alt="유니와이즈-jpeg" src="https://github.com/user-attachments/assets/4bbc8006-e216-4ca2-9abc-00bdab2df05d" />
-<br>
-### 유니와이즈
-<br>
-#### 기업소개
-- 2008년부터 온라인 교육 콘텐츠 플랫폼을 운영
-- 대학인강 12만명, 학점은행제 1만명의 회원을 보유하고 있으며, 총 254개에 달하는 공학 및 이공계열 과목을 운영 중
-- 현재 1.2만개의 강의 영상과 10만 건 이상의 성취도 자료를 보유중이며, 연 평균 5%의 데이터 증가율을 기록하고 있음
+### 기업 소개
+- 2008년부터 온라인 교육 콘텐츠 플랫폼 운영  
+- 대학인강 12만명, 학점은행제 1만명 회원 보유  
+- 공학 및 이공계열 과목 254개 운영  
+- 1.2만개 강의 영상, 10만 건 이상의 성취도 자료 보유  
+- 연 평균 5%의 데이터 증가율 기록
 
-<br>
+---
 
-<img width="300" alt="르몽로고" src="https://github.com/user-attachments/assets/3e912d49-dac2-465b-95ce-38a71ba6e27e" />
-<br>
-### 르몽
-<br>
-#### 기업소개
-- AI 전문 스타트업으로 삼성전자, 삼성 SDS, 쿠팡 출신 개발자가 운영 중인 기업
-- AI 기반 외식업 리뷰 관리 솔루션 '댓글몽' 운영, 리뷰 통합 및 자동 응답 기능 제공
+## 르몽 Lemong
+<img width="250" alt="르몽로고" src="https://github.com/user-attachments/assets/3e912d49-dac2-465b-95ce-38a71ba6e27e" />
 
-#### 협업 형태
-유니와이즈를 통해 정확한 문제점 파악 및 서비스 기획을 진행 / AI 전문 스타트업 개발자로부터 자문을 통하여 연구 개발을 진행
+### 기업 소개
+- 삼성전자, 삼성 SDS, 쿠팡 출신 개발자들이 설립한 AI 전문 스타트업  
+- AI 기반 외식업 리뷰 관리 솔루션 **‘댓글몽’** 운영  
+- 리뷰 통합 및 자동 응답 기능 제공
+
+### 🤝 협업 형태
+- 유니와이즈 : 문제점 도출 및 서비스 기획  
+- 르몽 : AI 기술 자문 및 연구 개발 참여
+
 
 
 ### 연구 및 프로젝트 성과
