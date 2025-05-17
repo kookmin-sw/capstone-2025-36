@@ -3,7 +3,7 @@
 # 공학인재 양성을 위한 멀티모달 기반 AI tutor, Learning Mate
 <div align="center"> 
     <p align = "center">
-        ![temp](https://github.com/user-attachments/assets/7acfff44-5619-43d6-9a78-63cc5d6fe786)
+        <img alt="러닝메이트로고" src="https://github.com/user-attachments/assets/c31f6a29-47ab-4d61-8332-76dcc1583986" />
     </p>
 </div>
 
