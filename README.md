@@ -183,7 +183,7 @@
 
 
 ### [시연 동영상]()
-수식 OCR 시연 : https://www.youtube.com/watch?v=-VvAF1rPMuI
+수식 OCR 시연 : https://www.youtube.com/watch?v=-VvAF1rPMuI <br>
 한글 파일 데이터 추출 및 수식 Latex 변환 : https://www.youtube.com/watch?v=zxh2DVamLao
 
 ### [최종 발표 자료]()
