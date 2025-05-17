@@ -1,4 +1,4 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/gFPznrUY)
+![image](https://github.com/user-attachments/assets/d577a20a-855c-4c5e-b97b-41251fc43f9a)[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/gFPznrUY)
 
 # 공학인재 양성을 위한 멀티모달 기반 AI tutor, Learning Mate
 <div align="center"> 
@@ -62,15 +62,16 @@
 
 ## 주요 기능
 
-### **주요 기능1**
+### **기능 활용 방안1**
+<img width="674" alt="image" src="https://github.com/user-attachments/assets/a61d153b-b071-4695-a9d4-24746b421890" /> <br>
+실시간 질의 응답 시스템
 
-### **주요 기능2**
+### **기능 활용 방안2**
+<img width="674" alt="난이도 별 자동화 문제은행" src="https://github.com/user-attachments/assets/cee9e3e5-5083-49a8-a615-f6f0be2590cd" /> <br>
+난이도 별 자동화 문제은해
 
-
-### **주요 기능3**
-
-### **주요 기능4**
-<img width="674" alt="image" src="https://github.com/user-attachments/assets/a61d153b-b071-4695-a9d4-24746b421890" />
+### **기능 활용 방안3**
+<img width="674" alt="image" src="https://github.com/user-attachments/assets/a10f2313-8485-4750-998f-5552f32f2cc2" /> <br>
 특정 개념을 설명하는 강의가에 대하여 질문하면, '강의'와 '
 
 # 활용 방안
