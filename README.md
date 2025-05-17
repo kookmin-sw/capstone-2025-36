@@ -102,30 +102,16 @@
     </tr>
     <tr align="center">
         <td>
-            역할
+            차민수의 역할이 무엇인지 적어주세요
         </td>
         <td>
-            역할
+            (정의현의 역할이 무엇인지 적어주세요) 프로젝트 관리, 회의 관리
         </td>
         <td>
-            역할
+            STT 모델 구축, 프로젝트 기획, 일정 관리
         </td>
                 <td>
-            역할
-        </td>
-    </tr>
-    <tr align="center">
-        <td>
-            <span style="font-size: 12px;">minns00@kookmin.ac.kr</span>
-        </td>
-        <td>
-            <span style="font-size: 12px;">rabbitdy0101@kookmin.ac.kr</span>
-        </td>
-        <td>
-            <span style="font-size: 12px;">handsomemin@kookmin.ac.kr</span>
-        </td>
-                <td>
-            <span style="font-size: 12px;">imaboybut@kookmin.ac.kr</span>
+            정진우의 역할이 무엇인지 적어주세요
         </td>
     </tr>
 </table>
