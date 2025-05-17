@@ -157,7 +157,7 @@
     </tr>
   <tr align="center">
     <td>
-      AAA<br />BBB<br />CCC
+      한글(HWP)데이터 추출<br />수식 및 텍스트 전처리<br />
     </td>
     <td>
       이미지 OCR <br />프로젝트 관리<br />공유 문서 관리
