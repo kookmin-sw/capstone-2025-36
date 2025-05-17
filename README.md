@@ -64,46 +64,46 @@
 ### n. dsfadf
 <img width="1174" alt="dddd" src="" />
 #### 접근법
-1. asdfa<hr>
-2. fdsafd<hr>
-3. dsfasdfsda<hr>
+1. asdfa<br>
+2. fdsafd<br>
+3. dsfasdfsda<br>
 
 ### n. dsfadf
 <img width="1174" alt="dddd" src="" />
 #### 접근법
-1. asdfa<hr>
-2. fdsafd<hr>
-3. dsfasdfsda<hr>
+1. asdfa<br>
+2. fdsafd<br>
+3. dsfasdfsda<br>
 
 ### n. dsfadf
 <img width="1174" alt="dddd" src="" />
 #### 접근법
-1. asdfa<hr>
-2. fdsafd<hr>
-3. dsfasdfsda<hr>
+1. asdfa<br>
+2. fdsafd<br>
+3. dsfasdfsda<br>
 
 ### n. dsfadf
 <img width="1174" alt="dddd" src="" />
 #### 접근법
-1. asdfa<hr>
-2. fdsafd<hr>
-3. dsfasdfsda<hr>
+1. asdfa<br>
+2. fdsafd<br>
+3. dsfasdfsda<br>
 
 ### n. 강의 영상 음성 인식
 <img width="1174" alt="강의 영상 음성 인식 결과" src="https://github.com/user-attachments/assets/ace4ceb6-0490-454e-a652-1832043dabaa" />
 #### 접근법
-1. asdfa<hr>
-2. fdsafd<hr>
-3. dsfasdfsda<hr>
+1. asdfa<br>
+2. fdsafd<br>
+3. dsfasdfsda<br>
 
 
 ## 프로젝트 성과
 ### hwp 파일 내 수식 LaTex 변환 파이프라인 구축 및 처리를 위한 소요 시간 단축
 <img width="1174" alt="hwp 파일 내 수식 LaTex 변환 파이프라인 구축 및 처리를 위한 소요 시간 단축" src="https://github.com/user-attachments/assets/d3c3e6a4-f778-4665-bca5-b521059ad3a3" />
 #### 접근법
-1. asdfa<hr>
-2. fdsafd<hr>
-3. dsfasdfsda<hr>
+1. asdfa<br>
+2. fdsafd<br>
+3. dsfasdfsda<br>
 
 ### 이미지 분류 성능 개선
 <img width="1174" alt="이미지 분류 성능 개선" src="https://github.com/user-attachments/assets/44a327ce-de2f-42fe-b33b-6598863238b8" />
