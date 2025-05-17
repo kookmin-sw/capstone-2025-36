@@ -17,13 +17,11 @@
 르몽
 
 
+
 ### 연구 및 프로젝트 성과
 <a href="" target="_blank">
 <p align = "center">
-  <img src="https://github.com/user-attachments/assets/43997e03-f80f-4b24-baea-ac9fe23d4559" width="40%">
-<a href="" target="_blank">
-  <img src="https://github.com/user-attachments/assets/7591b229-8542-4c11-82ae-3fcccdbf662f" width="40%">
-</a>
+  <img width="1109" alt="연구 및 프로젝트 성과 - 논문" src="https://github.com/user-attachments/assets/073fae57-97e5-4e4e-892e-e012acda9cff" />
 
 
 <br/> <br/> 
@@ -67,6 +65,8 @@
 ### **주요 기능3**
 
 ### **주요 기능4**
+<img width="674" alt="image" src="https://github.com/user-attachments/assets/a61d153b-b071-4695-a9d4-24746b421890" />
+특정 개념을 설명하는 강의가에 대하여 질문하면, '강의'와 '
 
 # 향후 계획
 ㄹㅇㅁㄹㄴㅁㅇㄹ
@@ -182,10 +182,6 @@
 ```
 
 <br/>
-
-
-### [중간 발표 자료]()
-[LearningMate_중간발표2.pdf](https://github.com/user-attachments/files/20263827/LearningMate_.2.pdf)
 
 
 
