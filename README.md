@@ -57,41 +57,13 @@
     </p>
 </div>
 
-## 개발 배경
+## 프로젝트 기획 배경
 ㄴㅇㄹㅁㅇㄴㄹㅇㄴㅁ
 
+# 핵심 과제
+
 ## 개발 주제 및 내용
-### n. dsfadf
-<img width="1174" alt="dddd" src="" />
-#### 접근법
-<br>
-1. asdfa<br>
-2. fdsafd<br>
-3. dsfasdfsda<br>
-
-### n. dsfadf
-<img width="1174" alt="dddd" src="" />
-#### 접근법
-<br>
-1. asdfa<br>
-2. fdsafd<br>
-3. dsfasdfsda<br>
-
-### n. dsfadf
-<img width="1174" alt="dddd" src="" />
-#### 접근법
-<br>
-1. asdfa<br>
-2. fdsafd<br>
-3. dsfasdfsda<br>
-
-### n. dsfadf
-<img width="1174" alt="dddd" src="" />
-#### 접근법
-<br>
-1. asdfa<br>
-2. fdsafd<br>
-3. dsfasdfsda<br>
+<img width="951" alt="Learning Mate의 주요 개발 내용" src="https://github.com/user-attachments/assets/1aa0043a-f841-4c66-9ce4-63c3febaf412" />
 
 ### n. 강의 영상 음성 인식
 <img width="1174" alt="강의 영상 음성 인식 결과" src="https://github.com/user-attachments/assets/ace4ceb6-0490-454e-a652-1832043dabaa" />
@@ -104,7 +76,7 @@
 
 ## 프로젝트 성과
 ### hwp 파일 내 수식 LaTex 변환 파이프라인 구축 및 처리를 위한 소요 시간 단축
-<img width="1174" alt="hwp 파일 내 수식 LaTex 변환 파이프라인 구축 및 처리를 위한 소요 시간 단축" src="https://github.com/user-attachments/assets/d3c3e6a4-f778-4665-bca5-b521059ad3a3" />
+<img width="1174" alt="hwp 파일 내 수식 LaTex 변환 파이프라인 구축 및 처리를 위한 소요 시간 단축" src="https://github.com/user-attachments/assets/e2447ea7-4307-41f5-b352-97ffab4caf96" />
 #### 접근법
 <br>
 1. asdfa<br>
@@ -229,9 +201,9 @@
 <br/>
 
 ### ETC
-|Role|Things|
+|Purpose|Platforms|
 |-|-|
-|**Communication**| ![Discord](https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=Discord&logoColor=white) 
+|**Communication**| ![Discord](https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=Discord&logoColor=white) ![Google Meet](https://img.shields.io/badge/Google_Meet-00897B?style=for-the-badge&logo=google-meet&logoColor=white) ![KakaoTalk](https://img.shields.io/badge/KakaoTalk-FFCD00?style=for-the-badge&logo=KakaoTalk&logoColor=000000)
 |**Version Control**|![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white) ![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white)
 |**Project Management**| ![Notion](https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=Notion&logoColor=white) ![Google Docs](https://img.shields.io/badge/Google_Docs-4285F4?style=for-the-badge&logo=google-docs&logoColor=white) ![Google Sheets](https://img.shields.io/badge/Google_Sheets-34A853?style=for-the-badge&logo=google-sheets&logoColor=white)
 
