@@ -63,15 +63,11 @@
 # 핵심 과제
 
 ## 개발 주제 및 내용
-<img width="951" alt="Learning Mate의 주요 개발 내용" src="https://github.com/user-attachments/assets/1aa0043a-f841-4c66-9ce4-63c3febaf412" />
+<img width="1012" alt="Learning Mate의 주요 개발 내용" src="https://github.com/user-attachments/assets/1aa0043a-f841-4c66-9ce4-63c3febaf412" />
 
+### 세부 내용
 ### n. 강의 영상 음성 인식
 <img width="1174" alt="강의 영상 음성 인식 결과" src="https://github.com/user-attachments/assets/ace4ceb6-0490-454e-a652-1832043dabaa" />
-#### 접근법
-<br>
-1. asdfa<br>
-2. fdsafd<br>
-3. dsfasdfsda<br>
 
 
 ## 프로젝트 성과
