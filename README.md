@@ -60,22 +60,79 @@
 ## 개발 배경
 ㄴㅇㄹㅁㅇㄴㄹㅇㄴㅁ
 
-## 주요 기능
+## 개발 주제 및 내용
+### n. dsfadf
+<img width="1174" alt="dddd" src="" />
+#### 접근법
+1. asdfa
+2. fdsafd
+3. dsfasdfsda
 
+### n. dsfadf
+<img width="1174" alt="dddd" src="" />
+#### 접근법
+1. asdfa
+2. fdsafd
+3. dsfasdfsda
+
+### n. dsfadf
+<img width="1174" alt="dddd" src="" />
+#### 접근법
+1. asdfa
+2. fdsafd
+3. dsfasdfsda
+
+### n. dsfadf
+<img width="1174" alt="dddd" src="" />
+#### 접근법
+1. asdfa
+2. fdsafd
+3. dsfasdfsda
+
+### n. 강의 영상 음성 인식
+<img width="1174" alt="강의 영상 음성 인식 결과" src="https://github.com/user-attachments/assets/ace4ceb6-0490-454e-a652-1832043dabaa" />
+#### 접근법
+1. asdfa
+2. fdsafd
+3. dsfasdfsda
+
+## 프로젝트 성과
+### hwp 파일 내 수식 LaTex 변환 파이프라인 구축 및 처리를 위한 소요 시간 단축
+<img width="1174" alt="hwp 파일 내 수식 LaTex 변환 파이프라인 구축 및 처리를 위한 소요 시간 단축" src="https://github.com/user-attachments/assets/f99a51d3-0c79-4499-bc15-724105f107e9" />
+#### 접근법
+1. asdfa
+2. fdsafd
+3. dsfasdfsda
+
+### 이미지 분류 성능 개선
+<img width="1174" alt="이미지 분류 성능 개선" src="https://github.com/user-attachments/assets/53425de5-6033-4024-adf2-a276496fe525" />
+#### 접근법
+1. asdfa
+2. fdsafd
+3. dsfasdfsda
+
+
+### 음성 인식 일반화 성능 향상 및 VRAM 효율화
+<img width="1174" alt="음성 인식 일반화 성능 향상 및 VRAM 효율화" src="https://github.com/user-attachments/assets/ef3dc73b-b08e-4362-85e9-af06eff89ecf" />
+#### 접근법
+1. asdfa
+2. fdsafd
+3. dsfasdfsda
+
+
+# 활용 방안
 ### **기능 활용 방안1**
 <img width="674" alt="image" src="https://github.com/user-attachments/assets/a61d153b-b071-4695-a9d4-24746b421890" /> <br>
 실시간 질의 응답 시스템
 
 ### **기능 활용 방안2**
 <img width="674" alt="난이도 별 자동화 문제은행" src="https://github.com/user-attachments/assets/cee9e3e5-5083-49a8-a615-f6f0be2590cd" /> <br>
-난이도 별 자동화 문제은해
+난이도 별 자동화 문제은행 제공
 
 ### **기능 활용 방안3**
 <img width="674" alt="image" src="https://github.com/user-attachments/assets/a10f2313-8485-4750-998f-5552f32f2cc2" /> <br>
-특정 개념을 설명하는 강의가에 대하여 질문하면, '강의'와 '
+“이 개념, 어디서 설명했더라?”를 해결
 
-# 활용 방안
-ㄹㅇㅁㄹㄴㅁㅇㄹ
 
 <br/>
 
@@ -139,20 +196,21 @@
 
 <br/>
 
-## 시스템 구조도 - Abstraction Ver.
+## 시스템 구조도
+### Abstraction Ver.
 <br/>
 
-<div align="center"> 
-    <p align = "center">
+<div> 
+    <p>
     <img src = "https://github.com/user-attachments/assets/00106595-3290-4aa8-9c5b-199a8681d854" width = 90%/>
     </p>
 </div>
 
-## 시스템 구조도 - Detail Ver.
+### Detail Ver.
 <br/>
 
-<div align="center"> 
-    <p align = "center">
+<div> 
+    <p>
     <img src = "https://github.com/user-attachments/assets/6847177f-c322-4ac8-9bb9-69d7f1bf678a" width = 90%/>
     </p>
 </div>
