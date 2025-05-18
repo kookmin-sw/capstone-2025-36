@@ -30,8 +30,8 @@
 
 <table>
   <tr>
-    <td align="center" style="border:none;">
-      <img width="200" alt="유니와이즈로고" src="https://github.com/user-attachments/assets/7ef16927-fe4f-4e13-8126-7ec9df0f7774" /><br />
+    <td align="center" style="border:none; vertical-align:top;" width="50%">
+      <img src="https://github.com/user-attachments/assets/7ef16927-fe4f-4e13-8126-7ec9df0f7774" height="100"/><br />
       <h3>Uniwise</h3>
       <ul align="left">
         <li>2008년부터 온라인 교육 콘텐츠 플랫폼 운영</li>
@@ -41,8 +41,8 @@
         <li>연 평균 5%의 데이터 증가율 기록</li>
       </ul>
     </td>
-    <td align="center" style="border:none;">
-      <img width="200" alt="르몽로고" src="https://github.com/user-attachments/assets/5237b371-9e4a-44d4-af91-d8e20d376ec0" /><br />
+    <td align="center" style="border:none; vertical-align:top;" width="50%">
+      <img src="https://github.com/user-attachments/assets/5237b371-9e4a-44d4-af91-d8e20d376ec0" height="100"/><br />
       <h3>Lemong</h3>
       <ul align="left">
         <li>삼성전자, 삼성 SDS, 쿠팡 출신 개발자가 설립한 AI 스타트업</li>
