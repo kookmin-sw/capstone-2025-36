@@ -42,7 +42,7 @@
       </p>
     </td>
     <td style="vertical-align: top; text-align: center; width: 415px;">
-      <img src="https://github.com/user-attachments/assets/3e912d49-dac2-465b-95ce-38a71ba6e27e" height="120" alt="르몽로고" /><br />
+      <img src="https://github.com/user-attachments/assets/82596d21-3e58-45e5-aa91-58ece2836891" height="120" alt="르몽로고" /><br />
       <p align="left" style="margin-left: 20px;">
           <h3>르몽 Lemong</h3>
         - 삼성전자, 삼성 SDS, 쿠팡 출신 개발자 설립<br/>
