@@ -37,8 +37,7 @@
         <li>2008년부터 온라인 교육 콘텐츠 플랫폼 운영</li>
         <li>대학인강 12만명, 학점은행제 1만명 회원 보유</li>
         <li>공학 및 이공계열 과목 254개 운영</li>
-        <li>1.2만개 강의 영상, 10만 건 이상의 성취도 자료 보유</li>
-        <li>연 평균 5%의 데이터 증가율 기록</li>
+        <li>1.2만개 강의 영상 보유</li>
       </ul>
     </td>
     <td align="center" style="border:none; vertical-align:top;" width="50%">
