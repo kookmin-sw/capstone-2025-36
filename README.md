@@ -28,22 +28,31 @@
 
 # 🤝 협업 기업
 
-## 유니와이즈  
-<img width="250" alt="유니와이즈로고" src="https://github.com/user-attachments/assets/7ef16927-fe4f-4e13-8126-7ec9df0f7774" />
+<table style="width:100%; border: none;">
+  <tr>
+    <td style="vertical-align: top; text-align: center; width: 50%;">
+      <img src="https://github.com/user-attachments/assets/7ef16927-fe4f-4e13-8126-7ec9df0f7774" width="200" alt="유니와이즈로고"/><br />
+      <p align="left" style="margin-left: 20px;">
+            <h3>유니와이즈</h3>
+        - 2008년부터 온라인 교육 콘텐츠 플랫폼 운영<br/>
+        - 대학인강 12만명, 학점은행제 1만명 회원 보유<br/>
+        - 공학 및 이공계열 과목 254개 운영<br/>
+        - 1.2만개 강의 영상, 10만 건 이상의 성취도 자료 보유<br/>
+        - 연 평균 5%의 데이터 증가율 기록
+      </p>
+    </td>
+    <td style="vertical-align: top; text-align: center; width: 50%;">
+      <img src="https://github.com/user-attachments/assets/3e912d49-dac2-465b-95ce-38a71ba6e27e" width="200" alt="르몽로고"/><br />
+      <p align="left" style="margin-left: 20px;">
+            <h3>르몽 Lemong</h3>
+        - 삼성전자, 삼성 SDS, 쿠팡 출신 개발자 설립<br/>
+        - AI 기반 외식업 리뷰 관리 솔루션 ‘댓글몽’ 운영<br/>
+        - 리뷰 통합 및 자동 응답 기능 제공
+      </p>
+    </td>
+  </tr>
+</table>
 
-### 기업 소개
-- 2008년부터 온라인 교육 콘텐츠 플랫폼 운영  
-- 대학인강 12만명, 학점은행제 1만명 회원 보유  
-- 공학 및 이공계열 과목 254개 운영  
-- 1.2만개 강의 영상, 10만 건 이상의 성취도 자료 보유  
-- 연 평균 5%의 데이터 증가율 기록
-## 르몽 Lemong
-<img width="250" alt="르몽로고" src="https://github.com/user-attachments/assets/3e912d49-dac2-465b-95ce-38a71ba6e27e" />
-
-### 기업 소개
-- 삼성전자, 삼성 SDS, 쿠팡 출신 개발자들이 설립한 AI 전문 스타트업  
-- AI 기반 외식업 리뷰 관리 솔루션 **‘댓글몽’** 운영  
-- 리뷰 통합 및 자동 응답 기능 제공
 
 ### 🤝 협업 형태
 - 유니와이즈 : 문제점 도출 및 서비스 기획  
