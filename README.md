@@ -34,7 +34,6 @@
       <img src="https://github.com/user-attachments/assets/7ef16927-fe4f-4e13-8126-7ec9df0f7774" height="100"/><br />
       <h3>Uniwise</h3>
       <ul align="left">
-          <p><b>기업 소개</b></p>
         <li>2008년부터 온라인 교육 콘텐츠 플랫폼 운영</li>
         <li>대학인강 12만명, 학점은행제 1만명 회원 보유</li>
         <li>공학 및 이공계열 과목 254개 운영</li>
@@ -46,15 +45,13 @@
       <img src="https://github.com/user-attachments/assets/5237b371-9e4a-44d4-af91-d8e20d376ec0" height="100"/><br />
       <h3>Lemong</h3>
       <ul align="left">
-          <p><b>기업 소개</b></p>
         <li>삼성, 쿠팡 출신 개발자가 설립한 AI 스타트업</li>
         <li>AI 기반 외식업 리뷰 관리 솔루션 ‘댓글몽’ 운영</li>
-        <li>리뷰 통합 및 자동 응답 기능 서비스 제공 </li>
+        <li>리뷰 통합 및 자동 응답 제공 서비스 운영</li>
       </ul>
     </td>
   </tr>
 </table>
-
 
 
 ### 🤝 협업 형태
