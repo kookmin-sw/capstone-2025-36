@@ -28,12 +28,12 @@
 
 # 🤝 협업 기업
 
-<table style="width:100%; border: none;">
+<table style="width: 830px; border: none; table-layout: fixed;">
   <tr>
-    <td style="vertical-align: top; text-align: center; width: 50%;">
-      <img src="https://github.com/user-attachments/assets/7ef16927-fe4f-4e13-8126-7ec9df0f7774" width="200" alt="유니와이즈로고"/><br />
+    <td style="vertical-align: top; text-align: center; width: 415px;">
+      <h3>유니와이즈</h3>
+      <img src="https://github.com/user-attachments/assets/7ef16927-fe4f-4e13-8126-7ec9df0f7774" height="120" alt="유니와이즈로고" /><br />
       <p align="left" style="margin-left: 20px;">
-            <h3>유니와이즈</h3>
         - 2008년부터 온라인 교육 콘텐츠 플랫폼 운영<br/>
         - 대학인강 12만명, 학점은행제 1만명 회원 보유<br/>
         - 공학 및 이공계열 과목 254개 운영<br/>
@@ -41,10 +41,10 @@
         - 연 평균 5%의 데이터 증가율 기록
       </p>
     </td>
-    <td style="vertical-align: top; text-align: center; width: 50%;">
-      <img src="https://github.com/user-attachments/assets/3e912d49-dac2-465b-95ce-38a71ba6e27e" width="200" alt="르몽로고"/><br />
+    <td style="vertical-align: top; text-align: center; width: 415px;">
+      <h3>르몽 Lemong</h3>
+      <img src="https://github.com/user-attachments/assets/3e912d49-dac2-465b-95ce-38a71ba6e27e" height="120" alt="르몽로고" /><br />
       <p align="left" style="margin-left: 20px;">
-            <h3>르몽 Lemong</h3>
         - 삼성전자, 삼성 SDS, 쿠팡 출신 개발자 설립<br/>
         - AI 기반 외식업 리뷰 관리 솔루션 ‘댓글몽’ 운영<br/>
         - 리뷰 통합 및 자동 응답 기능 제공
