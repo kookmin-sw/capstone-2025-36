@@ -26,13 +26,13 @@
 - [시연 영상](#시연-영상)
 - [기타 문서](#기타-문서)
 
-# 🤝 협업 기업
+# 협업 기업
 
 <table>
   <tr>
     <td align="center" style="border:none;">
       <img width="200" alt="유니와이즈로고" src="https://github.com/user-attachments/assets/7ef16927-fe4f-4e13-8126-7ec9df0f7774" /><br />
-      <h3>유니와이즈</h3>
+      <h3>Uniwise</h3>
       <ul align="left">
         <li>2008년부터 온라인 교육 콘텐츠 플랫폼 운영</li>
         <li>대학인강 12만명, 학점은행제 1만명 회원 보유</li>
@@ -42,8 +42,8 @@
       </ul>
     </td>
     <td align="center" style="border:none;">
-      <img width="200" alt="르몽로고" src="https://github.com/user-attachments/assets/3e912d49-dac2-465b-95ce-38a71ba6e27e" /><br />
-      <h3>르몽 Lemong</h3>
+      <img width="200" alt="르몽로고" src="https://github.com/user-attachments/assets/5237b371-9e4a-44d4-af91-d8e20d376ec0" /><br />
+      <h3>Lemong</h3>
       <ul align="left">
         <li>삼성전자, 삼성 SDS, 쿠팡 출신 개발자가 설립한 AI 스타트업</li>
         <li>AI 기반 외식업 리뷰 관리 솔루션 ‘댓글몽’ 운영</li>
