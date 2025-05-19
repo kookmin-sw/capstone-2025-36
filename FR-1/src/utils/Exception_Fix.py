@@ -116,7 +116,7 @@ LATEX_FIX_MAP = [
         "type": "plain",
         "pattern": r"\nin",
         "replacement": r"\not\in "
-    }
+    },
     {
         "type": "plain",
         "pattern": "{i t}",
