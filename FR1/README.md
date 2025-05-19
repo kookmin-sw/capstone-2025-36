@@ -65,7 +65,7 @@ pip install -r requirements.txt
 4-1. Python 실행
 
 ```
-python fr-1/src/main.py
+python FR1/src/main.py
 ```
 
 4-2. Streamlit 실행 (이미지 변환)
