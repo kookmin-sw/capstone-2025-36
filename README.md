@@ -66,14 +66,11 @@
 
 <br/> <br/> 
 
-
-
 ## 포스터
-
 
 <div align="center"> 
     <p align = "center">
-    <img src = "https://github.com/user-attachments/assets/e99dccde-823c-4cfc-a6c5-863678c1bab4" width = "555"/>
+    <img src = "https://github.com/user-attachments/assets/98806752-3fcb-4f82-9918-ffcffa80cb9d" width = "555"/>
     </p>
 </div>
 
