@@ -251,6 +251,12 @@
 [![FR3 - 중요 영상 생성 시연 영상](https://www.youtube.com/watch?v=I_m72ifjmNI/0.jpg)]
 <hr>
 
+### 프로젝트 실행방법
+```
+git clone https://github.com/kookmin-sw/capstone-2025-36.git
+cd capstone-2025-36
+```
+ [FR-1 실행방법](https://github.com/kookmin-sw/capstone-2025-36/edit/main/FR1/README.md)
 
 
 ### [최종 발표 자료]()
