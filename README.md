@@ -149,7 +149,7 @@
             <a href="https://github.com/handsomem1n">
               <img src="https://github.com/user-attachments/assets/e7557acd-d289-4ddb-a2f4-7cd02fc8ea22" width="110">
               <br />
-              <b>한승민 </b>
+              <b>한승민(팀장) </b>
             </a> 
             <br/>
         </td>
