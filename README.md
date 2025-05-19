@@ -70,7 +70,7 @@
 
 <div align="center"> 
     <p align = "center">
-    <img src = "https://github.com/user-attachments/assets/98806752-3fcb-4f82-9918-ffcffa80cb9d" width = "555"/>
+    <img src = "https://github.com/user-attachments/assets/48782425-02e0-474e-b33c-c404f4934e81" width = "555"/>
     </p>
 </div>
 
