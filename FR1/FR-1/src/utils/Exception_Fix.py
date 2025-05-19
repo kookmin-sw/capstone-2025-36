@@ -39,6 +39,11 @@ HANCOMEQ_FIX_MAP = [
     },
     {
         "type": "plain",
+        "pattern": r"Vec",
+        "replacement": r"\mathbb"
+    },
+    {
+        "type": "plain",
         "pattern": "∊",
         "replacement": r" IN"
     },
@@ -46,6 +51,16 @@ HANCOMEQ_FIX_MAP = [
         "type": "plain",
         "pattern": "∤",
         "replacement": r"not`vert"
+    },
+    {
+        "type": "plain",
+        "pattern": "not=",
+        "replacement": r"neq"
+    },
+    {
+        "type": "plain",
+        "pattern": "!=",
+        "replacement": r"neq"
     },
     {
         "type": "plain",
@@ -59,13 +74,8 @@ HANCOMEQ_FIX_MAP = [
     },
     {
         "type": "plain",
-        "pattern": "~~",
-        "replacement": r"`````"
-    },
-    {
-        "type": "plain",
         "pattern": "~",
-        "replacement": r"``"
+        "replacement": r"```"
     },
     {
         "type": "plain",
@@ -79,41 +89,6 @@ LATEX_FIX_MAP = [
     # 단순 문자열 치환
     {
         "type": "plain",
-        "pattern": r"\text{mathbbZ}",
-        "replacement": "ℤ"
-    },
-    {
-        "type": "plain",
-        "pattern": r"\text{mathbbR}",
-        "replacement": "ℝ"
-    },
-    {
-        "type": "plain",
-        "pattern": r"\text{mathbbN}",
-        "replacement": "ℕ"
-    },
-    {
-        "type": "plain",
-        "pattern": r"\text{mathbbQ}",
-        "replacement": "ℚ"
-    },
-    {
-        "type": "plain",
-        "pattern": r"\text{mathbbC}",
-        "replacement": "ℂ"
-    },
-    {
-        "type": "plain",
-        "pattern": r"\text{mathbbH}",
-        "replacement": "ℍ"
-    },
-    {
-        "type": "plain",
-        "pattern": r"\text{mathbbP}",
-        "replacement": "ℙ"
-    },
-    {
-        "type": "plain",
         "pattern": r"\text{not}\u2006\\",
         "replacement": r"\n"
     },
@@ -124,31 +99,53 @@ LATEX_FIX_MAP = [
     },
     {
         "type": "plain",
-        "pattern": r"\nequiv",
-        "replacement": r"\not\equiv"
+        "pattern": r"\ne =",
+        "replacement": r"\not\equiv "
     },
     {
         "type": "plain",
         "pattern": r"\nsubset",
-        "replacement": r"\not\subset"
+        "replacement": r"\not\subset "
     },
     {
         "type": "plain",
         "pattern": r"\nsupset",
-        "replacement": r"\not\supset"
+        "replacement": r"\not\supset "
     },
     {
         "type": "plain",
         "pattern": r"\nin",
-        "replacement": r"\not\in"
+        "replacement": r"\not\in "
     },
     {
         "type": "plain",
         "pattern": "{i t}",
         "replacement": "{it}"
     },
+    {
+        "type": "plain",
+        "pattern": "            ",
+        "replacement": r"\qquad "
+    },
+    {
+        "type": "plain",
+        "pattern": "      ",
+        "replacement": r"\quad "
+    },    
+    {
+        "type": "plain",
+        "pattern": " ",
+        "replacement": r"\,"
+    },
+
 
     # 정규표현식 치환
+    {
+        "type": "regex",
+        "pattern": re.compile(r"\\text\{mathbb([A-Za-z])\}"),
+        "replacement": lambda m: fr"\mathbb{{{m.group(1)}}}"
+    },
+
     {
         "type": "regex",
         "pattern": re.compile(r"\{\{(\\mid|])\s*\}_\{(.*?)\}\}\^\{(.*?)\}"),
