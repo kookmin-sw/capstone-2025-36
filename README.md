@@ -257,8 +257,3 @@ git clone https://github.com/kookmin-sw/capstone-2025-36.git
 cd capstone-2025-36
 ```
  [FR-1 실행방법](https://github.com/kookmin-sw/capstone-2025-36/edit/main/FR1/README.md)
-
-
-### [최종 발표 자료]()
-### [결과 보고서]()
-### [회의록]()
